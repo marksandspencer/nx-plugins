@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "projects": {
+    "nx-playwright": "packages/nx-playwright"
+  }
+}

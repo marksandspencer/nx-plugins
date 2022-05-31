@@ -1,0 +1,10 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "executors": {
+    "playwright-executor": {
+      "implementation": "./src/executors/playwright-executor/executor",
+      "schema": "./src/executors/playwright-executor/schema.json",
+      "description": "Run Playwright e2e tests"
+    }
+  }
+}

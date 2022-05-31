@@ -1,0 +1,3 @@
+// todo use global config
+
+export const baseUrl = 'http://localhost:4200' 

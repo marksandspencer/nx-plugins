@@ -1,0 +1,53 @@
+{
+  "root": "packages/nx-playwright",
+  "sourceRoot": "packages/nx-playwright",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["packages/nx-playwright/**/*.ts"]
+      },
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/nx-playwright"],
+      "options": {
+        "jestConfig": "packages/nx-playwright/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/node:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/nx-playwright",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "tsConfig": "packages/nx-playwright/tsconfig.lib.json",
+        "packageJson": "packages/nx-playwright/package.json",
+        "main": "packages/nx-playwright/index.ts",
+        "assets": [
+          "packages/nx-playwright/*.md",
+          {
+            "input": "./packages/nx-playwright/src",
+            "glob": "**/*.!(ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./packages/nx-playwright",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./packages/nx-playwright",
+            "glob": "executors.json",
+            "output": "."
+          },
+          "LICENSE"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
