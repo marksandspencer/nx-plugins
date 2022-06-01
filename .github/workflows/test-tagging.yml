@@ -33,6 +33,7 @@ jobs:
 
       - name: Test tagging
         run: |
+          cd dist/packages/nx-playwright
           VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g')
           echo "Tagging version $VERSION"
           git config user.name release-bot
