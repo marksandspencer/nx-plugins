@@ -4,13 +4,13 @@ on:
   push:
     branches:
       - main
-      
+
 env:
   NODE_VERSION: '14.x'
 
 jobs:
   build:
-    name: Build and Publish
+    name: Build and publish
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -32,21 +32,21 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Build
+      - name: Build plugin
         run: yarn nx build nx-playwright
 
-      - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v3
-        with:
-          dry_run: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}   
-
-      - name: Release
+      - name: Setup release
         run: |
           cd dist/packages/nx-playwright
           echo "scope=@mands" > .npmrc
           echo "@mands:registry=https://registry.npmjs.org/" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
-          yarn publish --non-interactive --access=public
+
+      - name: Semantic release
+        uses: cycjimmy/semantic-release-action@v3
+        with:
+          dry_run: true # to be removed after testing
+          working_directory: dist/packages/nx-playwright
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
