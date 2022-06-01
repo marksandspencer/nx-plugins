@@ -13,49 +13,33 @@ jobs:
     name: Build and publish
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
-          ref: ${{ github.head_ref }}
-
-      - name: Secrets scanning
-        uses: edplato/trufflehog-actions-scan@master
-        with:
-          scanArguments: "--regex -x=truffle-hog-exclude.txt"
+          token: ${{ secrets.SAML_ACCOUNT_TOKEN }}
 
       - name: Setup NodeJs ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
           
       - name: Install dependencies
-        run: yarn
+        run: yarn --frozen-lockfile
 
       - name: Build plugin
         run: yarn nx build nx-playwright
 
-      - name: Setup release
+      - name: Release
         run: |
           cd dist/packages/nx-playwright
           echo "scope=@mands" > .npmrc
           echo "@mands:registry=https://registry.npmjs.org/" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
+          yarn publish --non-interactive --access=public
 
-      - name: Semantic release
-        uses: cycjimmy/semantic-release-action@v3
-        with:
-          dry_run: true # to be removed after testing
-          working_directory: dist/packages/nx-playwright
-          branches: |
-            [
-              '+([0-9])?(.{+([0-9]),x}).x',
-              'main', 
-              'next', 
-              'next-major', 
-              {name: 'beta', prerelease: true}, 
-              {name: 'alpha', prerelease: true}
-            ]
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g')
+          echo "Tagging version $VERSION"
+          git config user.name release-bot
+          git config user.email release-bot@mnscorp.net
+          git tag -a $VERSION -m "Version ${VERSION}"
+          git push origin $VERSION

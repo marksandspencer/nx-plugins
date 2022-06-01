@@ -15,7 +15,7 @@ jobs:
     name: PR validation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           ref: ${{ github.head_ref }}
@@ -26,7 +26,7 @@ jobs:
           scanArguments: "--regex -x=truffle-hog-exclude.txt"
 
       - name: Setup NodeJs ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
@@ -37,18 +37,15 @@ jobs:
       - name: Build plugin
         run: yarn nx build nx-playwright
 
-      - name: Setup release
+      - name: Check version
         run: |
           cd dist/packages/nx-playwright
-          echo "scope=@mands" > .npmrc
-          echo "@mands:registry=https://registry.npmjs.org/" >> .npmrc
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
-
-      - name: Semantic release
-        uses: cycjimmy/semantic-release-action@v3
-        with:
-          dry_run: true
-          working_directory: dist/packages/nx-playwright
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          git fetch --tags
+          VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g')
+          LATEST=$(git describe --tags $(git rev-list --tags --max-count=1))
+          echo "Current version $VERSION"
+          echo "Latest version is $LATEST"
+          if [ "$VERSION" = "$LATEST" ]; then 
+            echo "Version $VERSION is already published"
+            exit 1; 
+          fi
