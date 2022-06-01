@@ -15,10 +15,9 @@ jobs:
     name: Test tagging
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
-          ref: ${{ github.head_ref }} 
+          token: ${{ secrets.SAML_ACCOUNT_TOKEN }}
 
       - name: Setup NodeJs ${{ matrix.node-version }}
         uses: actions/setup-node@v3
