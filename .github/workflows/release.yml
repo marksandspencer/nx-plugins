@@ -35,27 +35,10 @@ jobs:
       - name: Build plugin
         run: yarn nx build nx-playwright
 
-      - name: Setup release
+      - name: Release
         run: |
           cd dist/packages/nx-playwright
           echo "scope=@mands" > .npmrc
           echo "@mands:registry=https://registry.npmjs.org/" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
-
-      - name: Semantic release
-        uses: cycjimmy/semantic-release-action@v3
-        with:
-          dry_run: true # to be removed after testing
-          working_directory: dist/packages/nx-playwright
-          branches: |
-            [
-              '+([0-9])?(.{+([0-9]),x}).x',
-              'main', 
-              'next', 
-              'next-major', 
-              {name: 'beta', prerelease: true}, 
-              {name: 'alpha', prerelease: true}
-            ]
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          yarn publish --non-interactive --access=public

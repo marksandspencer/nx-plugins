@@ -1,4 +1,4 @@
-name: PR validation
+name: Test tagging
 
 
 on:
@@ -12,18 +12,13 @@ env:
 
 jobs:
   build:
-    name: PR validation
+    name: Test tagging
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
           ref: ${{ github.head_ref }} 
-
-      - name: Secrets scanning
-        uses: edplato/trufflehog-actions-scan@master
-        with:
-          scanArguments: "--regex -x=truffle-hog-exclude.txt"
 
       - name: Setup NodeJs ${{ matrix.node-version }}
         uses: actions/setup-node@v2
@@ -32,10 +27,17 @@ jobs:
           cache: yarn
           
       - name: Install dependencies
-        run: yarn
+        run: yarn  
 
       - name: Build plugin
         run: yarn nx build nx-playwright
+
+      - name: Test tagging
+        run: |
+          VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g')
+          echo "Tagging version $VERSION"
+          git tag -a $VERSION -m "Version ${VERSION}"
+          
 
       - name: Release
         run: |
