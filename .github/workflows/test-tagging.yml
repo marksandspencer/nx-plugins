@@ -1,7 +1,9 @@
-name: Release
+name: Test tagging
+
 
 on:
-  push:
+  pull_request:
+    types: [ready_for_review, opened, synchronize, reopened]
     branches:
       - main
 
@@ -10,18 +12,12 @@ env:
 
 jobs:
   build:
-    name: Build and publish
+    name: Test tagging
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
-          ref: ${{ github.head_ref }}
-
-      - name: Secrets scanning
-        uses: edplato/trufflehog-actions-scan@master
-        with:
-          scanArguments: "--regex -x=truffle-hog-exclude.txt"
+          token: ${{ secrets.SAML_ACCOUNT_TOKEN }}
 
       - name: Setup NodeJs ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -30,10 +26,19 @@ jobs:
           cache: yarn
           
       - name: Install dependencies
-        run: yarn
+        run: yarn  
 
       - name: Build plugin
         run: yarn nx build nx-playwright
+
+      - name: Test tagging
+        run: |
+          VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g')
+          echo "Tagging version $VERSION"
+          git config user.name release-bot
+          git config user.email release-bot@mnscorp.net
+          git tag -a $VERSION -m "Version ${VERSION}"
+          git push origin $VERSION
 
       - name: Release
         run: |

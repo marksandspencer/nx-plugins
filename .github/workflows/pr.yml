@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.head_ref }} 
 
       - name: Secrets scanning
         uses: edplato/trufflehog-actions-scan@master
@@ -26,7 +26,7 @@ jobs:
           scanArguments: "--regex -x=truffle-hog-exclude.txt"
 
       - name: Setup NodeJs ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
@@ -37,18 +37,10 @@ jobs:
       - name: Build plugin
         run: yarn nx build nx-playwright
 
-      - name: Setup release
+      - name: Release
         run: |
           cd dist/packages/nx-playwright
           echo "scope=@mands" > .npmrc
           echo "@mands:registry=https://registry.npmjs.org/" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
-
-      - name: Semantic release
-        uses: cycjimmy/semantic-release-action@v3
-        with:
-          dry_run: true
-          working_directory: dist/packages/nx-playwright
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          yarn publish --non-interactive --access=public
