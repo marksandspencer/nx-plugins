@@ -43,7 +43,41 @@ describe('start dev server', () => {
 
     expect(result).toEqual(baseUrl);
   });
-  fit('throws an error when executor fails', async () => {
+
+  it('returns the base url from results', async () => {
+    const baseUrl = 'base-url';
+    runExecutor.mockResolvedValue(promiseToIterator({ success: true, baseUrl }));
+    const context = {
+      root: '',
+      isVerbose: false,
+      workspace: { version: 1, projects: {}, npmScope: '' },
+      cwd: '',
+    };
+
+    const result = await startDevServer(
+      {
+        skipServe: false,
+        e2eFolder: 'folder',
+        devServerTarget: 'project:target:configuration',
+      },
+      context,
+    );
+
+    expect(result).toEqual(baseUrl);
+
+    expect(runExecutor).toHaveBeenCalledTimes(1);
+    expect(runExecutor).toHaveBeenCalledWith(
+      {
+        project: 'project',
+        target: 'target',
+        configuration: 'configuration',
+      },
+      { hostname: 'localhost' },
+      context,
+    );
+  });
+
+  it('throws an error when executor fails', async () => {
     runExecutor.mockResolvedValue(promiseToIterator({ success: false }));
     await expect(
       startDevServer(
@@ -60,6 +94,6 @@ describe('start dev server', () => {
           cwd: '',
         },
       ),
-    ).rejects.toThrowError();
+    ).rejects.toThrowError(new Error('Could not start dev server'));
   });
 });
