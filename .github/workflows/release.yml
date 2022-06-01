@@ -42,3 +42,10 @@ jobs:
           echo "@mands:registry=https://registry.npmjs.org/" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
           yarn publish --non-interactive --access=public
+
+          VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g')
+          echo "Tagging version $VERSION"
+          git config user.name release-bot
+          git config user.email release-bot@mnscorp.net
+          git tag -a $VERSION -m "Version ${VERSION}"
+          git push origin $VERSION
