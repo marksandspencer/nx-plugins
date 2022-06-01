@@ -39,8 +39,7 @@ jobs:
           git config user.name release-bot
           git config user.email release-bot@mnscorp.net
           git tag -a $VERSION -m "Version ${VERSION}"
-          git push origin $VERSION`
-          
+          git push origin $VERSION
 
       - name: Release
         run: |
