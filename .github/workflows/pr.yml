@@ -1,10 +1,11 @@
 name: Release
 
 on:
-  push:
+  pull_request:
+    types: [ready_for_review, opened, synchronize, reopened]
     branches:
       - main
-      
+
 env:
   NODE_VERSION: '14.x'
 
@@ -41,12 +42,4 @@ jobs:
           dry_run: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}   
-
-      - name: Release
-        run: |
-          cd dist/packages/nx-playwright
-          echo "scope=@mands" > .npmrc
-          echo "@mands:registry=https://registry.npmjs.org/" >> .npmrc
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
-          yarn publish --non-interactive --access=public
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
