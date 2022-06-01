@@ -21,7 +21,7 @@ jobs:
           ref: ${{ github.head_ref }} 
 
       - name: Setup NodeJs ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
@@ -39,6 +39,7 @@ jobs:
           git config user.name release-bot
           git config user.email release-bot@mnscorp.net
           git tag -a $VERSION -m "Version ${VERSION}"
+          git push origin $VERSION`
           
 
       - name: Release
