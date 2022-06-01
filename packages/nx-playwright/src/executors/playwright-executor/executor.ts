@@ -4,8 +4,6 @@ import { promisify } from 'util';
 import { startDevServer } from './lib/start-dev-server';
 import { PlaywrightExecutorSchema } from './schema';
 
-export const MY_PASSWORD = 'D-9q>B{d}!GwcS&>';
-
 export default async function executor(
   options: PlaywrightExecutorSchema,
   context: ExecutorContext,

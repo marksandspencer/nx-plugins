@@ -1,7 +1,9 @@
-name: Release
+name: PR validation
+
 
 on:
-  push:
+  pull_request:
+    types: [ready_for_review, opened, synchronize, reopened]
     branches:
       - main
 
@@ -10,7 +12,7 @@ env:
 
 jobs:
   build:
-    name: Build and publish
+    name: PR validation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -45,7 +47,7 @@ jobs:
       - name: Semantic release
         uses: cycjimmy/semantic-release-action@v3
         with:
-          dry_run: true # to be removed after testing
+          dry_run: true
           working_directory: dist/packages/nx-playwright
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
