@@ -1,7 +1,11 @@
 import * as devkitModule from '@nrwl/devkit';
 import { startDevServer } from './start-dev-server';
 
-const runExecutor = jest.spyOn(devkitModule, 'runExecutor').mockResolvedValue(undefined);
+async function* promiseToIterator<T extends { success: boolean }>(v: T): AsyncIterableIterator<T> {
+  yield await Promise.resolve(v);
+}
+
+const runExecutor = jest.spyOn(devkitModule, 'runExecutor');
 
 describe('start dev server', () => {
   beforeEach(jest.resetAllMocks);
@@ -38,5 +42,24 @@ describe('start dev server', () => {
     expect(runExecutor).not.toHaveBeenCalled();
 
     expect(result).toEqual(baseUrl);
+  });
+  fit('throws an error when executor fails', async () => {
+    runExecutor.mockResolvedValue(promiseToIterator({ success: false }));
+    await expect(
+      startDevServer(
+        {
+          skipServe: false,
+          e2eFolder: 'folder',
+          baseUrl: 'base-url',
+          devServerTarget: 'http://localhost',
+        },
+        {
+          root: '',
+          isVerbose: false,
+          workspace: { version: 1, projects: {}, npmScope: '' },
+          cwd: '',
+        },
+      ),
+    ).rejects.toThrowError();
   });
 });

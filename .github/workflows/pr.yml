@@ -34,6 +34,9 @@ jobs:
       - name: Install dependencies
         run: yarn
 
+      - name: Unit tests
+        run: yarn nx affected:test --codeCoverage --base=remotes/origin/main
+
       - name: Build plugin
         run: yarn nx build nx-playwright
 

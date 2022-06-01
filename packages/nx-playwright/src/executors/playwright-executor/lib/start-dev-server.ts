@@ -20,13 +20,14 @@ export const startDevServer = async (opts: PlaywrightExecutorSchema, context: Ex
   async function unwrapAsyncIterableIteratorPromise() {
     for await (const output of await runExecutor<ExecutorResult>(
       { project, target, configuration },
-      { hostname: 'localhost' },
+      { hostname: 'localhost' }, // todo i don't think we need this, try removing it
       context,
     ))
       return output;
   }
 
   const result = await unwrapAsyncIterableIteratorPromise();
+
   if (!result.success) {
     throw new Error('Could not compile application files');
   }
