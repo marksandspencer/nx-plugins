@@ -20,6 +20,7 @@ export default async function executor(
       console.error(`Playwright errors ${stderr}`);
     }
 
+    console.log('test');
     success = stdout.includes('passed');
   } catch (e) {
     console.error('Unexpected error', e.message);
