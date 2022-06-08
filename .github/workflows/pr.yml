@@ -41,11 +41,11 @@ jobs:
         run: |
           cd dist/packages/nx-playwright
           git fetch --tags
-          VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g')
+          VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | xargs)
           LATEST=$(git describe --tags $(git rev-list --tags --max-count=1))
           echo "Current version $VERSION"
           echo "Latest version is $LATEST"
-          if [ "$VERSION" = "$LATEST" ]; then 
+          if [ "$VERSION" = "$LATEST" ]; then
             echo "Version $VERSION is already published"
             exit 1; 
           fi
