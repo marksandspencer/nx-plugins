@@ -9,5 +9,6 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/packages/nx-playwright',
+  coveragePathIgnorePatterns: ['src/generators/project'],
   testEnvironment: 'node',
 };
