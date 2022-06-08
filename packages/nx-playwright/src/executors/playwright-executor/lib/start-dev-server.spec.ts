@@ -10,7 +10,7 @@ const runExecutor = jest.spyOn(devkitModule, 'runExecutor');
 describe('start dev server', () => {
   beforeEach(jest.resetAllMocks);
 
-  it('does not start server when skip serve is true', async () => {
+  it('does not start server when skipServe is true', async () => {
     const baseUrl = 'base-url';
     const result = await startDevServer(
       { skipServe: true, e2eFolder: 'folder', devServerTarget: 'http://localhost', baseUrl },
