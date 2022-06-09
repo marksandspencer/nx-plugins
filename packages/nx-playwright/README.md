@@ -12,8 +12,9 @@
 
 ## Testing locally
 
-> **Warning** this will undo any local changes on your target NX workspace
+> **Warning** when using the `--cleanup` option, this script will undo any local changes on your target NX workspace
 
 - Create new NX workspace
-- Set `LOCAL_TEST_WORKSPACE` folder on `test.sh`
-- Run `./test.sh`
+- Create a new application
+- Make sure `LOCAL_TEST_WORKSPACE` points to your newly created NX workspace
+- Run `./local-test.sh` (optionally use `--cleanup` to revert changes after the script is run)
