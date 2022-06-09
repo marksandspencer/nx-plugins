@@ -31,11 +31,11 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
           
-      # - name: Install dependencies
-      #   run: yarn
+      - name: Install dependencies
+        run: yarn
 
-      # - name: Build plugin
-      #   run: yarn nx build nx-playwright
+      - name: Build plugin
+        run: yarn nx build nx-playwright
 
       # - name: Check version
       #   run: |
@@ -59,7 +59,6 @@ jobs:
           LOCAL_TEST_WORKSPACE="$(pwd)/../nx-repo"
 
           cd $NX_PLUGIN_DIR
-          yarn nx build nx-playwright
           cd dist/packages/nx-playwright/
           yarn link
           cd $LOCAL_TEST_WORKSPACE
