@@ -5,5 +5,5 @@ import { baseUrl } from './utils';
 test('should start page', async ({ page }) => {
   await page.goto(`${baseUrl}`);
 
-  expect(true).toBeTruthy();
+  expect(false).toBeTruthy();
 });
