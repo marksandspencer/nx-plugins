@@ -1,12 +1,12 @@
 import { ExecutorContext, runExecutor } from '@nrwl/devkit';
-import { PlaywrightExecutorSchema } from '../schema';
+import type { PlaywrightExecutorSchema } from '../schema';
 
-interface ExecutorResult {
+type ExecutorResult = {
   success: boolean;
   baseUrl?: string;
-}
+};
 
-export async function startDevServer(opts: PlaywrightExecutorSchema, context: ExecutorContext) {
+export const startDevServer = async (opts: PlaywrightExecutorSchema, context: ExecutorContext) => {
   if (opts.skipServe === true) {
     return opts.baseUrl;
   }
@@ -27,9 +27,10 @@ export async function startDevServer(opts: PlaywrightExecutorSchema, context: Ex
   }
 
   const result = await unwrapAsyncIterableIteratorPromise();
+
   if (!result.success) {
-    throw new Error('Could not compile application files');
+    throw new Error('Could not start dev server');
   }
 
   return opts.baseUrl || (result.baseUrl as string);
-}
+};

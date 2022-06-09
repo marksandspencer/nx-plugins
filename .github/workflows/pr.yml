@@ -1,6 +1,5 @@
 name: PR validation
 
-
 on:
   pull_request:
     types: [ready_for_review, opened, synchronize, reopened]
@@ -23,16 +22,19 @@ jobs:
       # - name: Secrets scanning
       #   uses: edplato/trufflehog-actions-scan@master
       #   with:
-      #     scanArguments: "--regex -x=truffle-hog-exclude.txt"
+      #     scanArguments: '--regex -x=truffle-hog-exclude.txt'
 
       - name: Setup NodeJs ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
-          
+
       - name: Install dependencies
         run: yarn
+
+      - name: Unit tests
+        run: yarn nx affected:test --codeCoverage --base=remotes/origin/main
 
       - name: Build plugin
         run: yarn nx build nx-playwright
@@ -41,7 +43,7 @@ jobs:
       #   run: |
       #     cd dist/packages/nx-playwright
       #     git fetch --tags
-      #     VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | xargs)
+      #     VERSION=$(npm pkg get version | xargs)
       #     LATEST=$(git describe --tags $(git rev-list --tags --max-count=1))
       #     echo "Current version $VERSION"
       #     echo "Latest version is $LATEST"
@@ -79,4 +81,3 @@ jobs:
           yarn nx e2e test-app-e2e --skip-nx-cache
 
           cd $NX_PLUGIN_DIR 
-
