@@ -10,6 +10,8 @@ NX Plugin for Playwright end-to-end test in nx monorepo using the native Playwri
 
 `yarn nx generate @mands/nx-playwright:project name-of-the-app-e2e --project name-of-the-app`
 
+`yarn playwright install --with-deps`
+
 `yarn nx e2e name-of-the-app-e2e`
 
 ## Testing locally

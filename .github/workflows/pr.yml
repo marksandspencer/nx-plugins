@@ -71,4 +71,5 @@ jobs:
           yarn link "@mands/nx-playwright"
 
           yarn nx generate @mands/nx-playwright:project test-app-e2e --project test-app
+          yarn playwright install --with-deps
           yarn nx e2e test-app-e2e --skip-nx-cache
