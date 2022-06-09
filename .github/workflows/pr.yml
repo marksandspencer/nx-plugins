@@ -25,11 +25,11 @@ jobs:
       #   with:
       #     scanArguments: "--regex -x=truffle-hog-exclude.txt"
 
-      # - name: Setup NodeJs ${{ matrix.node-version }}
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: ${{ env.NODE_VERSION }}
-      #     cache: yarn
+      - name: Setup NodeJs ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: yarn
           
       # - name: Install dependencies
       #   run: yarn
