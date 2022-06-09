@@ -1,5 +1,7 @@
 # nx-playwright
 
+NX Plugin for Playwright end-to-end test in nx monorepo using the native Playwright runner.
+
 ## Usage
 
 `cd` into your NX monorepo.
