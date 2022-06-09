@@ -57,7 +57,7 @@ jobs:
           ls -la
           npx create-nx-workspace --appName=test-app --style=@emotion/styled --name=test-nx --interactive=false --preset=next --nxCloud=false
           ls -la
-          cd nx-repo
+          cd test-nx
           ls -la
           pwd
           LOCAL_TEST_WORKSPACE="$(pwd)"
