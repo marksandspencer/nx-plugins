@@ -20,7 +20,7 @@ export const startDevServer = async (opts: PlaywrightExecutorSchema, context: Ex
   async function unwrapAsyncIterableIteratorPromise() {
     for await (const output of await runExecutor<ExecutorResult>(
       { project, target, configuration },
-      { hostname: 'localhost' }, // todo i don't think we need this, try removing it
+      { hostname: 'localhost' },
       context,
     ))
       return output;
