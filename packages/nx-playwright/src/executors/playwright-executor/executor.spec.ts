@@ -15,10 +15,7 @@ const context = {
 };
 
 const options = {
-  skipServe: true,
   e2eFolder: 'folder',
-  devServerTarget: 'http://localhost',
-  baseUrl: 'baseUrl',
 };
 
 console.error = jest.fn().mockReturnValue(null);
