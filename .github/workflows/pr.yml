@@ -63,6 +63,7 @@ jobs:
           cd test-nx
           echo "remove test-app-e2e"
           yarn nx generate remove test-app-e2e
+          yarn add @playwright/test@^1.19.1 -D
           echo "test-app-e2e removed"
           ls -la
           
