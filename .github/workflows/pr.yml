@@ -53,7 +53,8 @@ jobs:
       - name: e2e tests
         run: |
           NX_PLUGIN_DIR=$(pwd)
-          cd ..
+          cd /tmp
+          ls -la
           npx create-nx-workspace --appName=test-app --style=emotion --interactive=false < /dev/null
           ls -la
           cd nx-repo
