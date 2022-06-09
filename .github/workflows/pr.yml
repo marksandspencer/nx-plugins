@@ -56,7 +56,7 @@ jobs:
           cd ..
           npx create-nx-workspace --appName=test-app --style=emotion --interactive=false < /dev/null
 
-          LOCAL_TEST_WORKSPACE="$(pwd)/../nx-repo"
+          LOCAL_TEST_WORKSPACE="$(pwd)/nx-repo"
 
           cd $NX_PLUGIN_DIR
           cd dist/packages/nx-playwright/
