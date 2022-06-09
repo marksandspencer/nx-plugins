@@ -26,7 +26,9 @@ export default async function (host: Tree, options: NxPlaywrightGeneratorSchema)
     if (stdout) {
       console.info(stdout);
     }
+
     if (stderr) {
+      console.error('Unable to install Playwright binaries', stderr);
       throw new Error(stderr);
     }
   };

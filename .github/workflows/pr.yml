@@ -52,7 +52,7 @@ jobs:
       #       exit 1; 
       #     fi
 
-      - name: e2e tests
+      - name: E2E tests
         run: |
           NX_PLUGIN_DIR=$(pwd)
           cd ..
