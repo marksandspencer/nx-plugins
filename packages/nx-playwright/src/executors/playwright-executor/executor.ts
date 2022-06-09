@@ -8,23 +8,25 @@ export default async function executor(
   options: PlaywrightExecutorSchema,
   context: ExecutorContext,
 ) {
-  let success: boolean;
   await startDevServer(options, context);
-  try {
-    const { stdout, stderr } = await promisify(exec)(
-      `yarn playwright test src --config ${options.e2eFolder}/playwright.config.ts`,
-    );
 
-    console.info(`Playwright output ${stdout}`);
-    if (stderr) {
-      console.error(`Playwright errors ${stderr}`);
-    }
+  const success = await Promise.resolve()
+    .then(async () => {
+      const { stdout, stderr } = await promisify(exec)(
+        `yarn playwright test src --config ${options.e2eFolder}/playwright.config.ts`,
+      );
 
-    success = stdout.includes('passed');
-  } catch (e) {
-    console.error('Unexpected error', e.message);
-    success = false;
-  }
+      console.info(`Playwright output ${stdout}`);
+      if (stderr) {
+        console.error(`Playwright errors ${stderr}`);
+      }
+
+      return stdout.includes('passed');
+    })
+    .catch((error) => {
+      console.error('Unexpected error', error);
+      return false;
+    });
 
   return { success };
 }

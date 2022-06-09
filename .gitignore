@@ -42,3 +42,5 @@ Thumbs.db
 /tools/**/*.js
 
 .npmrc
+
+junit.xml
