@@ -55,7 +55,7 @@ jobs:
           NX_PLUGIN_DIR=$(pwd)
           cd /tmp
           ls -la
-          npx create-nx-workspace --appName=test-app --style=emotion --interactive=false < /dev/null
+          npx create-nx-workspace --appName=test-app --style=@emotion/styled --name=test-nx --interactive=false --preset=next --nxCloud=false
           ls -la
           cd nx-repo
           ls -la
