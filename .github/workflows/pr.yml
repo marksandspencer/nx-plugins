@@ -19,10 +19,10 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.head_ref }}
 
-      # - name: Secrets scanning
-      #   uses: edplato/trufflehog-actions-scan@master
-      #   with:
-      #     scanArguments: '--regex -x=truffle-hog-exclude.txt'
+      - name: Secrets scanning
+        uses: edplato/trufflehog-actions-scan@master
+        with:
+          scanArguments: '--regex -x=truffle-hog-exclude.txt'
 
       - name: Setup NodeJs ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -33,24 +33,24 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      # - name: Unit tests
-      #   run: yarn nx affected:test --codeCoverage --base=remotes/origin/main
+      - name: Unit tests
+        run: yarn nx affected:test --codeCoverage --base=remotes/origin/main
 
       - name: Build plugin
         run: yarn nx build nx-playwright
 
-      # - name: Check version
-      #   run: |
-      #     cd dist/packages/nx-playwright
-      #     git fetch --tags
-      #     VERSION=$(npm pkg get version | xargs)
-      #     LATEST=$(git describe --tags $(git rev-list --tags --max-count=1))
-      #     echo "Current version $VERSION"
-      #     echo "Latest version is $LATEST"
-      #     if [ "$VERSION" = "$LATEST" ]; then
-      #       echo "Version $VERSION is already published"
-      #       exit 1; 
-      #     fi
+      - name: Check version
+        run: |
+          cd dist/packages/nx-playwright
+          git fetch --tags
+          VERSION=$(npm pkg get version | xargs)
+          LATEST=$(git describe --tags $(git rev-list --tags --max-count=1))
+          echo "Current version $VERSION"
+          echo "Latest version is $LATEST"
+          if [ "$VERSION" = "$LATEST" ]; then
+            echo "Version $VERSION is already published"
+            exit 1; 
+          fi
 
       - name: E2E tests
         run: |
