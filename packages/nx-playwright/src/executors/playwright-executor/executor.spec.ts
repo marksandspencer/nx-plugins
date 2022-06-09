@@ -44,27 +44,6 @@ describe('executor', () => {
     expect(startDevServer).toHaveBeenCalledWith(options, context);
   });
 
-  it('returns true when passes with options contains only "e2eFolder"', async () => {
-    const optionsWithE2EFolder = {
-      e2eFolder: 'folder',
-    };
-
-    promisify.mockReturnValueOnce(
-      jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: '' }),
-    );
-
-    const { success } = await executor(optionsWithE2EFolder, context);
-
-    expect(success).toBe(true);
-
-    expect(console.error).not.toHaveBeenCalled();
-    expect(console.info).toHaveBeenCalledTimes(1);
-    expect(console.info).toHaveBeenCalledWith('Playwright output passed');
-
-    expect(startDevServer).toHaveBeenCalledTimes(1);
-    expect(startDevServer).toHaveBeenCalledWith(optionsWithE2EFolder, context);
-  });
-
   it('logs error from output', async () => {
     promisify.mockReturnValueOnce(
       jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: 'some error' }),

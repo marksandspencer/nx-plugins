@@ -27,7 +27,7 @@ describe('start dev server', () => {
     expect(result).toEqual(baseUrl);
   });
 
-  it('does not start server when deb target url is missing', async () => {
+  it('does not start server when dev target url is missing', async () => {
     const baseUrl = 'base-url';
     const result = await startDevServer(
       { skipServe: false, e2eFolder: 'folder', baseUrl },
