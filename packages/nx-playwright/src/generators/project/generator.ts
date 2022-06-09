@@ -22,7 +22,7 @@ export default async function (host: Tree, options: NxPlaywrightGeneratorSchema)
 
   const installPlaywrightBinaries = async () => {
     console.info('Installing Playwright binaries');
-    const { stdout, stderr } = await promisify(exec)('yarn playwright install --with-deps');
+    const { stdout, stderr } = await promisify(exec)('npx playwright install --with-deps');
     if (stdout) {
       console.info(stdout);
     }

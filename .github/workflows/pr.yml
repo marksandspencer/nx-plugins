@@ -33,8 +33,8 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Unit tests
-        run: yarn nx affected:test --codeCoverage --base=remotes/origin/main
+      # - name: Unit tests
+      #   run: yarn nx affected:test --codeCoverage --base=remotes/origin/main
 
       - name: Build plugin
         run: yarn nx build nx-playwright
@@ -56,18 +56,11 @@ jobs:
         run: |
           NX_PLUGIN_DIR=$(pwd)
           cd ..
-          ls -la
-          echo "before creating workspace"
           npx create-nx-workspace --appName=test-app --style=@emotion/styled --name=test-nx --preset=next --nxCloud=false --interactive=false < /dev/null
           
           cd test-nx
-          echo "remove test-app-e2e"
           yarn nx generate remove test-app-e2e
-          yarn add @playwright/test@^1.19.1 -D
-          echo "test-app-e2e removed"
-          ls -la
           
-          pwd
           LOCAL_TEST_WORKSPACE="$(pwd)"
 
           cd $NX_PLUGIN_DIR
@@ -75,12 +68,7 @@ jobs:
           yarn link
           cd $LOCAL_TEST_WORKSPACE
           yarn add @mands/nx-playwright -D
-          yarn unlink "@mands/nx-playwright"
           yarn link "@mands/nx-playwright"
-          cd -
 
-          cd $LOCAL_TEST_WORKSPACE
           yarn nx generate @mands/nx-playwright:project test-app-e2e --project test-app
           yarn nx e2e test-app-e2e --skip-nx-cache
-
-          cd $NX_PLUGIN_DIR 
