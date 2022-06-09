@@ -20,35 +20,35 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.head_ref }}
 
-      - name: Secrets scanning
-        uses: edplato/trufflehog-actions-scan@master
-        with:
-          scanArguments: "--regex -x=truffle-hog-exclude.txt"
+      # - name: Secrets scanning
+      #   uses: edplato/trufflehog-actions-scan@master
+      #   with:
+      #     scanArguments: "--regex -x=truffle-hog-exclude.txt"
 
-      - name: Setup NodeJs ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: yarn
+      # - name: Setup NodeJs ${{ matrix.node-version }}
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: ${{ env.NODE_VERSION }}
+      #     cache: yarn
           
-      - name: Install dependencies
-        run: yarn
+      # - name: Install dependencies
+      #   run: yarn
 
-      - name: Build plugin
-        run: yarn nx build nx-playwright
+      # - name: Build plugin
+      #   run: yarn nx build nx-playwright
 
-      - name: Check version
-        run: |
-          cd dist/packages/nx-playwright
-          git fetch --tags
-          VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | xargs)
-          LATEST=$(git describe --tags $(git rev-list --tags --max-count=1))
-          echo "Current version $VERSION"
-          echo "Latest version is $LATEST"
-          if [ "$VERSION" = "$LATEST" ]; then
-            echo "Version $VERSION is already published"
-            exit 1; 
-          fi
+      # - name: Check version
+      #   run: |
+      #     cd dist/packages/nx-playwright
+      #     git fetch --tags
+      #     VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | xargs)
+      #     LATEST=$(git describe --tags $(git rev-list --tags --max-count=1))
+      #     echo "Current version $VERSION"
+      #     echo "Latest version is $LATEST"
+      #     if [ "$VERSION" = "$LATEST" ]; then
+      #       echo "Version $VERSION is already published"
+      #       exit 1; 
+      #     fi
 
       - name: e2e tests
         run: |
@@ -58,6 +58,7 @@ jobs:
 
           LOCAL_TEST_WORKSPACE="$(pwd)/../nx-repo"
 
+          cd $NX_PLUGIN_DIR
           yarn nx build nx-playwright
           cd dist/packages/nx-playwright/
           yarn link
