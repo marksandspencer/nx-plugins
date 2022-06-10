@@ -52,8 +52,10 @@ jobs:
             TAGS=$1
             VERSION=$2
             if [[ "$TAGS" == *"$VERSION"* ]]; then
+              echo "matched"
               return 0
             fi
+            echo "not matched"
             return 1
           }
           if is_version_exists $TAGS $VERSION; then
