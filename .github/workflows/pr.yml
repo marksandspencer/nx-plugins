@@ -51,7 +51,7 @@ jobs:
           function is_version_exists() {
             TAGS=$1
             VERSION=$2
-            if [[ "$TAGS" == *"$VERSION"* ]]; then
+            if grep -q "$VERSION" <<< "$TAGS"; then
               echo "matched"
               return 0
             fi
