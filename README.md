@@ -1,3 +1,3 @@
 # NX plugins
 
-- [nx-plugin](packages/nx-playwright/README.md)
+- [nx-playwright](packages/nx-playwright/README.md)
