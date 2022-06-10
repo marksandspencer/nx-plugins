@@ -43,7 +43,7 @@ jobs:
         run: |
           cd dist/packages/nx-playwright
           git fetch --tags
-          VERSION=$(npm pkg get version | xargs)
+          VERSION=$(node -p "require('./package.json').version")
           TAGS=$(git tag)
           echo "Current version $VERSION"
           echo "Published versions are $TAGS"
