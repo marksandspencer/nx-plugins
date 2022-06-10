@@ -1,6 +1,6 @@
 {
   "name": "@mands/nx-playwright",
-  "version": "0.0.8",
+  "version": "0.1.8",
   "license": "MIT",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"

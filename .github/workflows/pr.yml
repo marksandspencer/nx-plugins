@@ -40,29 +40,8 @@ jobs:
         run: yarn nx build nx-playwright
 
       - name: Check version
-        run: |
-          npm -v
-          cd dist/packages/nx-playwright
-          git fetch --tags
-          VERSION=$(node -p "require('./package.json').version")
-          TAGS=$(git tag)
-          echo "Current version $VERSION"
-          echo "Published versions are $TAGS"
-          function is_version_exists() {
-            TAGS=$1
-            VERSION=$2
-            if grep -q "$VERSION" <<< "$TAGS"; then
-              echo "matched"
-              return 0
-            fi
-            echo "not matched"
-            return 1
-          }
-          if is_version_exists $TAGS $VERSION; then
-              echo "Version $VERSION is already published"
-              exit 1; 
-          fi
-
+        run: yarn ts-node ci/version-check
+          
       - name: E2E tests
         run: |
           NX_PLUGIN_DIR=$(pwd)
