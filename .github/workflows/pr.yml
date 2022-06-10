@@ -41,6 +41,7 @@ jobs:
 
       - name: Check version
         run: |
+          npm -v
           cd dist/packages/nx-playwright
           git fetch --tags
           VERSION=$(node -p "require('./package.json').version")
