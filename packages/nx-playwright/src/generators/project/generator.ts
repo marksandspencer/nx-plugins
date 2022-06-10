@@ -7,10 +7,8 @@ import {
   Tree,
 } from '@nrwl/devkit';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
-import { exec } from 'child_process';
 import { existsSync } from 'fs';
 import * as path from 'path';
-import { promisify } from 'util';
 import playwrightInitGenerator from '../init/generator';
 import { addLinting } from './lib/add-linting';
 import { normalizeOptions, NxPlaywrightGeneratorNormalizedSchema } from './lib/normalize-options';
@@ -19,17 +17,6 @@ import { NxPlaywrightGeneratorSchema } from './schema';
 export default async function (host: Tree, options: NxPlaywrightGeneratorSchema) {
   const normalizedOptions = normalizeOptions(host, { ...options, type: 'app' });
   const playwrightInitTask = await playwrightInitGenerator(host, { skipFormat: true });
-
-  const installPlaywrightBinaries = async () => {
-    console.info('Installing Playwright binaries');
-    const { stdout, stderr } = await promisify(exec)('yarn playwright install --with-deps');
-    if (stdout) {
-      console.info(stdout);
-    }
-    if (stderr) {
-      throw new Error(stderr);
-    }
-  };
 
   addProjectConfiguration(host, normalizedOptions.projectName, {
     root: normalizedOptions.projectRoot,
@@ -61,7 +48,7 @@ export default async function (host: Tree, options: NxPlaywrightGeneratorSchema)
     await formatFiles(host);
   }
 
-  return runTasksInSerial(installPlaywrightBinaries, playwrightInitTask, lintTask);
+  return runTasksInSerial(playwrightInitTask, lintTask);
 }
 
 const addFiles = (host: Tree, options: NxPlaywrightGeneratorNormalizedSchema) => {
