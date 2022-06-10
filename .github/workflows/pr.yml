@@ -44,12 +44,20 @@ jobs:
           cd dist/packages/nx-playwright
           git fetch --tags
           VERSION=$(npm pkg get version | xargs)
-          LATEST=$(git describe --tags $(git rev-list --tags --max-count=1))
+          TAGS=$(git tag)
           echo "Current version $VERSION"
-          echo "Latest version is $LATEST"
-          if [ "$VERSION" = "$LATEST" ]; then
-            echo "Version $VERSION is already published"
-            exit 1; 
+          echo "Published versions are $TAGS"
+          function is_version_exists() {
+            TAGS=$1
+            VERSION=$2
+            if [[ "$TAGS" == *"$VERSION"* ]]; then
+              return 0
+            fi
+            return 1
+          }
+          if is_version_exists $TAGS $VERSION; then
+              echo "Version $VERSION is already published"
+              exit 1; 
           fi
 
       - name: E2E tests
