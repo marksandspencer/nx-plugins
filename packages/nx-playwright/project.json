@@ -6,13 +6,22 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["packages/nx-playwright/**/*.ts"]
+        "lintFilePatterns": [
+          "packages/nx-playwright/**/*.ts",
+          "packages/nx-playwright/generators.json",
+          "packages/nx-playwright/executors.json",
+          "packages/nx-playwright/package.json"
+        ]
       },
-      "outputs": ["{options.outputFile}"]
+      "outputs": [
+        "{options.outputFile}"
+      ]
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/nx-playwright"],
+      "outputs": [
+        "coverage/packages/nx-playwright"
+      ],
       "options": {
         "jestConfig": "packages/nx-playwright/jest.config.ts",
         "passWithNoTests": true
@@ -20,7 +29,9 @@
     },
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/packages/nx-playwright",
         "buildableProjectDepsInPackageJsonType": "dependencies",

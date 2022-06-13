@@ -33,6 +33,7 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "jest": "27.5.1",
     "jest-junit": "^13.2.0",
+    "jsonc-eslint-parser": "^2.1.0",
     "nx": "14.2.4",
     "playwright": "^1.17.1",
     "prettier": "2.6.2",
