@@ -2,5 +2,6 @@
   "version": 2,
   "projects": {
     "nx-playwright": "packages/nx-playwright"
-  }
+  },
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }
