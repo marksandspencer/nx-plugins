@@ -1,6 +1,4 @@
 /* eslint-disable */
-/* eslint-disable */
-/* eslint-disable */
 export default {
   displayName: 'nx-playwright',
   preset: '../../jest.preset.js',

@@ -1,6 +1,6 @@
 const { getJestProjects } = require('@nrwl/jest');
 
-export default {
+module.exports = {
   projects: [...getJestProjects()],
   coverageReporters: ['html', 'text', 'json-summary'],
   reporters: ['default', 'jest-junit'],
