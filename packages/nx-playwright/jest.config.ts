@@ -1,4 +1,3 @@
-/* eslint-disable */
 module.exports = {
   displayName: 'nx-playwright',
   preset: '../../jest.preset.js',
