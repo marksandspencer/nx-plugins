@@ -30,11 +30,11 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
 
-      - name: Check lint
-        run: yarn nx affected:lint
-
       - name: Install dependencies
         run: yarn
+
+      - name: Check lint
+        run: yarn nx affected:lint
 
       - name: Unit tests
         run: yarn nx affected:test --codeCoverage --base=remotes/origin/main
