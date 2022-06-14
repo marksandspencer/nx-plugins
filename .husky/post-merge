@@ -6,7 +6,7 @@ BLUE='\033[1;34m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-echo -e "\n\n📣 ${BLUE}Onyx-nx Annoucements${NC} 📣"
+echo -e "\n\n📣 ${BLUE}Annoucements${NC} 📣"
 echo -e "${GREEN}- Please use NX Cloud for local development${NC}\n\n"
 
 PACKAGE_LOCK_REGEX="(^yarn\.lock)"
