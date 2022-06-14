@@ -1,5 +1,10 @@
 {
-  "eslint.validate": [
-    "json"
-  ]
+  "[yaml]": {
+    "editor.formatOnSave": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": false,
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": ["json"]
 }

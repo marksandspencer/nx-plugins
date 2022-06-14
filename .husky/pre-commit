@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e
+
+yarn lint-staged
+yarn nx workspace-lint

@@ -29,7 +29,7 @@ export const startDevServer = async (opts: PlaywrightExecutorSchema, context: Ex
   const result = await unwrapAsyncIterableIteratorPromise();
 
   if (!result.success) {
-    throw new Error('Could not start dev server');
+    return Promise.reject(new Error('Could not start dev server'));
   }
 
   return opts.baseUrl || (result.baseUrl as string);
