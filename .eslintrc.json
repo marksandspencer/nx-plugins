@@ -1,23 +1,26 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "**/*"
-  ],
+  "ignorePatterns": ["**/*"],
   "plugins": [
     "@nrwl/nx",
     "unused-imports",
     "simple-import-sort",
     "import",
-    "prettier"
+    "prettier",
+    "functional",
+    "deprecation",
+    "jest-formatting"
+  ],
+  "extends": [
+    "plugin:eslint-comments/recommended",
+    "plugin:jest/recommended",
+    "eslint:recommended",
+    "plugin:functional/recommended",
+    "plugin:jest-formatting/recommended"
   ],
   "overrides": [
     {
-      "files": [
-        "*.ts",
-        "*.tsx",
-        "*.js",
-        "*.jsx"
-      ],
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
@@ -27,9 +30,7 @@
             "depConstraints": [
               {
                 "sourceTag": "*",
-                "onlyDependOnLibsWithTags": [
-                  "*"
-                ]
+                "onlyDependOnLibsWithTags": ["*"]
               }
             ]
           }
@@ -38,50 +39,48 @@
         "simple-import-sort/imports": [
           "error",
           {
-            "groups": [
-              [
-                "^\\u0000",
-                "^@?\\w",
-                "^[^.]",
-                "^\\."
-              ]
-            ]
+            "groups": [["^\\u0000", "^@?\\w", "^[^.]", "^\\."]]
           }
         ],
+
         "simple-import-sort/exports": "error",
         "import/first": "error",
         "import/newline-after-import": "error",
         "import/no-duplicates": "error",
-        "prettier/prettier": "error"
+        "prettier/prettier": "error",
+        "functional/prefer-readonly-type": "off",
+        "functional/no-conditional-statement": "off",
+        "functional/functional-parameters": "off",
+        "functional/no-expression-statement": "off",
+        "functional/no-return-void": "off"
       }
     },
     {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/typescript"
-      ],
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nrwl/nx/typescript"],
       "rules": {
         "@typescript-eslint/ban-ts-comment": 0,
         "@typescript-eslint/no-var-requires": 0
       }
     },
     {
-      "files": [
-        "*.js",
-        "*.jsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/javascript"
-      ],
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nrwl/nx/javascript"],
       "rules": {}
     },
     {
       "files": "*.json",
       "parser": "jsonc-eslint-parser",
       "rules": {}
+    },
+    {
+      "files": ["*.spec.*"],
+      "rules": {
+        "functional/no-return-void": "off",
+        "functional/immutable-data": "off",
+        "@next/next/no-document-import-in-page": "off",
+        "@next/next/no-server-import-in-page": "off"
+      }
     }
   ]
 }

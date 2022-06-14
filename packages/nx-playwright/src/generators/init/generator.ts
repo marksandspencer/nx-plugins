@@ -20,3 +20,7 @@ export default async function playwrightInitGenerator(host: Tree, options: InitG
 
   return runTasksInSerial(installTask);
 }
+
+export const test = async () => {
+  // await Promise.resolve();
+};
