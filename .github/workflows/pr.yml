@@ -30,6 +30,9 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
 
+      - name: Check lint
+        run: yarn nx affected:lint
+
       - name: Install dependencies
         run: yarn
 
@@ -41,16 +44,16 @@ jobs:
 
       - name: Check version
         run: yarn ts-node ci/version-check
-          
+
       - name: E2E tests
         run: |
           NX_PLUGIN_DIR=$(pwd)
           cd ..
           yarn create nx-workspace --appName=test-app --style=@emotion/styled --name=test-nx --preset=next --nxCloud=false --interactive=false < /dev/null
-          
+
           cd test-nx
           yarn nx generate remove test-app-e2e
-          
+
           LOCAL_TEST_WORKSPACE="$(pwd)"
 
           cd $NX_PLUGIN_DIR
