@@ -34,7 +34,7 @@ jobs:
         run: yarn
 
       - name: Check lint
-        run: yarn nx affected:lint
+        run: yarn nx affected:lint --base=remotes/origin/main
 
       - name: Unit tests
         run: yarn nx affected:test --codeCoverage --base=remotes/origin/main
