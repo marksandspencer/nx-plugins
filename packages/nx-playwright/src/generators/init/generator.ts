@@ -2,11 +2,8 @@ import { addDependenciesToPackageJson, formatFiles, Tree, updateJson } from '@nr
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
 import { InitGeneratorSchema } from './schema';
 
-export const removePlaywrightDeps = (json) => {
-  json.dependencies = json.dependencies || {};
-  delete json.dependencies['@mands/nx-playwright'];
-
-  return json;
+export const removePlaywrightDeps = ({ dependencies = {}, ...json }) => {
+  return { ...json, dependencies: { ...dependencies, '@mands/nx-playwright': undefined } };
 };
 
 export default async function playwrightInitGenerator(host: Tree, options: InitGeneratorSchema) {
@@ -20,7 +17,3 @@ export default async function playwrightInitGenerator(host: Tree, options: InitG
 
   return runTasksInSerial(installTask);
 }
-
-export const test = async () => {
-  // await Promise.resolve();
-};
