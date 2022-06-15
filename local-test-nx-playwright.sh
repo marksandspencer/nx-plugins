@@ -1,25 +1,48 @@
 #!/bin/bash
 
-PARAMETER_VALIDATION_PROMPT="Please supply the environment variables LOCAL_TEST_WORKSPACE and LOCAL_TEST_APP_NAME"
 PLUGIN_NAME="nx-playwright"
+PARAMETER_VALIDATION_PROMPT="
+Please supply the following arguments:
 
-if [[ -z "${LOCAL_TEST_WORKSPACE}" ]]; then
-    echo $PARAMETER_VALIDATION_PROMPT
+  -w <path to workspace>: absolute path to the workspace with which to test the plugin
+  -a <app name>: the name of the app with which to test the plugin
+  -C: whether to stash workspace changes before the test run and to clean up afterwards (optional)
+  
+For example: 
+  ./local-test-nx-playwright.sh -w path/to/workspace -a example-app"
+
+while getopts w:a:C flag
+do
+    case "${flag}" in
+        w) workspace=${OPTARG};;
+        a) app=${OPTARG};;
+        C) should_stash_and_clean=1;;
+    esac
+done
+
+if [ -z $workspace ] || [ -z $app ]; then
+    echo "$PARAMETER_VALIDATION_PROMPT"
     exit 1
 fi
-if [[ -z "${LOCAL_TEST_APP_NAME}" ]]; then
-    echo $PARAMETER_VALIDATION_PROMPT
-    exit 1
-fi
 
-function cleanup () {
-    if [ "$1" == "--cleanup" ]; then
-        echo "Cleaning up the workspace"
-        git checkout .
-        git clean -fd
+function stash_workspace_changes_if_requested {
+    if $should_stash_and_clean; then
+        echo "Stashing all changes before test"
+        git stash -u
         yarn install --frozen-lockfile
     else
-        echo "Skipping cleanup"
+        echo "Stash not requested"
+    fi
+}
+
+function restore_workspace_if_requested {
+    if $should_stash_and_clean; then
+        git checkout .
+        git clean -fd
+        git stash pop
+        yarn install --frozen-lockfile
+    else
+        echo "Restore not required"
     fi
 }
 
@@ -32,11 +55,12 @@ pushd dist/packages/$PLUGIN_NAME
 yarn link
 popd
 
-pushd $LOCAL_TEST_WORKSPACE
+pushd $workspace
+stash_workspace_changes_if_requested
 cleanup $1
 yarn unlink $PLUGIN_NPM_NAME
 yarn link $PLUGIN_NPM_NAME
-yarn nx generate $PLUGIN_NPM_NAME:project $LOCAL_TEST_APP_NAME-e2e --project $LOCAL_TEST_APP_NAME
-yarn nx e2e $LOCAL_TEST_APP_NAME-e2e --skip-nx-cache
-cleanup $1
+yarn nx generate $PLUGIN_NPM_NAME:project $app-e2e --project $app
+yarn nx e2e $app-e2e --skip-nx-cache
+restore_workspace_if_requested
 popd

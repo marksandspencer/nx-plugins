@@ -22,8 +22,9 @@ yarn nx e2e <APP-NAME>-e2e
 Create a new Nx workspace containing one application. Then run, in the root of this repo:
 
 ```sh
-LOCAL_TEST_WORKSPACE=<path-to-workspace> ./local-test-nx-playwright.sh
+./local-test-nx-playwright.sh -w path/to/workspace -a app-name
 ```
 
-⚠️ Optionally, use the flag `--cleanup` to revert any changes made by the script. However,
-this will undo **all** local changes made to your target Nx workspace.
+⚠️ The flag `-c` can optionally be used to revert any changes made by the script.
+However, this is a destructive operation that will destroy **all** local changes made to your
+target Nx workspace, whether tracked or untracked.
