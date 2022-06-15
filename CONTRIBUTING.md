@@ -8,11 +8,11 @@ We love your input! We want to make contributing to this project as easy and tra
 - Proposing new features
 - Becoming a maintainer
 
-## We Develop with Github
+## We develop with GitHub
 
 We use github to host code, to track issues and feature requests, as well as accept pull requests.
 
-## Pull requests
+## Contribute by making a Pull Request
 
 Pull requests are the best way to propose changes to the codebase. We actively welcome your pull requests:
 
@@ -26,11 +26,11 @@ Pull requests are the best way to propose changes to the codebase. We actively w
 
 In short, when you submit code changes, your submissions are understood to be under the same [MIT License](http://choosealicense.com/licenses/mit/) that covers the project. Feel free to contact the maintainers if that's a concern.
 
-## Report bugs using Github's [issues](https://github.com/marksandspencer/nx-plugins/issues)
+## Report bugs using GitHub Issues
 
 We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/marksandspencer/nx-plugins/issues/new).
 
-## Write bug reports with detail, background, and sample code
+### Write bug reports with detail, background, and sample code
 
 **Great Bug Reports** tend to have:
 
@@ -44,7 +44,7 @@ We use GitHub issues to track public bugs. Report a bug by [opening a new issue]
 
 People _love_ thorough bug reports and this helps us making sure we can address, prioritize, and bugs as efficiently as possible.
 
-## Use a Consistent Coding Style
+## Use a consistent coding style
 
 We enforce consistent coding style but using linting rules, please ensure that your code adheres to the project linting rules and avoid lint ignores.
 
