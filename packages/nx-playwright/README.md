@@ -7,10 +7,10 @@ Playwright testing using a native runner.
 
 ## Usage
 
-Replacing the placeholders `<MONOREPO-PATH>` and `<APP-NAME>`:
+Replacing the placeholders `<PATH-TO-NX-WORKSPACE>` and `<APP-NAME>`:
 
 ```sh
-cd <MONOREPO-PATH>
+cd <PATH-TO-NX-WORKSPACE>
 yarn add -D @mands/nx-playwright
 yarn nx generate @mands/nx-playwright:project <APP-NAME>-e2e --project <APP-NAME>
 yarn playwright install --with-deps
