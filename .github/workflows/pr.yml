@@ -30,8 +30,8 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
 
-      - name: Install dependencies
-        run: yarn
+      - name: Install and verify dependencies
+        run: yarn install --frozen-lockfile
 
       - name: Check lint
         run: yarn nx affected:lint --base=remotes/origin/main
