@@ -14,6 +14,7 @@ node_modules
 yarn-error.log
 npm-debug.log
 package-lock.json
+**/.npmrc
 
 # Test output and intermediates
 junit.xml
