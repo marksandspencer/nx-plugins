@@ -12,9 +12,9 @@
     ]
   },
   "engines": {
+    "node": ">=14.18.1",
     "npm": "please-use-yarn",
-    "node": ">=v14.18.1",
-    "yarn": ">= 1.22.0"
+    "yarn": ">=1.22.0 <2"
   },
   "dependencies": {
     "glob": "^7.2.0"
