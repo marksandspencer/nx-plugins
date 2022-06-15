@@ -1,5 +1,7 @@
 # @mands/nx-playwright
 
+[![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?color=blue&style=flat-square)](https://opensource.org/licenses/MIT)
+
 An [Nx plugin](https://nx.dev/packages/nx-plugin) to add support to an Nx monorepo for
 Playwright testing using a native runner.
 
