@@ -1,3 +1,5 @@
+#!/bin/bash
+
 PARAMETER_VALIDATION_PROMPT="Please supply the environment variables LOCAL_TEST_WORKSPACE and LOCAL_TEST_APP_NAME"
 
 if [[ -z "${LOCAL_TEST_WORKSPACE}" ]]; then
