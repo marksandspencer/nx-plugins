@@ -1,4 +1,7 @@
-LOCAL_TEST_WORKSPACE="$(pwd)/../onyx-nx"
+if [[ -z "${LOCAL_TEST_WORKSPACE}" ]]; then
+    echo "Please supply a LOCAL_TEST_WORKSPACE environment variable"
+    exit 1
+fi
 
 NX_PLUGIN_DIR=$(pwd)
 cd $LOCAL_TEST_WORKSPACE
@@ -11,7 +14,6 @@ function cleanup () {
     echo "Skipping target repository cleanup"  
     fi
 }
-
 
 cleanup $1
 
