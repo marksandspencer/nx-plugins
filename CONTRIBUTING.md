@@ -10,7 +10,7 @@ We love your input! We want to make contributing to this project as easy and tra
 
 ## We develop with GitHub
 
-We use github to host code, to track issues and feature requests, as well as accept pull requests.
+We use GitHub to host code, to track issues and feature requests, as well as accept pull requests.
 
 ## Contribute by making a Pull Request
 
@@ -28,11 +28,12 @@ In short, when you submit code changes, your submissions are understood to be un
 
 ## Report bugs using GitHub Issues
 
-We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/marksandspencer/nx-plugins/issues/new).
+We use [GitHub Issues](https://github.com/marksandspencer/nx-plugins/issues) to track bugs. Report a bug by
+[opening a new issue](https://github.com/marksandspencer/nx-plugins/issues/new).
 
 ### Write bug reports with detail, background, and sample code
 
-**Great Bug Reports** tend to have:
+Great bug reports tend to have:
 
 - A quick summary and/or background
 - Steps to reproduce
@@ -56,4 +57,4 @@ By contributing, you agree that your contributions will be licensed under its MI
 
 - [Nx](https://nx.dev/)
 - [Nx Plugins](https://nx.dev/packages/nx-plugin)
-- [Github actions](https://github.com/features/actions)
+- [GitHub Actions](https://github.com/features/actions)
