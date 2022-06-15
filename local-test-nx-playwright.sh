@@ -26,7 +26,7 @@ if [ -z $workspace ] || [ -z $app ]; then
 fi
 
 function stash_workspace_changes_if_requested {
-    if $should_stash_and_clean; then
+    if [ $should_stash_and_clean ]; then
         echo "Stashing all changes before test"
         git stash -u
         yarn install --frozen-lockfile
@@ -36,7 +36,7 @@ function stash_workspace_changes_if_requested {
 }
 
 function restore_workspace_if_requested {
-    if $should_stash_and_clean; then
+    if [ $should_stash_and_clean ]; then
         git checkout .
         git clean -fd
         git stash pop
@@ -57,7 +57,6 @@ popd
 
 pushd $workspace
 stash_workspace_changes_if_requested
-cleanup $1
 yarn unlink $PLUGIN_NPM_NAME
 yarn link $PLUGIN_NPM_NAME
 yarn nx generate $PLUGIN_NPM_NAME:project $app-e2e --project $app
