@@ -9,7 +9,7 @@ cd $LOCAL_TEST_WORKSPACE
 function cleanup () {
     if [ "$1" == "--cleanup" ]; then
         echo "Cleanup test NX workspace"
-        git checkout . && git clean -fd && yarn
+        git checkout . && git clean -fd && yarn install --frozen-lockfile
     else
         echo "Skipping target repository cleanup"
     fi
@@ -17,9 +17,9 @@ function cleanup () {
 
 cleanup $1
 
-yarn 
-cd -
+yarn install --frozen-lockfile
 
+cd $NX_PLUGIN_DIR
 rm -fr dist
 yarn nx build nx-playwright
 cd dist/packages/nx-playwright/
