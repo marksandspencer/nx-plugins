@@ -1,10 +1,13 @@
+PARAMETER_VALIDATION_PROMPT="Please supply the environment variables LOCAL_TEST_WORKSPACE and LOCAL_TEST_APP_NAME"
+
 if [[ -z "${LOCAL_TEST_WORKSPACE}" ]]; then
-    echo "Please supply a LOCAL_TEST_WORKSPACE environment variable"
+    echo $PARAMETER_VALIDATION_PROMPT
     exit 1
 fi
-
-NX_PLUGIN_DIR=$(pwd)
-cd $LOCAL_TEST_WORKSPACE
+if [[ -z "${LOCAL_TEST_APP_NAME}" ]]; then
+    echo $PARAMETER_VALIDATION_PROMPT
+    exit 1
+fi
 
 function cleanup () {
     if [ "$1" == "--cleanup" ]; then
@@ -15,8 +18,10 @@ function cleanup () {
     fi
 }
 
-cleanup $1
+NX_PLUGIN_DIR=$(pwd)
 
+cd $LOCAL_TEST_WORKSPACE
+cleanup $1
 yarn install --frozen-lockfile
 
 cd $NX_PLUGIN_DIR
@@ -24,15 +29,12 @@ rm -fr dist
 yarn nx build nx-playwright
 cd dist/packages/nx-playwright/
 yarn link
+
 cd $LOCAL_TEST_WORKSPACE
 yarn unlink "@mands/nx-playwright"
 yarn link "@mands/nx-playwright"
-cd -
-
-cd $LOCAL_TEST_WORKSPACE
-yarn nx generate @mands/nx-playwright:project name-of-the-app-e2e --project name-of-the-app
-yarn nx e2e name-of-the-app-e2e --skip-nx-cache
-
+yarn nx generate @mands/nx-playwright:project $LOCAL_TEST_APP_NAME-e2e --project $LOCAL_TEST_APP_NAME
+yarn nx e2e $LOCAL_TEST_APP_NAME-e2e --skip-nx-cache
 cleanup $1
 
 cd $NX_PLUGIN_DIR
