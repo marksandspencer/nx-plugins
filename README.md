@@ -1,7 +1,11 @@
 # Marks and Spencer – Nx Plugins
 
-[![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?color=blue&style=flat-square)](https://opensource.org/licenses/MIT)
+[![MIT License](https://img.shields.io/github/license/marksandspencer/nx-plugins)](https://github.com/marksandspencer/nx-plugins/blob/main/LICENSE.md)
 
-- [nx-playwright](packages/nx-playwright)
+## List of plugins
 
-Want to contribute? See the [Contribution Guidelines](/contributing.md).
+- [@mands/nx-playwright](packages/nx-playwright)
+
+## Want to contribute?
+
+See the [Contribution Guidelines](/CONTRIBUTING.md).

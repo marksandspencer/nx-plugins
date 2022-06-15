@@ -1,6 +1,6 @@
 # @mands/nx-playwright
 
-[![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?color=blue&style=flat-square)](https://opensource.org/licenses/MIT)
+[![MIT License](https://img.shields.io/github/license/marksandspencer/nx-plugins)](https://github.com/marksandspencer/nx-plugins/blob/main/LICENSE.md)
 
 An [Nx plugin](https://nx.dev/packages/nx-plugin) to add support to an Nx monorepo for
 Playwright testing using a native runner.
@@ -25,4 +25,5 @@ Create a new Nx workspace containing one application. Then run, in the root of t
 LOCAL_TEST_WORKSPACE=<path-to-workspace> ./local-test-nx-playwright.sh
 ```
 
-⚠️ Optionally, use the flag `--cleanup` to revert any changes made by the script. However, this will undo **all** local changes made to your target Nx workspace.
+⚠️ Optionally, use the flag `--cleanup` to revert any changes made by the script. However,
+this will undo **all** local changes made to your target Nx workspace.
