@@ -14,8 +14,7 @@ We use github to host code, to track issues and feature requests, as well as acc
 
 ## Pull requests
 
-Pull requests are the best way to propose changes to the codebase. We actively welcome your pull requests:  
-NOTE: In order to merge a PR you will need to use signed commits. See [Github signed commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits)
+Pull requests are the best way to propose changes to the codebase. We actively welcome your pull requests:
 
 1. Fork the repo and create your branch from `main`.
 2. If you've added code that should be tested, add tests.
