@@ -8,10 +8,10 @@ cd $LOCAL_TEST_WORKSPACE
 
 function cleanup () {
     if [ "$1" == "--cleanup" ]; then
-    echo "Cleanup test NX workspace"
-    git checkout . && git clean -fd && yarn
+        echo "Cleanup test NX workspace"
+        git checkout . && git clean -fd && yarn
     else
-    echo "Skipping target repository cleanup"  
+        echo "Skipping target repository cleanup"
     fi
 }
 
