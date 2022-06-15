@@ -17,14 +17,14 @@ jobs:
         with:
           token: ${{ secrets.SAML_ACCOUNT_TOKEN }}
 
-      - name: Setup NodeJs ${{ matrix.node-version }}
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
-          
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
+
+      - name: Install and verify dependencies
+        run: yarn install --frozen-lockfile
 
       - name: Build plugin
         run: yarn nx build nx-playwright

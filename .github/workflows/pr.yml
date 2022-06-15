@@ -59,10 +59,10 @@ jobs:
           cd $NX_PLUGIN_DIR
           cd dist/packages/nx-playwright/
           yarn link
+
           cd $LOCAL_TEST_WORKSPACE
           yarn add @mands/nx-playwright -D
           yarn link "@mands/nx-playwright"
-
           yarn nx generate @mands/nx-playwright:project test-app-e2e --project test-app
           yarn playwright install --with-deps
           yarn nx e2e test-app-e2e --skip-nx-cache
