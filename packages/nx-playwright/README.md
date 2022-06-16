@@ -25,6 +25,6 @@ Create a new Nx workspace containing one application. Then run, in the root of t
 ./local-test.sh -w path/to/workspace -a app-name
 ```
 
-⚠️ The flag `-c` can optionally be used to revert any changes made by the script.
-However, this is a destructive operation that will destroy **all** local changes made to your
-target Nx workspace, whether tracked or untracked.
+⚠️ The flag `-C` can optionally be used to reverse any changes made to the workspace during the test run.
+However, this is a potentially destructive operation that performs a stash save before the run and
+a stash pop at the end of the run.

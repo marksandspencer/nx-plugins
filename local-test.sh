@@ -6,10 +6,10 @@ Please supply the following arguments:
 
   -w <path to workspace>: absolute path to the workspace with which to test the plugin
   -a <app name>: the name of the app with which to test the plugin
-  -C: whether to stash workspace changes before the test run and to clean up afterwards (optional)
+  -C: if present, stash workspace changes before the test run and clean up afterwards (optional)
   
 For example: 
-  ./local-test.sh -w path/to/workspace -a example-app"
+  ./local-test.sh -w path/to/workspace -a example-app -C"
 
 while getopts w:a:C flag
 do
