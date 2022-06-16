@@ -9,7 +9,7 @@ Please supply the following arguments:
   -C: whether to stash workspace changes before the test run and to clean up afterwards (optional)
   
 For example: 
-  ./local-test-nx-playwright.sh -w path/to/workspace -a example-app"
+  ./local-test.sh -w path/to/workspace -a example-app"
 
 while getopts w:a:C flag
 do

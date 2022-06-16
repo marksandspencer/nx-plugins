@@ -8,4 +8,4 @@
 
 ## Want to contribute?
 
-See the [Contribution Guidelines](/CONTRIBUTING.md).
+See the [Contribution Guidelines](/contributing.md).

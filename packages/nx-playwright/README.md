@@ -22,7 +22,7 @@ yarn nx e2e <APP-NAME>-e2e
 Create a new Nx workspace containing one application. Then run, in the root of this repo:
 
 ```sh
-./local-test-nx-playwright.sh -w path/to/workspace -a app-name
+./local-test.sh -w path/to/workspace -a app-name
 ```
 
 ⚠️ The flag `-c` can optionally be used to revert any changes made by the script.
