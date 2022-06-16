@@ -10,7 +10,7 @@ We love your input! We want to make contributing to this project as easy and tra
 
 ## We develop with GitHub
 
-We use GitHub to host code, to track issues and feature requests, as well as accept pull requests.
+We use GitHub to host code, to track issues and feature requests, and to accept pull requests.
 
 ## Contribute by making a Pull Request
 
@@ -22,10 +22,10 @@ A pull request is the best way to propose a change to the codebase. We actively 
 4. Ensure PR validation passes
 5. Issue the pull request
 
-## Any contributions you make will be under the MIT Software License
+## License
 
-When you submit a code change, your submission is understood to be under the same [MIT License](https://choosealicense.com/licenses/mit)
-that covers the project. Feel free to contact the maintainers if that's a concern.
+By submitting a code change, you agree that your contribution will be licensed under this
+project's [MIT License](https://choosealicense.com/licenses/mit). Please contact the maintainers if this is a concern.
 
 ## Report bugs using GitHub Issues
 
@@ -49,11 +49,7 @@ People _love_ thorough bug reports and this helps us to make sure we can address
 ## Use a consistent coding style
 
 We enforce a consistent coding style using linting rules. Please ensure that your code adheres to the project's linting rules and
-avoid lint ignores.
-
-## License
-
-By contributing, you agree that your contributions will be licensed under this project's MIT License.
+avoids lint ignores.
 
 ## References
 
