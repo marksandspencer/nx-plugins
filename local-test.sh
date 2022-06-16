@@ -1,36 +1,66 @@
-LOCAL_TEST_WORKSPACE="$(pwd)/../onyx-nx"
+#!/bin/bash
 
-NX_PLUGIN_DIR=$(pwd)
-cd $LOCAL_TEST_WORKSPACE
+PLUGIN_NAME="nx-playwright"
+PARAMETER_VALIDATION_PROMPT="
+Please supply the following arguments:
 
-function cleanup () {
-    if [ "$1" == "--cleanup" ]; then
-    echo "Cleanup test NX workspace"
-    git checkout . && git clean -fd && yarn
+  -w <path to workspace>: absolute path to the workspace with which to test the plugin
+  -a <app name>: the name of the app with which to test the plugin
+  -C: if present, stash workspace changes before the test run and clean up afterwards (optional)
+  
+For example: 
+  ./local-test.sh -w path/to/workspace -a example-app -C"
+
+while getopts w:a:C flag
+do
+    case "${flag}" in
+        w) workspace=${OPTARG};;
+        a) app=${OPTARG};;
+        C) should_stash_and_clean=1;;
+    esac
+done
+
+if [ -z $workspace ] || [ -z $app ]; then
+    echo "$PARAMETER_VALIDATION_PROMPT"
+    exit 1
+fi
+
+function stash_workspace_changes_if_requested {
+    if [ $should_stash_and_clean ]; then
+        echo "Stashing all changes before test"
+        git stash -u
+        yarn install --frozen-lockfile
     else
-    echo "Skipping target repository cleanup"  
+        echo "Stash not requested"
     fi
 }
 
+function restore_workspace_if_requested {
+    if [ $should_stash_and_clean ]; then
+        git checkout .
+        git clean -fd
+        git stash pop
+        yarn install --frozen-lockfile
+    else
+        echo "Restore not required"
+    fi
+}
 
-cleanup $1
-
-yarn 
-cd -
+PLUGIN_NPM_NAME="@mands/$PLUGIN_NAME"
 
 rm -fr dist
-yarn nx build nx-playwright
-cd dist/packages/nx-playwright/
+yarn nx build $PLUGIN_NAME
+
+pushd dist/packages/$PLUGIN_NAME
 yarn link
-cd $LOCAL_TEST_WORKSPACE
-yarn unlink "@mands/nx-playwright"
-yarn link "@mands/nx-playwright"
-cd -
+popd
 
-cd $LOCAL_TEST_WORKSPACE
-yarn nx generate @mands/nx-playwright:project name-of-the-app-e2e --project name-of-the-app
-yarn nx e2e name-of-the-app-e2e --skip-nx-cache
-
-cleanup $1
-
-cd $NX_PLUGIN_DIR
+pushd $workspace
+stash_workspace_changes_if_requested
+yarn unlink $PLUGIN_NPM_NAME
+yarn link $PLUGIN_NPM_NAME
+yarn nx generate $PLUGIN_NPM_NAME:project $app-e2e --project $app
+yarn playwright install --with-deps
+yarn nx e2e $app-e2e --skip-nx-cache
+restore_workspace_if_requested
+popd

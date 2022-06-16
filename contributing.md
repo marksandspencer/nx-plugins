@@ -5,34 +5,36 @@ We love your input! We want to make contributing to this project as easy and tra
 - Reporting a bug
 - Discussing the current state of the code
 - Submitting a fix
-- Proposing new features
+- Proposing a new feature
 - Becoming a maintainer
 
-## We Develop with Github
+## We develop with GitHub
 
-We use github to host code, to track issues and feature requests, as well as accept pull requests.
+We use GitHub to host code, to track issues and feature requests, and to accept pull requests.
 
-## Pull requests
+## Contribute by making a Pull Request
 
-Pull requests are the best way to propose changes to the codebase. We actively welcome your pull requests:
+A pull request is the best way to propose a change to the codebase. We actively welcome your pull requests:
 
-1. Fork the repo and create your branch from `main`.
-2. If you've added code that should be tested, add tests.
+1. Fork the repo and create your branch from `main`
+2. If you've added code that should be tested, add tests
 3. Update the documentation if required
 4. Ensure PR validation passes
 5. Issue the pull request
 
-## Any contributions you make will be under the MIT Software License
+## License
 
-In short, when you submit code changes, your submissions are understood to be under the same [MIT License](http://choosealicense.com/licenses/mit/) that covers the project. Feel free to contact the maintainers if that's a concern.
+By submitting a code change, you agree that your contribution will be licensed under this
+project's [MIT License](https://choosealicense.com/licenses/mit). Please contact the maintainers if this is a concern.
 
-## Report bugs using Github's [issues](https://github.com/marksandspencer/nx-plugins/issues)
+## Report bugs using GitHub Issues
 
-We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/marksandspencer/nx-plugins/issues/new).
+We use [GitHub Issues](https://github.com/marksandspencer/nx-plugins/issues) to track bugs. Report a bug by
+[opening a new issue](https://github.com/marksandspencer/nx-plugins/issues/new).
 
-## Write bug reports with detail, background, and sample code
+### Write bug reports with detail, background, and sample code
 
-**Great Bug Reports** tend to have:
+Great bug reports tend to have:
 
 - A quick summary and/or background
 - Steps to reproduce
@@ -42,18 +44,15 @@ We use GitHub issues to track public bugs. Report a bug by [opening a new issue]
 - What actually happens
 - Notes (possibly including why you think this might be happening, or stuff you tried that didn't work)
 
-People _love_ thorough bug reports and this helps us making sure we can address, prioritize, and bugs as efficiently as possible.
+People _love_ thorough bug reports and this helps us to make sure we can address and prioritise bugs as efficiently as possible.
 
-## Use a Consistent Coding Style
+## Use a consistent coding style
 
-We enforce consistent coding style but using linting rules, please ensure that your code adheres to the project linting rules and avoid lint ignores.
-
-## License
-
-By contributing, you agree that your contributions will be licensed under its MIT License.
+We enforce a consistent coding style using linting rules. Please ensure that your code adheres to the project's linting rules and
+avoids lint ignores.
 
 ## References
 
-- [Nx](https://nx.dev/)
+- [Nx](https://nx.dev)
 - [Nx Plugins](https://nx.dev/packages/nx-plugin)
-- [Github actions](https://github.com/features/actions)
+- [GitHub Actions](https://github.com/features/actions)

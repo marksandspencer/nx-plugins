@@ -19,24 +19,24 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.head_ref }}
 
-      - name: Secrets scanning
+      - name: Scan for secrets
         uses: edplato/trufflehog-actions-scan@master
         with:
           scanArguments: '--regex -x=truffle-hog-exclude.txt'
 
-      - name: Setup NodeJs ${{ matrix.node-version }}
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
 
-      - name: Install dependencies
-        run: yarn
+      - name: Install and verify dependencies
+        run: yarn install --frozen-lockfile
 
-      - name: Check lint
+      - name: Run linters
         run: yarn nx affected:lint --base=remotes/origin/main
 
-      - name: Unit tests
+      - name: Run unit tests
         run: yarn nx affected:test --codeCoverage --base=remotes/origin/main
 
       - name: Build plugin
@@ -45,7 +45,7 @@ jobs:
       - name: Check version
         run: yarn ts-node ci/version-check
 
-      - name: E2E tests
+      - name: Run E2E tests
         run: |
           NX_PLUGIN_DIR=$(pwd)
           cd ..
@@ -59,10 +59,10 @@ jobs:
           cd $NX_PLUGIN_DIR
           cd dist/packages/nx-playwright/
           yarn link
+
           cd $LOCAL_TEST_WORKSPACE
           yarn add @mands/nx-playwright -D
           yarn link "@mands/nx-playwright"
-
           yarn nx generate @mands/nx-playwright:project test-app-e2e --project test-app
           yarn playwright install --with-deps
           yarn nx e2e test-app-e2e --skip-nx-cache
