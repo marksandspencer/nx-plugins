@@ -8,4 +8,4 @@
 
 ### Useful documentation
 
-- [Contributing guidelines](https://github.com/marksandspencer/nx-plugins/contributing.md)
+- [Contributing guidelines](https://github.com/marksandspencer/nx-plugins/CONTRIBUTING.md)
