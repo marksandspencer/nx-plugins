@@ -28,3 +28,22 @@ Create a new Nx workspace containing one application. Then run, in the root of t
 ⚠️ The flag `-C` can optionally be used to reverse any changes made to the workspace during the test run.
 However, this is a potentially destructive operation that performs a stash save before the run and
 a stash pop at the end of the run.
+
+### Example script for testing locally from scratch
+
+```bash
+# Fetch repo
+git clone git@github.com:marksandspencer/nx-plugins.git
+
+# Create a test workspace and app, and remove the e2e app
+pushd ..
+yarn create nx-workspace --name=test-nx --appName=test-app --style=@emotion/styled --preset=next --nxCloud=false --interactive=false
+pushd test-nx
+yarn nx generate remove test-app-e2e
+git commit -am "Remove test-app-e2e"
+popd
+popd
+
+# Run the test script
+./local-test.sh -w ../test-nx -a test-app -C
+```

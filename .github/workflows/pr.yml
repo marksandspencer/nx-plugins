@@ -45,24 +45,22 @@ jobs:
       - name: Check version
         run: yarn ts-node ci/version-check
 
-      - name: Run E2E tests
+      - name: Test plugin generation
         run: |
-          NX_PLUGIN_DIR=$(pwd)
-          cd ..
-          yarn create nx-workspace --appName=test-app --style=@emotion/styled --name=test-nx --preset=next --nxCloud=false --interactive=false < /dev/null
+          pushd ..
+          echo "Create a new workspace to test with"
+          yarn create nx-workspace --name=test-nx --appName=test-app --preset=next --style=@emotion/styled --nxCloud=false --interactive=false < /dev/null
 
-          cd test-nx
+          pushd test-nx
           yarn nx generate remove test-app-e2e
+          git commit -am "Remove test-app-e2e"
+          popd
+          popd
 
-          LOCAL_TEST_WORKSPACE="$(pwd)"
+          echo "Testing ./local-test.sh with cleanup"
+          ./local-test.sh -w ../test-nx -a test-app -C
+          # TODO: Assert that no artifacts exist
 
-          cd $NX_PLUGIN_DIR
-          cd dist/packages/nx-playwright/
-          yarn link
-
-          cd $LOCAL_TEST_WORKSPACE
-          yarn add @mands/nx-playwright -D
-          yarn link "@mands/nx-playwright"
-          yarn nx generate @mands/nx-playwright:project test-app-e2e --project test-app
-          yarn playwright install --with-deps
-          yarn nx e2e test-app-e2e --skip-nx-cache
+          echo "Test ./local-test.sh without cleanup (also tests that cleanup succeeded above"
+          ./local-test.sh -w ../test-nx -a test-app
+          # TODO: Assert that some artifacts exist
