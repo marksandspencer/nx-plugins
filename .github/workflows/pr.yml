@@ -71,6 +71,6 @@ jobs:
           ./local-test.sh -w ../$NX_WORKSPACE -a $NX_APP -C
           test -z "$(git status --porcelain)"
 
-          echo "Test ./local-test.sh (without cleanup flag) (also tests that cleanup succeeded above)"
+          echo "Test ./local-test.sh (without cleanup flag)"
           ./local-test.sh -w ../$NX_WORKSPACE -a $NX_APP
           [ -d ../$NX_WORKSPACE/apps/$NX_APP-e2e ]
