@@ -61,7 +61,7 @@ jobs:
           popd
           popd
 
-          echo "Testing ./local-test.sh (with cleanup flag)"
+          echo "Test ./local-test.sh (with cleanup flag)"
           ./local-test.sh -w ../test-nx -a test-app -C
           test -z "$(git status --porcelain)"
 
