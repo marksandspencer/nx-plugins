@@ -53,7 +53,10 @@ jobs:
 
           pushd test-nx
           yarn nx generate remove test-app-e2e
-          git commit -am "Remove test-app-e2e"
+          git \
+            -c user.name="pr-bot" \
+            -c user.email="pr-bot@mnscorp.net" \
+            commit -am "Remove test-app-e2e"
           popd
           popd
 
