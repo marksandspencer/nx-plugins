@@ -26,4 +26,7 @@ Our project is published under the MIT License.
 
 ### Join Us
 
-We appreciate all input from the community. Please share any feedback or questions via GitHub [issues](https://github.com/marksandspencer/nx-plugins/issues). Your support will help to shape the project to meet community needs.
+We appreciate all input and contribution from the community.  
+Please share any feedback or questions via GitHub [issues](https://github.com/marksandspencer/nx-plugins/issues).  
+To contribute please check our contribution guideline [here](https://github.com/marksandspencer/nx-plugins/blob/main/CONTRIBUTING.md).  
+Your support will help to shape the project to meet community needs.
