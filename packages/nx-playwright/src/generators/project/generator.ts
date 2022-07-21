@@ -35,6 +35,16 @@ export default async function (host: Tree, options: NxPlaywrightGeneratorSchema)
           },
         },
       },
+      'ts-check': {
+        executor: '@nrwl/workspace:run-commands',
+        options: {
+          commands: [
+            {
+              command: `yarn tsc --build apps/${options.project}/tsconfig.json`,
+            },
+          ],
+        },
+      },
     },
     tags: normalizedOptions.parsedTags,
     implicitDependencies: options.project ? [options.project] : undefined,
