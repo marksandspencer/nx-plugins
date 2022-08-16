@@ -12,19 +12,10 @@ export default async function executor(
 
   const success = await Promise.resolve()
     .then(async () => {
-      let headedOption = ""
-      if (options.headed === true) {
-          headedOption = "--headed"
-      }
-      let projectOption = ""
-      if (options.browser?.length) {
-          projectOption = `--browser=${options.browser}`
-      }
-      let reporterOption = ""
-      if (options.reporter?.length) {
-          reporterOption = `--reporter=${options.reporter}`
-      }
-      
+      const headedOption = options.headed === true ? '--headed' : ''
+      const projectOption =  options.browser?.length ? `--browser=${options.browser}` : ''
+      const reporterOption = options.reporter?.length ? `--reporter=${options.reporter}` : ''
+
       const { stdout, stderr } = await promisify(exec)(
         `yarn playwright test src --config ${options.e2eFolder}/playwright.config.ts ${headedOption} ${projectOption} ${reporterOption}`
       );
