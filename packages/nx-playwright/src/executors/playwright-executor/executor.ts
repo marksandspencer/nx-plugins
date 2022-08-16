@@ -17,7 +17,7 @@ export default async function executor(
       const reporterOption = options.reporter?.length ? `--reporter=${options.reporter}` : '';
 
       const { stdout, stderr } = await promisify(exec)(
-        `yarn playwright test src --config ${options.e2eFolder}/playwright.config.ts ${headedOption} ${browserOption} ${reporterOption}`
+        `yarn playwright test src --config ${options.e2eFolder}/playwright.config.ts ${headedOption} ${browserOption} ${reporterOption}`,
       );
 
       console.info(`Playwright output ${stdout}`);
