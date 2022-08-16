@@ -5,7 +5,7 @@ export interface PlaywrightExecutorSchema {
   slowMo?: number;
   devtools?: boolean;
   headed?: boolean;
-  reporter? string;
+  reporter?: string;
   browser?: 'chromium' | 'firefox' | 'webkit' | 'all';
   timeout?: number;
   skipServe?: boolean;
