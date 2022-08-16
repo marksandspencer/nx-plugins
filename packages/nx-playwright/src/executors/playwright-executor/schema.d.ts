@@ -4,9 +4,9 @@ export interface PlaywrightExecutorSchema {
   baseUrl?: string;
   slowMo?: number;
   devtools?: boolean;
-  headless?: boolean;
+  headed?: boolean;
   reporter? string;
-  browsers?: ('chromium' | 'firefox' | 'webkit')[];
+  browser?: 'chromium' | 'firefox' | 'webkit' | 'all';
   timeout?: number;
   skipServe?: boolean;
 }
