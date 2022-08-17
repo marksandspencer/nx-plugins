@@ -35,7 +35,7 @@ describe('executor', () => {
       await executor(options, context);
 
       const expected =
-          'yarn playwright test src --config folder/playwright.config.ts --headed --browser=firefox --reporter=html';
+        'yarn playwright test src --config folder/playwright.config.ts --headed --browser=firefox --reporter=html';
       expect(execCmd).toHaveBeenCalledWith(expected);
     });
   });
