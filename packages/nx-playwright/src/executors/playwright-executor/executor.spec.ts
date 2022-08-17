@@ -1,6 +1,5 @@
 import * as utilModule from 'util';
 import executor from './executor';
-import { PlaywrightExecutorSchema } from './schema';
 import * as startDevServerModule from './lib/start-dev-server';
 
 const startDevServer = jest
@@ -22,7 +21,7 @@ describe('executor', () => {
   beforeEach(jest.resetAllMocks);
 
   describe('with cli opts', () => {
-    const options: PlaywrightExecutorSchema = {
+    const options = {
       e2eFolder: 'folder',
       headed: true,
       browser: 'firefox',
@@ -35,13 +34,14 @@ describe('executor', () => {
 
       await executor(options, context);
 
-      let expected = 'yarn playwright test src --config folder/playwright.config.ts --headed --browser=firefox --reporter=html';
+      const expected =
+          'yarn playwright test src --config folder/playwright.config.ts --headed --browser=firefox --reporter=html';
       expect(execCmd).toHaveBeenCalledWith(expected);
     });
   });
 
   describe('playwright execution', () => {
-    const options: PlaywrightExecutorSchema = {
+    const options = {
       e2eFolder: 'folder',
     };
 
@@ -88,5 +88,5 @@ describe('executor', () => {
       expect(console.error).toHaveBeenCalledTimes(1);
       expect(console.error).toHaveBeenCalledWith('Unexpected error', error);
     });
-  })
+  });
 });
