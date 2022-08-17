@@ -21,28 +21,26 @@ console.info = jest.fn().mockReturnValue(null);
 describe('executor', () => {
   beforeEach(jest.resetAllMocks);
 
-  describe("with cli opts", () => {
+  describe('with cli opts', () => {
     const options: PlaywrightExecutorSchema = {
       e2eFolder: 'folder',
       headed: true,
-      browser: "firefox",
-      reporter: "html"
+      browser: 'firefox',
+      reporter: 'html',
     };
 
-    it("concatenates options to playwright command", async () => {
+    it('concatenates overriding options to playwright command', async () => {
       const execCmd = jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: '' });
-      promisify.mockReturnValueOnce(
-        execCmd
-      );
+      promisify.mockReturnValueOnce(execCmd);
 
       await executor(options, context);
 
-      let expected = "yarn playwright test src --config folder/playwright.config.ts --headed --browser=firefox --reporter=html";
+      let expected = 'yarn playwright test src --config folder/playwright.config.ts --headed --browser=firefox --reporter=html';
       expect(execCmd).toHaveBeenCalledWith(expected);
     });
   });
 
-  describe("playwright execution", () => {
+  describe('playwright execution', () => {
     const options: PlaywrightExecutorSchema = {
       e2eFolder: 'folder',
     };
