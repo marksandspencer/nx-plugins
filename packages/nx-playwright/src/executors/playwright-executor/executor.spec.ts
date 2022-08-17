@@ -1,6 +1,7 @@
 import * as utilModule from 'util';
 import executor from './executor';
 import * as startDevServerModule from './lib/start-dev-server';
+import { PlaywrightExecutorSchema } from './schema';
 
 const startDevServer = jest
   .spyOn(startDevServerModule, 'startDevServer')
@@ -21,7 +22,7 @@ describe('executor', () => {
   beforeEach(jest.resetAllMocks);
 
   describe('with cli opts', () => {
-    const options = {
+    const options: PlaywrightExecutorSchema = {
       e2eFolder: 'folder',
       headed: true,
       browser: 'firefox',
@@ -41,7 +42,7 @@ describe('executor', () => {
   });
 
   describe('playwright execution', () => {
-    const options = {
+    const options: PlaywrightExecutorSchema = {
       e2eFolder: 'folder',
     };
 
