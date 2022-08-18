@@ -16,6 +16,10 @@
     "browser": {
       "enum": ["all", "chromium", "firefox", "webkit"],
       "description": "run on specific browser (all for all)"
+    },
+    "skipServe ": {
+      "type": "boolean",
+      "description": "whether to skip starting the server"
     }
   }
 }
