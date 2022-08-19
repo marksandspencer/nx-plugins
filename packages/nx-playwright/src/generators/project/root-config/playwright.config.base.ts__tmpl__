@@ -2,18 +2,10 @@ import { PlaywrightTestConfig } from '@playwright/test';
 
 const baseURL = process.env.E2E_BASE_URL || 'http://localhost:4200/';
 
-const desktop = { width: 1200, height: 2000 };
-
 export const baseConfig: PlaywrightTestConfig = {
   retries: 3,
   maxFailures: 2,
   timeout: 120000,
-  projects: [
-    {
-      name: 'Safari desktop',
-      use: { browserName: 'webkit', viewport: desktop },
-    },
-  ],
   use: {
     baseURL,
   },
