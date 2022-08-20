@@ -10,9 +10,7 @@ function getFlags(options: PlaywrightExecutorSchema): string {
   const reporterOption = options.reporter?.length ? `--reporter=${options.reporter}` : '';
   const timeoutOution = (options.timeout ?? `--timeout=${options.timeout}`) || '';
 
-  const flagStrings = [
-    headedOption, browserOption, reporterOption, timeoutOution,
-  ].filter(Boolean);
+  const flagStrings = [headedOption, browserOption, reporterOption, timeoutOution].filter(Boolean);
 
   return flagStrings.join(' ');
 }
