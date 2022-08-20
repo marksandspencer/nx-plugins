@@ -11,7 +11,7 @@ function getFlags(options: PlaywrightExecutorSchema): string {
   const timeoutOution = (options.timeout ?? `--timeout=${options.timeout}`) || '';
 
   const flagStrings = [
-    headedOption, browserOption, reporterOption, timeoutOution
+    headedOption, browserOption, reporterOption, timeoutOution,
   ].filter(Boolean);
 
   return flagStrings.join(' ');
@@ -25,10 +25,10 @@ export default async function executor(
 
   const success = await Promise.resolve()
     .then(async () => {
-
+      const flags = getFlags(options);
 
       const { stdout, stderr } = await promisify(exec)(
-        `yarn playwright test src --config ${options.e2eFolder}/playwright.config.ts ${headedOption} ${browserOption} ${reporterOption}`,
+        `yarn playwright test src --config ${options.e2eFolder}/playwright.config.ts ${flags}`,
       );
 
       console.info(`Playwright output ${stdout}`);
