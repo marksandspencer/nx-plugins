@@ -8,7 +8,7 @@ function getFlags(options: PlaywrightExecutorSchema): string {
   const headedOption = options.headed === true ? '--headed' : '';
   const browserOption = options.browser?.length ? `--browser=${options.browser}` : '';
   const reporterOption = options.reporter?.length ? `--reporter=${options.reporter}` : '';
-  const timeoutOution = (options.timeout ?? `--timeout=${options.timeout}`) || '';
+  const timeoutOution = options.timeout !== undefined ? `--timeout=${options.timeout}` : '';
 
   const flagStrings = [headedOption, browserOption, reporterOption, timeoutOution].filter(Boolean);
 
