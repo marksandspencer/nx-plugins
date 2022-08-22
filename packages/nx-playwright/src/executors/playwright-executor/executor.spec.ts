@@ -27,6 +27,7 @@ describe('executor', () => {
       headed: true,
       browser: 'firefox',
       reporter: 'html',
+      timeout: 1234,
     };
 
     it('concatenates overriding options to playwright command', async () => {
@@ -36,7 +37,7 @@ describe('executor', () => {
       await executor(options, context);
 
       const expected =
-        'yarn playwright test src --config folder/playwright.config.ts --headed --browser=firefox --reporter=html';
+        'yarn playwright test src --config folder/playwright.config.ts --headed --browser=firefox --reporter=html --timeout=1234';
       expect(execCmd).toHaveBeenCalledWith(expected);
     });
   });

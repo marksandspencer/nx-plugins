@@ -17,6 +17,18 @@ yarn playwright install --with-deps
 yarn nx e2e <APP-NAME>-e2e
 ```
 
+## Execution Flags
+
+`nx-playwright` has some flags that you can utilize at execution time
+
+- `--browser=BROWSER_TYPE`: allowed browser types being `chromium`, `firefox` or `webkit` (or an `all` type to execute against all 3 types)
+- `--format=FORMAT_TYPE`: this allows values such as `json` or `html`
+- `--headed`: launches the browsers in non-headless mode
+- `--skipServe`: skips the execution of a devServer
+- `--timeout=TIMEOUT_IN_MS`: adds a timeout for your tests
+
+These flags align with the standard [playwright flags](https://playwright.dev/docs/test-cli#reference), as well as the [nx-cypress](https://nx.dev/packages/cypress/executors/cypress#options) ones.
+
 ## Testing this plugin locally
 
 Create a new Nx workspace containing one application. Then run, in the root of this repo:

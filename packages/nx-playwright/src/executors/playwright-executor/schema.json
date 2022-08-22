@@ -5,6 +5,10 @@
   "description": "Playwright target options for Build Facade",
   "type": "object",
   "properties": {
+    "browser": {
+      "enum": ["all", "chromium", "firefox", "webkit"],
+      "description": "run on specific browser (all for all)"
+    },
     "headed": {
       "type": "boolean",
       "description": "whether to show the browser head"
@@ -13,13 +17,13 @@
       "type": "string",
       "description": "type of output reporter"
     },
-    "browser": {
-      "enum": ["all", "chromium", "firefox", "webkit"],
-      "description": "run on specific browser (all for all)"
-    },
-    "skipServe ": {
+    "skipServe": {
       "type": "boolean",
       "description": "whether to skip starting the server"
+    },
+    "timeout": {
+      "type": "number",
+      "description": "timeout for tests"
     }
   }
 }
