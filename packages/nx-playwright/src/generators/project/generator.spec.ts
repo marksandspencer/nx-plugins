@@ -37,7 +37,7 @@ describe('nx-playwright generator', () => {
           options: {
             commands: [
               {
-                command: `yarn tsc --build apps/test-project/tsconfig.json`,
+                command: `yarn tsc --build apps/test-project-e2e/tsconfig.json`,
               },
             ],
           },
