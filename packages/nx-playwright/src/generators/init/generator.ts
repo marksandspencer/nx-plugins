@@ -9,7 +9,11 @@ export const removePlaywrightDeps = ({ dependencies = {}, ...json }) => {
 export default async function playwrightInitGenerator(host: Tree, options: InitGeneratorSchema) {
   updateJson(host, 'package.json', removePlaywrightDeps);
 
-  const installTask = addDependenciesToPackageJson(host, {}, { '@playwright/test': '1.22.2' });
+  const installTask = addDependenciesToPackageJson(
+    host,
+    {},
+    { '@playwright/test': '1.25.1', playwright: '1.25.1' },
+  );
 
   if (!options.skipFormat) {
     await formatFiles(host);
