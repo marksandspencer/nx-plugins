@@ -40,7 +40,7 @@ export default async function (host: Tree, options: NxPlaywrightGeneratorSchema)
         options: {
           commands: [
             {
-              command: `yarn tsc --build apps/${options.project}/tsconfig.json`,
+              command: `yarn tsc --build apps/${options.project}-e2e/tsconfig.json`,
             },
           ],
         },
