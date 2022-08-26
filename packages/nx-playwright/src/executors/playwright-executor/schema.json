@@ -18,8 +18,8 @@
       "description": "type of output reporter"
     },
     "runner": {
-      "enum": ["yarn", "npm", "pnpm"],
-      "description": "package manager to use to run playwright"
+      "enum": ["yarn", "npx", "pnpm"],
+      "description": "runner to use to run playwright"
     },
     "skipServe": {
       "type": "boolean",
