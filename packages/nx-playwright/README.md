@@ -26,6 +26,7 @@ yarn nx e2e <APP-NAME>-e2e
 - `--headed`: launches the browsers in non-headless mode
 - `--skipServe`: skips the execution of a devServer
 - `--timeout=TIMEOUT_IN_MS`: adds a timeout for your tests
+- `--runner=yarn|npm|pnpm`: package manager to use to run playwright. Defaults to `yarn`
 
 These flags align with the standard [playwright flags](https://playwright.dev/docs/test-cli#reference), as well as the [nx-cypress](https://nx.dev/packages/cypress/executors/cypress#options) ones.
 

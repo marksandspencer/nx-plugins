@@ -7,6 +7,7 @@ export interface PlaywrightExecutorSchema {
   headed?: boolean;
   reporter?: string;
   browser?: 'chromium' | 'firefox' | 'webkit' | 'all';
+  runner?: 'yarn' | 'npm' | 'pnpm';
   timeout?: number;
   skipServe?: boolean;
 }

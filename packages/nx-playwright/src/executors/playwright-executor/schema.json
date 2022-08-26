@@ -17,6 +17,10 @@
       "type": "string",
       "description": "type of output reporter"
     },
+    "runner": {
+      "enum": ["yarn", "npm", "pnpm"],
+      "description": "package manager to use to run playwright"
+    },
     "skipServe": {
       "type": "boolean",
       "description": "whether to skip starting the server"

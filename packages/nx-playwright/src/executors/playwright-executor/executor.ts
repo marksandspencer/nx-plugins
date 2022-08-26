@@ -15,6 +15,12 @@ function getFlags(options: PlaywrightExecutorSchema): string {
   return flagStrings.join(' ');
 }
 
+const runnerCommands = {
+  yarn: 'yarn',
+  npm: 'npx',
+  pnpm: 'pnpm',
+};
+
 export default async function executor(
   options: PlaywrightExecutorSchema,
   context: ExecutorContext,
@@ -24,9 +30,11 @@ export default async function executor(
   const success = await Promise.resolve()
     .then(async () => {
       const flags = getFlags(options);
+      const runnerOption = options.runner !== undefined ? options.runner : 'yarn';
+      const runnerCommand = runnerCommands[runnerOption];
 
       const { stdout, stderr } = await promisify(exec)(
-        `yarn playwright test src --config ${options.e2eFolder}/playwright.config.ts ${flags}`,
+        `${runnerCommand} playwright test src --config ${options.e2eFolder}/playwright.config.ts ${flags}`,
       );
 
       console.info(`Playwright output ${stdout}`);
