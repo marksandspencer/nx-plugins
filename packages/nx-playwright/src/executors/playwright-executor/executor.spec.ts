@@ -27,7 +27,7 @@ describe('executor', () => {
         e2eFolder: 'folder',
         runner: 'npx',
       };
-      
+
       const execCmd = jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: '' });
       promisify.mockReturnValueOnce(execCmd);
 
@@ -36,7 +36,7 @@ describe('executor', () => {
       const expected = 'npx playwright test src --config folder/playwright.config.ts';
       expect(execCmd).toHaveBeenCalledWith(expected);
     });
-    
+
     it('concatenates overriding options to playwright command', async () => {
       const options: PlaywrightExecutorSchema = {
         e2eFolder: 'folder',
@@ -45,7 +45,7 @@ describe('executor', () => {
         reporter: 'html',
         timeout: 1234,
       };
-      
+
       const execCmd = jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: '' });
       promisify.mockReturnValueOnce(execCmd);
 
