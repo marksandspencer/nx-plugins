@@ -21,16 +21,31 @@ console.info = jest.fn().mockReturnValue(null);
 describe('executor', () => {
   beforeEach(jest.resetAllMocks);
 
-  describe('with cli opts', () => {
-    const options: PlaywrightExecutorSchema = {
-      e2eFolder: 'folder',
-      headed: true,
-      browser: 'firefox',
-      reporter: 'html',
-      timeout: 1234,
-    };
+  describe('building runner command', () => {
+    it('uses correct runner', async () => {
+      const options: PlaywrightExecutorSchema = {
+        e2eFolder: 'folder',
+        runner: 'npx',
+      };
+
+      const execCmd = jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: '' });
+      promisify.mockReturnValueOnce(execCmd);
+
+      await executor(options, context);
+
+      const expected = 'npx playwright test src --config folder/playwright.config.ts';
+      expect(execCmd).toHaveBeenCalledWith(expected);
+    });
 
     it('concatenates overriding options to playwright command', async () => {
+      const options: PlaywrightExecutorSchema = {
+        e2eFolder: 'folder',
+        headed: true,
+        browser: 'firefox',
+        reporter: 'html',
+        timeout: 1234,
+      };
+
       const execCmd = jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: '' });
       promisify.mockReturnValueOnce(execCmd);
 

@@ -24,9 +24,10 @@ export default async function executor(
   const success = await Promise.resolve()
     .then(async () => {
       const flags = getFlags(options);
+      const runnerCommand = options.runner ?? 'yarn';
 
       const { stdout, stderr } = await promisify(exec)(
-        `yarn playwright test src --config ${options.e2eFolder}/playwright.config.ts ${flags}`,
+        `${runnerCommand} playwright test src --config ${options.e2eFolder}/playwright.config.ts ${flags}`.trim(),
       );
 
       console.info(`Playwright output ${stdout}`);
