@@ -1,7 +1,7 @@
 import { Tree } from '@nrwl/devkit';
 import ignore from 'ignore';
 
-export const addGitIgnoreEntry = (host: Tree) => {
+export function addGitIgnoreEntry (host: Tree) {
   const content = host.exists('.gitignore') ? host.read('.gitignore', 'utf-8').trimEnd() : '';
 
   const ig = ignore();
