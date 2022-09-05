@@ -6,7 +6,7 @@ const treeFactory = (): devkit.Tree => {
     root: '',
     read: jest.fn(),
     write: jest.fn(),
-    exists: jest.fn(),
+    exists: jest.fn(() => true),
     delete: jest.fn(),
     rename: jest.fn(),
     isFile: jest.fn(),
@@ -21,18 +21,37 @@ describe('add-git-ignore-entry', () => {
 
   it('should ignore unignored', async () => {
     const host = treeFactory();
-    host.read.mockReturnValueOnce(`
-        /playwright-report/
-    `
+
+    host.read = jest.fn().mockReturnValue('');
+    addGitIgnoreEntry(host);
+    expect(host.write).toHaveBeenCalledWith(
+      '.gitignore',
+      expect.stringContaining(`
+# Playwright
+**/test-results
+**/playwright-report
+**/playwright/.cache`),
     );
-    addGitIgnoreEntry(host)
-    expect(host.write).toHaveBeenCalledWith("sdjdjdjdj")
   });
 
   it('should unignore ignored', async () => {
     const host = treeFactory();
-    
-    addGitIgnoreEntry(host)
-    expect(host.write).toHaveBeenCalled("djkdjdk")
+    host.read = jest.fn().mockReturnValue(`
+# Playwright
+**/test-results
+something
+
+    `);
+
+    addGitIgnoreEntry(host);
+    expect(host.write).toHaveBeenCalledWith(
+      '.gitignore',
+      expect.stringContaining(`
+# Playwright
+**/test-results
+something
+**/playwright-report
+**/playwright/.cache`),
+    );
   });
 });
