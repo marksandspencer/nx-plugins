@@ -77,7 +77,6 @@
     {
       "files": ["*.spec.*"],
       "rules": {
-        "functional/no-return-void": "off",
         "functional/immutable-data": "off",
         "@next/next/no-document-import-in-page": "off",
         "@next/next/no-server-import-in-page": "off"

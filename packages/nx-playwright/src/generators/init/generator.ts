@@ -1,5 +1,6 @@
 import { addDependenciesToPackageJson, formatFiles, Tree, updateJson } from '@nrwl/devkit';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
+import { addGitIgnoreEntry } from './lib/add-git-ignore-entry';
 import { InitGeneratorSchema } from './schema';
 
 export const removePlaywrightDeps = ({ dependencies = {}, ...json }) => {
@@ -18,6 +19,8 @@ export default async function playwrightInitGenerator(host: Tree, options: InitG
   if (!options.skipFormat) {
     await formatFiles(host);
   }
+
+  addGitIgnoreEntry(host);
 
   return runTasksInSerial(installTask);
 }
