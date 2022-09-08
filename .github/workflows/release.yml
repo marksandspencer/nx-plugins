@@ -1,9 +1,9 @@
 name: Release
 
 on:
-  push:
-    branches:
-      - main
+  #push:
+  #  branches:
+  #    - main
   workflow_dispatch:
 
 env:
@@ -36,7 +36,7 @@ jobs:
           echo "scope=@mands" > .npmrc
           echo "@mands:registry=https://registry.npmjs.org/" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
-          lerna publish --yes --access=public
+          lerna version patch --yes
 
           VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g')
           echo "Tagging version $VERSION"
