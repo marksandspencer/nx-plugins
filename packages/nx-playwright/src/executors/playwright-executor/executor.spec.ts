@@ -25,7 +25,7 @@ describe('executor', () => {
     it('uses correct runner', async () => {
       const options: PlaywrightExecutorSchema = {
         e2eFolder: 'folder',
-        runner: 'npx',
+        packageRunner: 'npx',
       };
 
       const execCmd = jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: '' });

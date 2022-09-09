@@ -25,6 +25,7 @@ describe('nx-playwright generator', () => {
           options: {
             e2eFolder: 'e2e/test-generator',
             devServerTarget: 'test-project:serve',
+            packageRunner: 'yarn',
           },
           configurations: {
             production: {
@@ -37,7 +38,7 @@ describe('nx-playwright generator', () => {
           options: {
             commands: [
               {
-                command: `yarn tsc --build --force --verbose apps/test-project-e2e/tsconfig.json`,
+                command: `tsc --build --force --verbose apps/test-project-e2e/tsconfig.json`,
               },
             ],
           },
@@ -52,4 +53,5 @@ describe('nx-playwright generator', () => {
       implicitDependencies: ['test-project'],
     });
   });
+  // TODO: write test for the case where options are overridden
 });

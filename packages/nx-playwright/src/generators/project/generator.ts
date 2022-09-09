@@ -28,6 +28,7 @@ export default async function (host: Tree, options: NxPlaywrightGeneratorSchema)
         options: {
           e2eFolder: normalizedOptions.projectRoot,
           devServerTarget: options.project ? `${options.project}:serve` : undefined,
+          packageRunner: options.packageRunner ?? 'yarn',
         },
         configurations: {
           production: {
@@ -40,7 +41,7 @@ export default async function (host: Tree, options: NxPlaywrightGeneratorSchema)
         options: {
           commands: [
             {
-              command: `yarn tsc --build --force --verbose apps/${options.project}-e2e/tsconfig.json`,
+              command: `tsc --build --force --verbose apps/${options.project}-e2e/tsconfig.json`,
             },
           ],
         },

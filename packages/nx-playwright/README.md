@@ -11,7 +11,7 @@ Replacing the placeholders `<PATH-TO-NX-WORKSPACE>` and `<APP-NAME>`:
 
 ```sh
 cd <PATH-TO-NX-WORKSPACE>
-yarn add -D @mands/nx-playwright
+yarn add --dev @mands/nx-playwright
 yarn nx generate @mands/nx-playwright:project <APP-NAME>-e2e --project <APP-NAME>
 yarn playwright install --with-deps
 yarn nx e2e <APP-NAME>-e2e
@@ -24,7 +24,7 @@ yarn nx e2e <APP-NAME>-e2e
 - `--browser=BROWSER_TYPE`: allowed browser types being `chromium`, `firefox` or `webkit` (or an `all` type to execute against all 3 types)
 - `--format=FORMAT_TYPE`: this allows values such as `json` or `html`
 - `--headed`: launches the browsers in non-headless mode
-- `--runner`: runner to use for running playwright (`npx`, `pnpm`, or `yarn`). Defaults to `yarn`.
+- `--packageRunner`: package runner to use for running playwright (`npx`, `pnpm`, or `yarn`). Defaults to `yarn`.
 - `--skipServe`: skips the execution of a devServer
 - `--timeout=TIMEOUT_IN_MS`: adds a timeout for your tests
 
