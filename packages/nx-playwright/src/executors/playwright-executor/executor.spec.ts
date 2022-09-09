@@ -1,4 +1,4 @@
-import * as utilModule from 'util';
+import utilModule from 'util';
 import executor from './executor';
 import * as startDevServerModule from './lib/start-dev-server';
 import { PlaywrightExecutorSchema } from './schema-types';
