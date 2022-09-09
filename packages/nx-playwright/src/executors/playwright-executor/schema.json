@@ -17,9 +17,10 @@
       "type": "string",
       "description": "type of output reporter"
     },
-    "runner": {
+    "packageRunner": {
       "enum": ["yarn", "npx", "pnpm"],
-      "description": "runner to use to run playwright"
+      "description": "package runner to use to run playwright",
+      "default": "yarn"
     },
     "skipServe": {
       "type": "boolean",

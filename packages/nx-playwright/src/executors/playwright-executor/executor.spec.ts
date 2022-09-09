@@ -1,7 +1,7 @@
-import * as utilModule from 'util';
+import utilModule from 'util';
 import executor from './executor';
 import * as startDevServerModule from './lib/start-dev-server';
-import { PlaywrightExecutorSchema } from './schema';
+import { PlaywrightExecutorSchema } from './schema-types';
 
 const startDevServer = jest
   .spyOn(startDevServerModule, 'startDevServer')
@@ -25,7 +25,7 @@ describe('executor', () => {
     it('uses correct runner', async () => {
       const options: PlaywrightExecutorSchema = {
         e2eFolder: 'folder',
-        runner: 'npx',
+        packageRunner: 'npx',
       };
 
       const execCmd = jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: '' });

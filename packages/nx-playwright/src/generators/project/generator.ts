@@ -12,7 +12,8 @@ import * as path from 'path';
 import playwrightInitGenerator from '../init/generator';
 import { addLinting } from './lib/add-linting';
 import { normalizeOptions, NxPlaywrightGeneratorNormalizedSchema } from './lib/normalize-options';
-import { NxPlaywrightGeneratorSchema } from './schema';
+import generatorSchema from './schema.json';
+import { NxPlaywrightGeneratorSchema } from './schema-types';
 
 export default async function (host: Tree, options: NxPlaywrightGeneratorSchema) {
   const normalizedOptions = normalizeOptions(host, { ...options, type: 'app' });
@@ -28,6 +29,7 @@ export default async function (host: Tree, options: NxPlaywrightGeneratorSchema)
         options: {
           e2eFolder: normalizedOptions.projectRoot,
           devServerTarget: options.project ? `${options.project}:serve` : undefined,
+          packageRunner: options.packageRunner ?? generatorSchema.properties.packageRunner.default,
         },
         configurations: {
           production: {
@@ -40,7 +42,7 @@ export default async function (host: Tree, options: NxPlaywrightGeneratorSchema)
         options: {
           commands: [
             {
-              command: `yarn tsc --build --force --verbose apps/${options.project}-e2e/tsconfig.json`,
+              command: `tsc --build --force --verbose apps/${options.project}-e2e/tsconfig.json`,
             },
           ],
         },

@@ -1,4 +1,5 @@
 import { Linter } from '@nrwl/linter';
+import type { PackageRunner } from '../../types';
 
 export interface NxPlaywrightGeneratorSchema {
   project?: string;
@@ -7,4 +8,5 @@ export interface NxPlaywrightGeneratorSchema {
   directory?: string;
   linter: Linter;
   skipFormat?: boolean;
+  packageRunner?: PackageRunner;
 }

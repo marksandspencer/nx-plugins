@@ -1,5 +1,5 @@
 import { getWorkspaceLayout, names, Tree } from '@nrwl/devkit';
-import { NxPlaywrightGeneratorSchema } from '../schema';
+import { NxPlaywrightGeneratorSchema } from '../schema-types';
 
 export type NxPlaywrightGeneratorNormalizedSchema = NxPlaywrightGeneratorSchema & NormalizedOptions;
 

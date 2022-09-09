@@ -1,5 +1,5 @@
 import { ExecutorContext, runExecutor } from '@nrwl/devkit';
-import type { PlaywrightExecutorSchema } from '../schema';
+import type { PlaywrightExecutorSchema } from '../schema-types';
 
 type ExecutorResult = {
   success: boolean;

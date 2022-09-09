@@ -1,3 +1,5 @@
+import type { PackageRunner } from '../../types';
+
 export interface PlaywrightExecutorSchema {
   e2eFolder: string;
   devServerTarget?: string;
@@ -7,7 +9,7 @@ export interface PlaywrightExecutorSchema {
   headed?: boolean;
   reporter?: string;
   browser?: 'chromium' | 'firefox' | 'webkit' | 'all';
-  runner?: 'yarn' | 'npx' | 'pnpm';
+  packageRunner?: PackageRunner;
   timeout?: number;
   skipServe?: boolean;
 }

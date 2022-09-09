@@ -35,6 +35,11 @@
       "description": "Skip formatting files",
       "type": "boolean",
       "default": false
+    },
+    "packageRunner": {
+      "enum": ["yarn", "npx", "pnpm"],
+      "description": "package runner to use to run playwright",
+      "default": "yarn"
     }
   },
   "required": ["name"]
