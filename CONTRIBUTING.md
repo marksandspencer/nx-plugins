@@ -18,10 +18,11 @@ A pull request is the best way to propose a change to the codebase. We actively 
 
 1. Fork the repo and create your branch from `main`
 2. If you've added code that should be tested, add tests
-3. Bump the version in package.json
-4. Update the documentation if required
-5. Ensure PR validation passes
-6. Issue the pull request
+3. Manually update the `version` property in the root `package.json`, ensuring you follow [semver](https://semver.org/) conventions when choosing the new version
+4. Do the same in the `package.json` for the package that you have updated in `packages`
+5. Update the documentation if required
+6. Ensure PR validation passes
+7. Issue the pull request
 
 ## License
 
