@@ -23,7 +23,7 @@ yarn nx e2e <APP-NAME>-e2e
 
 - `--browser=BROWSER_TYPE`: allowed browser types being `chromium`, `firefox` or `webkit` (or an `all` type to execute against all 3 types)
 - `--format=FORMAT_TYPE`: this allows values such as `json` or `html`
-- `--headed`: launches the browsers in non-headless mode
+- `--headed`: launches the browser in non-headless mode
 - `--debug`: runs tests in a browser plus another interactive debugger window that you can pause/play tests
 - `--packageRunner`: package runner to use for running playwright (`npx`, `pnpm`, or `yarn`). Defaults to `yarn`.
 - `--skipServe`: skips the execution of a devServer
