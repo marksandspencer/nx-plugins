@@ -13,7 +13,7 @@ export default async function playwrightInitGenerator(host: Tree, options: InitG
   const installTask = addDependenciesToPackageJson(
     host,
     {},
-    { '@playwright/test': '1.25.1', playwright: '1.25.1' },
+    { '@playwright/test': '1.26.0', playwright: '1.26.0' },
   );
 
   if (!options.skipFormat) {
