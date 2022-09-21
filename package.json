@@ -1,6 +1,6 @@
 {
   "name": "@mands/nx-plugins",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Nx plugins by M&S engineering",
   "license": "MIT",
   "private": false,
@@ -30,7 +30,6 @@
     "@nrwl/node": "14.2.4",
     "@nrwl/nx-plugin": "14.2.4",
     "@nrwl/workspace": "14.2.4",
-    "@playwright/test": "^1.19.1",
     "@swc-node/register": "^1.4.2",
     "@swc/core": "^1.2.173",
     "@types/jest": "27.4.1",
