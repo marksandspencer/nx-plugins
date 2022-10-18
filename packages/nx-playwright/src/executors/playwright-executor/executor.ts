@@ -10,8 +10,17 @@ function getFlags(options: PlaywrightExecutorSchema): string {
   const browserOption = options.browser?.length ? `--browser=${options.browser}` : '';
   const reporterOption = options.reporter?.length ? `--reporter=${options.reporter}` : '';
   const timeoutOption = options.timeout !== undefined ? `--timeout=${options.timeout}` : '';
+  const grepOption = options.grep !== undefined ? `--grep=${options.grep}` : '';
+  const grepInvertOption = options.grepInvert !== undefined ? `--grep-invert=${options.grepInvert}` : '';
 
-  const flagStrings = [headedOption, browserOption, reporterOption, timeoutOption].filter(Boolean);
+  const flagStrings = [
+    headedOption,
+    browserOption,
+    reporterOption,
+    timeoutOption,
+    grepOption,
+    grepInvertOption,
+  ].filter(Boolean);
 
   return flagStrings.join(' ');
 }
