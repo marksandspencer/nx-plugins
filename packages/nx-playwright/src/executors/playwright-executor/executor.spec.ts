@@ -44,7 +44,7 @@ describe('executor', () => {
         browser: 'firefox',
         reporter: 'html',
         timeout: 1234,
-        grep: '@tag1'
+        grep: '@tag1',
       };
 
       const execCmd = jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: '' });
@@ -60,7 +60,7 @@ describe('executor', () => {
     it('concatenates overriding options to playwright command with grep-invert', async () => {
       const options: PlaywrightExecutorSchema = {
         e2eFolder: 'folder',
-        grepInvert: '@tag1'
+        grepInvert: '@tag1',
       };
 
       const execCmd = jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: '' });

@@ -11,7 +11,8 @@ function getFlags(options: PlaywrightExecutorSchema): string {
   const reporterOption = options.reporter?.length ? `--reporter=${options.reporter}` : '';
   const timeoutOption = options.timeout !== undefined ? `--timeout=${options.timeout}` : '';
   const grepOption = options.grep !== undefined ? `--grep=${options.grep}` : '';
-  const grepInvertOption = options.grepInvert !== undefined ? `--grep-invert=${options.grepInvert}` : '';
+  const grepInvertOption =
+    options.grepInvert !== undefined ? `--grep-invert=${options.grepInvert}` : '';
 
   const flagStrings = [
     headedOption,
