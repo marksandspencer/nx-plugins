@@ -44,6 +44,7 @@ describe('executor', () => {
         browser: 'firefox',
         reporter: 'html',
         timeout: 1234,
+        grep: '@tag1',
       };
 
       const execCmd = jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: '' });
@@ -52,7 +53,23 @@ describe('executor', () => {
       await executor(options, context);
 
       const expected =
-        'yarn playwright test src --config folder/playwright.config.ts --headed --browser=firefox --reporter=html --timeout=1234';
+        'yarn playwright test src --config folder/playwright.config.ts --headed --browser=firefox --reporter=html --timeout=1234 --grep=@tag1';
+      expect(execCmd).toHaveBeenCalledWith(expected);
+    });
+
+    it('concatenates overriding options to playwright command with grep-invert', async () => {
+      const options: PlaywrightExecutorSchema = {
+        e2eFolder: 'folder',
+        grepInvert: '@tag1',
+      };
+
+      const execCmd = jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: '' });
+      promisify.mockReturnValueOnce(execCmd);
+
+      await executor(options, context);
+
+      const expected =
+        'yarn playwright test src --config folder/playwright.config.ts --grep-invert=@tag1';
       expect(execCmd).toHaveBeenCalledWith(expected);
     });
   });

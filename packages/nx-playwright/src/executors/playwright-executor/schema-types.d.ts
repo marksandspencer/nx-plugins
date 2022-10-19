@@ -12,4 +12,6 @@ export interface PlaywrightExecutorSchema {
   packageRunner?: PackageRunner;
   timeout?: number;
   skipServe?: boolean;
+  grep?: string;
+  grepInvert?: string;
 }
