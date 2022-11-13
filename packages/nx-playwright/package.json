@@ -11,5 +11,8 @@
   },
   "main": "index.js",
   "generators": "./generators.json",
-  "executors": "./executors.json"
+  "executors": "./executors.json",
+  "peerDependencies": {
+    "@playwright/test": "^1.25.0"
+  }
 }
