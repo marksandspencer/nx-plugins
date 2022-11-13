@@ -35,6 +35,8 @@ yarn nx e2e <APP-NAME>-e2e
 - `--skipServe`: skips the execution of a devServer
 - `--timeout=TIMEOUT_IN_MS`: adds a timeout for your tests
 
+> **Note** These flags can also be used in `project.json` or `nx.json`
+
 These flags align with the standard [playwright flags](https://playwright.dev/docs/test-cli#reference), as well as the [nx-cypress](https://nx.dev/packages/cypress/executors/cypress#options) ones.
 
 ## Testing this plugin locally
