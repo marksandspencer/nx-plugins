@@ -2,18 +2,24 @@
 
 [![MIT License](https://img.shields.io/github/license/marksandspencer/nx-plugins)](https://github.com/marksandspencer/nx-plugins/blob/main/LICENSE.md) ![Build](https://github.com/marksandspencer/nx-plugins/actions/workflows/release.yml/badge.svg) [![npm version](https://badge.fury.io/js/@mands%2Fnx-playwright.svg)](https://badge.fury.io/js/@mands%2Fnx-playwright) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/marksandspencer/nx-plugins/blob/main/CONTRIBUTING.md)
 
-An [Nx plugin](https://nx.dev/packages/nx-plugin) to add support to an Nx monorepo for
-Playwright testing using a native runner.
+An [Nx plugin](https://nx.dev/packages/nx-plugin) that adds [Playwright](https://playwright.dev/) end-to-end testing using a native runner to your NX workspace.
 
-## Usage
+## Setup
 
-Replacing the placeholders `<PATH-TO-NX-WORKSPACE>` and `<APP-NAME>`:
+> **Note** Don't forget to replace the placeholder `<APP-NAME>`
+
+
+### Installation
 
 ```sh
-cd <PATH-TO-NX-WORKSPACE>
 yarn add --dev @mands/nx-playwright
 yarn nx generate @mands/nx-playwright:project <APP-NAME>-e2e --project <APP-NAME>
 yarn playwright install --with-deps
+```
+
+### Running tests
+
+```sh
 yarn nx e2e <APP-NAME>-e2e
 ```
 
