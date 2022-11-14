@@ -2,18 +2,30 @@
 
 [![MIT License](https://img.shields.io/github/license/marksandspencer/nx-plugins)](https://github.com/marksandspencer/nx-plugins/blob/main/LICENSE.md) ![Build](https://github.com/marksandspencer/nx-plugins/actions/workflows/release.yml/badge.svg) [![npm version](https://badge.fury.io/js/@mands%2Fnx-playwright.svg)](https://badge.fury.io/js/@mands%2Fnx-playwright) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/marksandspencer/nx-plugins/blob/main/CONTRIBUTING.md)
 
-An [Nx plugin](https://nx.dev/packages/nx-plugin) to add support to an Nx monorepo for
-Playwright testing using a native runner.
+An [Nx plugin](https://nx.dev/packages/nx-plugin) that adds [Playwright](https://playwright.dev/) end-to-end testing using a native runner to your NX workspace.
 
-## Usage
+## Setup
 
-Replacing the placeholders `<PATH-TO-NX-WORKSPACE>` and `<APP-NAME>`:
+> **Note** Don't forget to replace the placeholder `<APP-NAME>`
+
+
+### Installation
 
 ```sh
-cd <PATH-TO-NX-WORKSPACE>
 yarn add --dev @mands/nx-playwright
-yarn nx generate @mands/nx-playwright:project <APP-NAME>-e2e --project <APP-NAME>
 yarn playwright install --with-deps
+```
+
+### Generatre e2e test app
+
+> **Warning** If you have an existing e2e test app, please remove it first `yarn nx generate remove <APP-NAME>-e2e`
+```sh
+yarn nx generate @mands/nx-playwright:project <APP-NAME>-e2e --project <APP-NAME>
+```
+
+### Running tests
+
+```sh
 yarn nx e2e <APP-NAME>-e2e
 ```
 
@@ -25,9 +37,13 @@ yarn nx e2e <APP-NAME>-e2e
 - `--format=FORMAT_TYPE`: this allows values such as `json` or `html`
 - `--headed`: launches the browser in non-headless mode
 - `--debug`: runs tests in a browser plus another interactive debugger window that you can pause/play tests
-- `--packageRunner`: package runner to use for running playwright (`npx`, `pnpm`, or `yarn`). Defaults to `yarn`.
+- `--packageRunner`: package runner to use for running playwright (`npx`, `pnpm`, or `yarn`). Defaults to `yarn`
 - `--skipServe`: skips the execution of a devServer
-- `--timeout=TIMEOUT_IN_MS`: adds a timeout for your tests
+- `--timeout=<number>`: adds a timeout for your tests in milliseconds
+- `--grep=<RegExp|Array<RegExp>>`: filter to only run tests with a title matching one of the patterns
+- `--grep-invert=<RegExp|Array<RegExp>>`: filter to only run tests with a title not matching one of the patterns
+
+> **Note** These flags can also be used in `project.json` or `nx.json`
 
 These flags align with the standard [playwright flags](https://playwright.dev/docs/test-cli#reference), as well as the [nx-cypress](https://nx.dev/packages/cypress/executors/cypress#options) ones.
 
