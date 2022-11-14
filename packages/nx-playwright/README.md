@@ -13,8 +13,14 @@ An [Nx plugin](https://nx.dev/packages/nx-plugin) that adds [Playwright](https:/
 
 ```sh
 yarn add --dev @mands/nx-playwright
-yarn nx generate @mands/nx-playwright:project <APP-NAME>-e2e --project <APP-NAME>
 yarn playwright install --with-deps
+```
+
+### Generatre e2e test app
+
+> **Warning** If you have an existing e2e test app, please remove it first `yarn nx generate remove <APP-NAME>-e2e`
+```sh
+yarn nx generate @mands/nx-playwright:project <APP-NAME>-e2e --project <APP-NAME>
 ```
 
 ### Running tests
