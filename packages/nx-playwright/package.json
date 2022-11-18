@@ -13,6 +13,7 @@
   "generators": "./generators.json",
   "executors": "./executors.json",
   "peerDependencies": {
-    "@playwright/test": "^1.25.0"
+    "@playwright/test": "1.25.1",
+    "playwright": "1.25.1"
   }
 }
