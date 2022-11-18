@@ -1,4 +1,4 @@
-export const playwrightVersion = require('../../../../package.json').devDependencies.playwright;
-export const playwrightTestVersion = require('../../../../package.json').devDependencies[
-  '@playwright/test'
-];
+import { readRootPackageJson } from '@nrwl/devkit';
+
+export const playwrightVersion = readRootPackageJson().devDependencies.playwright;
+export const playwrightTestVersion = readRootPackageJson().devDependencies['@playwright/test'];

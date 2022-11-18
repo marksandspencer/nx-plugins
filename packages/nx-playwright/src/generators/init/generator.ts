@@ -11,8 +11,6 @@ export const removePlaywrightDeps = ({ dependencies = {}, ...json }) => {
 export default async function playwrightInitGenerator(host: Tree, options: InitGeneratorSchema) {
   updateJson(host, 'package.json', removePlaywrightDeps);
 
-  console.log('versions', playwrightVersion, playwrightTestVersion);
-
   const installTask = addDependenciesToPackageJson(
     host,
     {},
