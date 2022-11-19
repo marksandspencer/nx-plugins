@@ -1,4 +1,4 @@
-import { readRootPackageJson } from '@nrwl/devkit';
+import packageJson from '../package.json';
 
-export const playwrightVersion = readRootPackageJson().devDependencies.playwright;
-export const playwrightTestVersion = readRootPackageJson().devDependencies['@playwright/test'];
+export const playwrightVersion = packageJson.peerDependencies.playwright;
+export const playwrightTestVersion = packageJson.peerDependencies['@playwright/test'];
