@@ -1,4 +1,5 @@
 {
+  "name": "nx-playwright",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/nx-playwright",
   "projectType": "library",
@@ -13,15 +14,11 @@
           "packages/nx-playwright/package.json"
         ]
       },
-      "outputs": [
-        "{options.outputFile}"
-      ]
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/packages/nx-playwright"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/packages/nx-playwright"],
       "options": {
         "jestConfig": "packages/nx-playwright/jest.config.ts",
         "passWithNoTests": true
@@ -29,9 +26,7 @@
     },
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/nx-playwright",
         "buildableProjectDepsInPackageJsonType": "dependencies",

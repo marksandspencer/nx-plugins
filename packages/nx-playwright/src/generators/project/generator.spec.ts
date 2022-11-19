@@ -18,6 +18,7 @@ describe('nx-playwright generator', () => {
     expect(projectJson).toEqual({
       $schema: '../../node_modules/nx/schemas/project-schema.json',
       sourceRoot: 'e2e/test-generator/src',
+      name: 'test-generator',
       projectType: 'application',
       targets: {
         e2e: {
@@ -69,6 +70,7 @@ describe('nx-playwright generator', () => {
     expect(projectJson).toEqual({
       $schema: '../../node_modules/nx/schemas/project-schema.json',
       sourceRoot: 'e2e/test-generator/src',
+      name: 'test-generator',
       projectType: 'application',
       targets: {
         e2e: {
