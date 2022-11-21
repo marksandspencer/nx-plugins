@@ -1,5 +1,6 @@
 import { addDependenciesToPackageJson, formatFiles, Tree, updateJson } from '@nrwl/devkit';
 import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
+import { playwrightTestVersion, playwrightVersion } from '../../versions';
 import { addGitIgnoreEntry } from './lib/add-git-ignore-entry';
 import { InitGeneratorSchema } from './schema';
 
@@ -13,7 +14,7 @@ export default async function playwrightInitGenerator(host: Tree, options: InitG
   const installTask = addDependenciesToPackageJson(
     host,
     {},
-    { '@playwright/test': '1.26.0', playwright: '1.26.0' },
+    { '@playwright/test': playwrightTestVersion, playwright: playwrightVersion },
   );
 
   if (!options.skipFormat) {
