@@ -20,7 +20,7 @@ export const startDevServer = async (opts: PlaywrightExecutorSchema, context: Ex
   async function unwrapAsyncIterableIteratorPromise() {
     for await (const output of await runExecutor<ExecutorResult>(
       { project, target, configuration },
-      { hostname: 'localhost' },
+      {},
       context,
     ))
       return output;
