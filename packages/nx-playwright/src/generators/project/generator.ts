@@ -38,7 +38,7 @@ export default async function (host: Tree, options: NxPlaywrightGeneratorSchema)
         },
       },
       'ts-check': {
-        executor: '@nrwl/workspace:run-commands',
+        executor: 'nx:run-commands',
         options: {
           commands: [
             {

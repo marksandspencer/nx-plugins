@@ -72,7 +72,7 @@ describe('start dev server', () => {
         target: 'target',
         configuration: 'configuration',
       },
-      { hostname: 'localhost' },
+      {},
       context,
     );
   });
