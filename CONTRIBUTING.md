@@ -16,7 +16,7 @@ We use GitHub to host code, to track issues and feature requests, and to accept 
 
 A pull request is the best way to propose a change to the codebase. We actively welcome your pull requests:
 
-1. Fork the repo and create your branch from `main`
+1. Clone the repo and create your branch from `main`
 2. If you've added code that should be tested, add tests
 3. Manually update the `version` property in the root `package.json`, ensuring you follow [semver](https://semver.org/) conventions when choosing the new version
 4. Do the same in the `package.json` for the package that you have updated in `packages`
