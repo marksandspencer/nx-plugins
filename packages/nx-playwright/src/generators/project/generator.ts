@@ -2,6 +2,7 @@ import {
   addProjectConfiguration,
   formatFiles,
   generateFiles,
+  getProjects,
   names,
   offsetFromRoot,
   Tree,
@@ -18,6 +19,11 @@ import { NxPlaywrightGeneratorSchema } from './schema-types';
 export default async function (host: Tree, options: NxPlaywrightGeneratorSchema) {
   const normalizedOptions = normalizeOptions(host, { ...options, type: 'app' });
   const playwrightInitTask = await playwrightInitGenerator(host, { skipFormat: true });
+
+  const workspaceProjects = getProjects(host);
+  if (options.project && !workspaceProjects.has(options.project)) {
+    return Promise.reject(`${options.project} is not a valid project in the workspace`);
+  }
 
   addProjectConfiguration(host, normalizedOptions.projectName, {
     root: normalizedOptions.projectRoot,

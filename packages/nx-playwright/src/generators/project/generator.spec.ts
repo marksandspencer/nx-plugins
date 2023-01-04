@@ -1,19 +1,18 @@
-import type { Tree } from '@nrwl/devkit';
+import { addProjectConfiguration, readJson, updateWorkspaceConfiguration } from '@nrwl/devkit';
+import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
 import { Linter } from '@nrwl/linter';
-import { FsTree } from 'nx/src/generators/tree';
 import generator from './generator';
 
 describe('nx-playwright generator', () => {
   it('generates correct project.json with required options + project', async () => {
-    const host: Tree = new FsTree('.', true);
-    const generate = await generator(host, {
+    const host = createTree();
+
+    await generator(host, {
       name: 'test-generator',
       linter: Linter.EsLint,
       project: 'test-project',
     });
-    await generate();
-    const projectJsonString = host.read('e2e/test-generator/project.json').toString();
-    const projectJson = JSON.parse(projectJsonString);
+    const projectJson = readJson(host, 'e2e/test-generator/project.json');
 
     expect(projectJson).toEqual({
       $schema: '../../node_modules/nx/schemas/project-schema.json',
@@ -55,17 +54,26 @@ describe('nx-playwright generator', () => {
     });
   });
 
+  it('returns correct error message when provided project does not exist', async () => {
+    const host = createTree();
+    await expect(
+      generator(host, {
+        name: 'test-generator',
+        linter: Linter.EsLint,
+        project: 'bad-project',
+      }),
+    ).rejects.toMatchInlineSnapshot(`"bad-project is not a valid project in the workspace"`);
+  });
+
   it('generates correct project.json with required options + project, packageRunner', async () => {
-    const host: Tree = new FsTree('.', true);
-    const generate = await generator(host, {
+    const host = createTree();
+    await generator(host, {
       name: 'test-generator',
       linter: Linter.EsLint,
       project: 'test-project',
       packageRunner: 'pnpm',
     });
-    await generate();
-    const projectJsonString = host.read('e2e/test-generator/project.json').toString();
-    const projectJson = JSON.parse(projectJsonString);
+    const projectJson = readJson(host, 'e2e/test-generator/project.json');
 
     expect(projectJson).toEqual({
       $schema: '../../node_modules/nx/schemas/project-schema.json',
@@ -107,3 +115,16 @@ describe('nx-playwright generator', () => {
     });
   });
 });
+
+function createTree() {
+  const host = createTreeWithEmptyWorkspace();
+  updateWorkspaceConfiguration(host, {
+    workspaceLayout: {
+      appsDir: 'e2e',
+      libsDir: 'packages',
+    },
+    version: 2,
+  });
+  addProjectConfiguration(host, 'test-project', { root: './apps/test-project' });
+  return host;
+}
