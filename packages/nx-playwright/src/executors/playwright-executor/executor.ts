@@ -41,9 +41,14 @@ export default async function executor(
       const flags = getFlags(options);
       const runnerCommand =
         options.packageRunner ?? executorSchema.properties.packageRunner.default;
+      const environmentVariables = options.environmentVariables
+        ? Object.keys(options.environmentVariables)
+            .map((key) => `${key}=${options.environmentVariables[key]}`)
+            .join(' ')
+        : '';
 
       const command =
-        `${runnerCommand} playwright test src --config ${options.e2eFolder}/playwright.config.ts ${flags} && echo ${PASS_MARKER}`.trim();
+        `${environmentVariables} ${runnerCommand} playwright test src --config ${options.e2eFolder}/playwright.config.ts ${flags} && echo ${PASS_MARKER}`.trim();
 
       console.debug(`Running ${command}`);
 

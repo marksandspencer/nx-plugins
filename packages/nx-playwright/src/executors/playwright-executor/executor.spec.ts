@@ -39,6 +39,24 @@ describe('executor', () => {
       expect(execCmd).toHaveBeenCalledWith(expected);
     });
 
+    it('add correct environment variables', async () => {
+      const options: PlaywrightExecutorSchema = {
+        e2eFolder: 'folder',
+        environmentVariables: {
+          PLAYWRIGHT_JUNIT_OUTPUT_NAME: 'result.xml',
+        },
+      };
+
+      const execCmd = jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: '' });
+      promisify.mockReturnValueOnce(execCmd);
+
+      await executor(options, context);
+
+      const expected =
+        'PLAYWRIGHT_JUNIT_OUTPUT_NAME=result.xml yarn playwright test src --config folder/playwright.config.ts  && echo PLAYWRIGHT_PASS';
+      expect(execCmd).toHaveBeenCalledWith(expected);
+    });
+
     it.each<[string, PlaywrightExecutorSchema]>([
       [
         '--headed --browser=firefox --reporter=html --timeout=1234 --grep=@tag1 && echo PLAYWRIGHT_PASS',

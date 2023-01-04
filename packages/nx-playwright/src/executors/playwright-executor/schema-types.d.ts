@@ -9,6 +9,7 @@ export interface PlaywrightExecutorSchema {
   headed?: boolean;
   reporter?: string;
   browser?: 'chromium' | 'firefox' | 'webkit' | 'all';
+  environmentVariables?: object;
   packageRunner?: PackageRunner;
   timeout?: number;
   skipServe?: boolean;
