@@ -1,1 +1,1 @@
-export type PackageRunner = 'yarn' | 'npx' | 'pnpm';
+export type PackageRunner = 'yarn' | 'npx' | 'pnpm' | 'npm';

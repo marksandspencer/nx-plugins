@@ -5,7 +5,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "nx": "nx"
   },
   "lint-staged": {
     "!**/*.{ts,tsx}": [

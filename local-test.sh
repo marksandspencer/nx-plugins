@@ -1,5 +1,8 @@
 #!/bin/bash
 
+PACKAGE_MANAGER="npm" # npm|yarn|pnpm
+PACKAGE_RUN_COMMAND="npm run" # npm run|yarn|pnpm
+
 PLUGIN_NAME="nx-playwright"
 PARAMETER_VALIDATION_PROMPT="
 Please supply the following arguments:
@@ -29,7 +32,7 @@ function stash_workspace_changes_if_requested {
     if [ $should_stash_and_clean ]; then
         echo "Stashing all changes before test"
         git stash -u
-        yarn install --frozen-lockfile
+        ${PACKAGE_MANAGER} install --frozen-lockfile
     else
         echo "Stash not requested"
     fi
@@ -40,7 +43,7 @@ function restore_workspace_if_requested {
         git checkout .
         git clean -fd
         git stash pop
-        yarn install --frozen-lockfile
+        ${PACKAGE_MANAGER} install --frozen-lockfile
     else
         echo "Restore not required"
     fi
@@ -49,17 +52,18 @@ function restore_workspace_if_requested {
 PLUGIN_NPM_NAME="@mands/$PLUGIN_NAME"
 
 rm -fr dist
-yarn nx build $PLUGIN_NAME
+${PACKAGE_RUN_COMMAND} nx build $PLUGIN_NAME
 
 pushd dist/packages/$PLUGIN_NAME
-yarn link
+${PACKAGE_MANAGER} link
 popd
 
 pushd $workspace
 stash_workspace_changes_if_requested
-yarn unlink $PLUGIN_NPM_NAME
-yarn link $PLUGIN_NPM_NAME
-yarn nx generate $PLUGIN_NPM_NAME:project $app-e2e --project $app
-yarn nx e2e $app-e2e --skip-nx-cache
+${PACKAGE_MANAGER} unlink $PLUGIN_NPM_NAME
+${PACKAGE_MANAGER} link $PLUGIN_NPM_NAME
+echo "USING PACKAGE RUNNER ${PACKAGE_MANAGER}"
+${PACKAGE_RUN_COMMAND} nx generate $PLUGIN_NPM_NAME:project $app-e2e --packageRunner=${PACKAGE_MANAGER} --project $app
+${PACKAGE_RUN_COMMAND} nx e2e $app-e2e --skip-nx-cache
 restore_workspace_if_requested
 popd

@@ -9,6 +9,7 @@ export const removePlaywrightDeps = ({ dependencies = {}, ...json }) => {
 };
 
 export default async function playwrightInitGenerator(host: Tree, options: InitGeneratorSchema) {
+  console.log(1111111, options);
   updateJson(host, 'package.json', removePlaywrightDeps);
 
   const installTask = addDependenciesToPackageJson(

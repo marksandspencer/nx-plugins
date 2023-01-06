@@ -21,6 +21,7 @@ export function normalizeOptions<T extends BaseOptions>(
   host: Tree,
   options: T,
 ): T & NormalizedOptions {
+  console.log(222, JSON.stringify(options, null, 2));
   const name = names(options.name).fileName;
   const projectDirectory = options.directory
     ? `${names(options.directory).fileName}/${name}`

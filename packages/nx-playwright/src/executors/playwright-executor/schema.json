@@ -20,7 +20,7 @@
       "description": "type of output reporter"
     },
     "packageRunner": {
-      "enum": ["yarn", "npx", "pnpm"],
+      "enum": ["yarn", "npx", "npm", "pnpm"],
       "description": "package runner to use to run playwright",
       "default": "yarn"
     },

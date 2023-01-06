@@ -38,8 +38,12 @@ export default async function executor(
       const runnerCommand =
         options.packageRunner ?? executorSchema.properties.packageRunner.default;
 
+      console.info(`Using runner command ${runnerCommand}`);
+
+      const command = runnerCommand === 'npm' ? 'npm run' : runnerCommand;
+
       const { stdout, stderr } = await promisify(exec)(
-        `${runnerCommand} playwright test src --config ${options.e2eFolder}/playwright.config.ts ${flags}`.trim(),
+        `${command} playwright test src --config ${options.e2eFolder}/playwright.config.ts ${flags}`.trim(),
       );
 
       console.info(`Playwright output ${stdout}`);

@@ -19,6 +19,8 @@ export default async function (host: Tree, options: NxPlaywrightGeneratorSchema)
   const normalizedOptions = normalizeOptions(host, { ...options, type: 'app' });
   const playwrightInitTask = await playwrightInitGenerator(host, { skipFormat: true });
 
+  console.log('using package runner', JSON.stringify(options, null, 2));
+
   addProjectConfiguration(host, normalizedOptions.projectName, {
     root: normalizedOptions.projectRoot,
     sourceRoot: `${normalizedOptions.projectRoot}/src`,
