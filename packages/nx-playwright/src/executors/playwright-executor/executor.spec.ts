@@ -37,40 +37,41 @@ describe('executor', () => {
       expect(execCmd).toHaveBeenCalledWith(expected);
     });
 
-    it('concatenates overriding options to playwright command', async () => {
-      const options: PlaywrightExecutorSchema = {
-        e2eFolder: 'folder',
-        headed: true,
-        browser: 'firefox',
-        reporter: 'html',
-        timeout: 1234,
-        grep: '@tag1',
-      };
-
+    it.each<[string, PlaywrightExecutorSchema]>([
+      [
+        '--headed --browser=firefox --reporter=html --timeout=1234 --grep=@tag1',
+        {
+          e2eFolder: 'folder',
+          headed: true,
+          browser: 'firefox',
+          reporter: 'html',
+          timeout: 1234,
+          grep: '@tag1',
+        },
+      ],
+      [
+        '--grep-invert=@tag1',
+        {
+          e2eFolder: 'folder',
+          grepInvert: '@tag1',
+        },
+      ],
+      [
+        '--pass-with-no-tests',
+        {
+          passWithNoTests: true,
+          e2eFolder: 'folder',
+        },
+      ],
+    ])(`runs playwright with options: %s`, async (expected, options) => {
       const execCmd = jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: '' });
       promisify.mockReturnValueOnce(execCmd);
 
       await executor(options, context);
 
-      const expected =
-        'yarn playwright test src --config folder/playwright.config.ts --headed --browser=firefox --reporter=html --timeout=1234 --grep=@tag1';
-      expect(execCmd).toHaveBeenCalledWith(expected);
-    });
-
-    it('concatenates overriding options to playwright command with grep-invert', async () => {
-      const options: PlaywrightExecutorSchema = {
-        e2eFolder: 'folder',
-        grepInvert: '@tag1',
-      };
-
-      const execCmd = jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: '' });
-      promisify.mockReturnValueOnce(execCmd);
-
-      await executor(options, context);
-
-      const expected =
-        'yarn playwright test src --config folder/playwright.config.ts --grep-invert=@tag1';
-      expect(execCmd).toHaveBeenCalledWith(expected);
+      expect(execCmd).toHaveBeenCalledWith(
+        `yarn playwright test src --config folder/playwright.config.ts ${expected}`.trim(),
+      );
     });
   });
 

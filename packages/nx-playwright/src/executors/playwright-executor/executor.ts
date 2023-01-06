@@ -7,6 +7,7 @@ import { PlaywrightExecutorSchema } from './schema-types';
 
 function getFlags(options: PlaywrightExecutorSchema): string {
   const headedOption = options.headed === true ? '--headed' : '';
+  const passWithNoTestsOption = options.passWithNoTests === true ? '--pass-with-no-tests' : '';
   const browserOption = options.browser?.length ? `--browser=${options.browser}` : '';
   const reporterOption = options.reporter?.length ? `--reporter=${options.reporter}` : '';
   const timeoutOption = options.timeout !== undefined ? `--timeout=${options.timeout}` : '';
@@ -21,6 +22,7 @@ function getFlags(options: PlaywrightExecutorSchema): string {
     timeoutOption,
     grepOption,
     grepInvertOption,
+    passWithNoTestsOption,
   ].filter(Boolean);
 
   return flagStrings.join(' ');
