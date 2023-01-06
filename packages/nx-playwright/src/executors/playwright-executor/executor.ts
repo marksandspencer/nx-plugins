@@ -5,6 +5,8 @@ import { startDevServer } from './lib/start-dev-server';
 import executorSchema from './schema.json';
 import { PlaywrightExecutorSchema } from './schema-types';
 
+const PASS_MARKER = 'PLAYWRIGHT_PASS';
+
 function getFlags(options: PlaywrightExecutorSchema): string {
   const headedOption = options.headed === true ? '--headed' : '';
   const passWithNoTestsOption = options.passWithNoTests === true ? '--pass-with-no-tests' : '';
@@ -40,16 +42,19 @@ export default async function executor(
       const runnerCommand =
         options.packageRunner ?? executorSchema.properties.packageRunner.default;
 
-      const { stdout, stderr } = await promisify(exec)(
-        `${runnerCommand} playwright test src --config ${options.e2eFolder}/playwright.config.ts ${flags}`.trim(),
-      );
+      const command =
+        `${runnerCommand} playwright test src --config ${options.e2eFolder}/playwright.config.ts ${flags} && echo ${PASS_MARKER}`.trim();
+
+      console.debug(`Running ${command}`);
+
+      const { stdout, stderr } = await promisify(exec)(command);
 
       console.info(`Playwright output ${stdout}`);
       if (stderr) {
         console.error(`Playwright errors ${stderr}`);
       }
 
-      return stdout.includes('passed');
+      return stdout.includes(PASS_MARKER);
     })
     .catch((error) => {
       console.error('Unexpected error', error);
