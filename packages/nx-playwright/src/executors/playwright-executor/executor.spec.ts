@@ -17,6 +17,7 @@ const context = {
 
 console.error = jest.fn().mockReturnValue(null);
 console.info = jest.fn().mockReturnValue(null);
+console.debug = jest.fn().mockReturnValue(null);
 
 describe('executor', () => {
   beforeEach(jest.resetAllMocks);
@@ -33,13 +34,14 @@ describe('executor', () => {
 
       await executor(options, context);
 
-      const expected = 'npx playwright test src --config folder/playwright.config.ts';
+      const expected =
+        'npx playwright test src --config folder/playwright.config.ts  && echo PLAYWRIGHT_PASS';
       expect(execCmd).toHaveBeenCalledWith(expected);
     });
 
     it.each<[string, PlaywrightExecutorSchema]>([
       [
-        '--headed --browser=firefox --reporter=html --timeout=1234 --grep=@tag1',
+        '--headed --browser=firefox --reporter=html --timeout=1234 --grep=@tag1 && echo PLAYWRIGHT_PASS',
         {
           e2eFolder: 'folder',
           headed: true,
@@ -50,14 +52,14 @@ describe('executor', () => {
         },
       ],
       [
-        '--grep-invert=@tag1',
+        '--grep-invert=@tag1 && echo PLAYWRIGHT_PASS',
         {
           e2eFolder: 'folder',
           grepInvert: '@tag1',
         },
       ],
       [
-        '--pass-with-no-tests',
+        '--pass-with-no-tests && echo PLAYWRIGHT_PASS',
         {
           passWithNoTests: true,
           e2eFolder: 'folder',
@@ -82,7 +84,7 @@ describe('executor', () => {
 
     it('returns true when passes', async () => {
       promisify.mockReturnValueOnce(
-        jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: '' }),
+        jest.fn().mockResolvedValueOnce({ stdout: 'PLAYWRIGHT_PASS', stderr: '' }),
       );
 
       const { success } = await executor(options, context);
@@ -91,7 +93,7 @@ describe('executor', () => {
 
       expect(console.error).not.toHaveBeenCalled();
       expect(console.info).toHaveBeenCalledTimes(1);
-      expect(console.info).toHaveBeenCalledWith('Playwright output passed');
+      expect(console.info).toHaveBeenCalledWith('Playwright output PLAYWRIGHT_PASS');
 
       expect(startDevServer).toHaveBeenCalledTimes(1);
       expect(startDevServer).toHaveBeenCalledWith(options, context);
@@ -99,7 +101,7 @@ describe('executor', () => {
 
     it('logs error from output', async () => {
       promisify.mockReturnValueOnce(
-        jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: 'some error' }),
+        jest.fn().mockResolvedValueOnce({ stdout: 'PLAYWRIGHT_PASS', stderr: 'some error' }),
       );
 
       const { success } = await executor(options, context);
@@ -109,7 +111,7 @@ describe('executor', () => {
       expect(console.error).toHaveBeenCalledTimes(1);
       expect(console.error).toHaveBeenCalledWith('Playwright errors some error');
       expect(console.info).toHaveBeenCalledTimes(1);
-      expect(console.info).toHaveBeenCalledWith('Playwright output passed');
+      expect(console.info).toHaveBeenCalledWith('Playwright output PLAYWRIGHT_PASS');
     });
 
     it('fails gracefully when command fails', async () => {
