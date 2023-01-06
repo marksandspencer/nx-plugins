@@ -72,6 +72,22 @@ describe('executor', () => {
         'yarn playwright test src --config folder/playwright.config.ts --grep-invert=@tag1';
       expect(execCmd).toHaveBeenCalledWith(expected);
     });
+
+    it('uses optional pass with no tests', async () => {
+      const options: PlaywrightExecutorSchema = {
+        passWithNoTests: true,
+        e2eFolder: 'folder',
+      };
+
+      const execCmd = jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: '' });
+      promisify.mockReturnValueOnce(execCmd);
+
+      await executor(options, context);
+
+      const expected =
+        'yarn playwright test src --config folder/playwright.config.ts --pass-with-no-tests';
+      expect(execCmd).toHaveBeenCalledWith(expected);
+    });
   });
 
   describe('playwright execution', () => {

@@ -14,4 +14,5 @@ export interface PlaywrightExecutorSchema {
   skipServe?: boolean;
   grep?: string;
   grepInvert?: string;
+  passWithNoTests?: boolean;
 }
