@@ -3,6 +3,7 @@ import type { PackageRunner } from '../../types';
 export interface PlaywrightExecutorSchema {
   e2eFolder: string;
   path?: string;
+  config?: string;
   devServerTarget?: string;
   baseUrl?: string;
   slowMo?: number;
