@@ -24,6 +24,11 @@
       "description": "package runner to use to run playwright",
       "default": "yarn"
     },
+    "path": {
+      "type": "string",
+      "description": "path to run tests at",
+      "default": "src"
+    },
     "skipServe": {
       "type": "boolean",
       "description": "whether to skip starting the server"
