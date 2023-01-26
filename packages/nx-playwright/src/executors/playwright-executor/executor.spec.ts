@@ -115,8 +115,9 @@ describe('executor', () => {
       expect(console.info).toHaveBeenCalledWith('Playwright output PLAYWRIGHT_PASS');
     });
 
-    it('fails gracefully when command fails', async () => {
-      const error = new Error('fake error');
+    it('fails gracefully and logs error when command fails', async () => {
+      const error = new Error('fake error') as Error & { stdout: string };
+      error.stdout = '\nRunning 3 tests using 1 worker\n...';
       promisify.mockReturnValueOnce(jest.fn().mockRejectedValueOnce(error));
 
       const { success } = await executor(options, context);
@@ -124,7 +125,7 @@ describe('executor', () => {
       expect(success).toBe(false);
 
       expect(console.error).toHaveBeenCalledTimes(1);
-      expect(console.error).toHaveBeenCalledWith('Unexpected error', error);
+      expect(console.error).toHaveBeenCalledWith(`Playwright errors ${error.stdout}`);
     });
   });
 });
