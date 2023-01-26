@@ -11,6 +11,11 @@
       "enum": ["all", "chromium", "firefox", "webkit"],
       "description": "run on specific browser (all for all)"
     },
+    "config": {
+      "type": "string",
+      "description": "configuration file",
+      "default": "playwright.config.ts"
+    },
     "headed": {
       "type": "boolean",
       "description": "whether to show the browser head"

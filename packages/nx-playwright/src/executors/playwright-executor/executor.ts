@@ -42,9 +42,10 @@ export default async function executor(
       const runnerCommand =
         options.packageRunner ?? executorSchema.properties.packageRunner.default;
       const path = options.path ?? executorSchema.properties.path.default;
+      const config = options.config ?? executorSchema.properties.config.default;
 
       const command =
-        `${runnerCommand} playwright test ${path} --config ${options.e2eFolder}/playwright.config.ts ${flags} && echo ${PASS_MARKER}`.trim();
+        `${runnerCommand} playwright test ${path} --config ${options.e2eFolder}/${config} ${flags} && echo ${PASS_MARKER}`.trim();
 
       console.debug(`Running ${command}`);
 
