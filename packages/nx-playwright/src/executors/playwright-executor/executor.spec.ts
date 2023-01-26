@@ -133,7 +133,7 @@ describe('executor', () => {
 
     it('logs error when command fails with stderr', async () => {
       const error = new Error('fake error') as Error & { stderr: string };
-      error.stderr = '\nFake failure message';
+      error.stderr = '\nFailure message';
       promisify.mockReturnValueOnce(jest.fn().mockRejectedValueOnce(error));
 
       const { success } = await executor(options, context);
