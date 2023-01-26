@@ -38,12 +38,7 @@ export default async function runExecutor(
   const path = options.path ?? executorSchema.properties.path.default;
   // const config = options.config ?? executorSchema.properties.config.default;
 
-  // const { stdout, stderr } = await promisify(exec)('curl http://localhost:4200');
-
-  // console.info(`Playwright output ${stdout}`);
-  // if (stderr) {
-  //   console.error(`Playwright errors ${stderr}`);
-  // }
+  execSync('curl http://localhost:4200', { stdio: 'inherit', cwd });
 
   const command = [
     'playwright',
