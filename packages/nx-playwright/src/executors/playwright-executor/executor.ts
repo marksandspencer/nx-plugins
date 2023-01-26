@@ -59,7 +59,12 @@ export default async function executor(
       return stdout.includes(PASS_MARKER);
     })
     .catch((error) => {
-      console.error('Unexpected error', error);
+      const message = error.stdout || error.stderr;
+      if (message) {
+        console.error(`Playwright errors ${message}`);
+      } else {
+        console.error('Unexpected error', error);
+      }
       return false;
     });
 
