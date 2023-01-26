@@ -116,7 +116,7 @@ describe('executor', () => {
       expect(console.info).toHaveBeenCalledWith('Playwright output PLAYWRIGHT_PASS');
     });
 
-    it('fails gracefully and logs error when command fails', async () => {
+    it('logs error when command fails with stdout', async () => {
       const error = new Error('fake error') as Error & { stdout: string };
       error.stdout = '\nRunning 3 tests using 1 worker\n...';
       promisify.mockReturnValueOnce(jest.fn().mockRejectedValueOnce(error));
@@ -126,7 +126,35 @@ describe('executor', () => {
       expect(success).toBe(false);
 
       expect(console.error).toHaveBeenCalledTimes(1);
-      expect(console.error).toHaveBeenCalledWith(`Playwright errors ${error.stdout}`);
+      expect(console.error).toHaveBeenCalledWith(
+        `Playwright errors \nRunning 3 tests using 1 worker\n...`,
+      );
+    });
+
+    it('logs error when command fails with stderr', async () => {
+      const error = new Error('fake error') as Error & { stderr: string };
+      error.stderr = '\nFake failure message';
+      promisify.mockReturnValueOnce(jest.fn().mockRejectedValueOnce(error));
+
+      const { success } = await executor(options, context);
+
+      expect(success).toBe(false);
+
+      expect(console.error).toHaveBeenCalledTimes(1);
+      expect(console.error).toHaveBeenCalledWith(`Playwright errors \nFailure message`);
+    });
+
+    it('fails gracefully when command fails without stdout or stderr', async () => {
+      const error = new Error('fake error');
+
+      promisify.mockReturnValueOnce(jest.fn().mockRejectedValueOnce(error));
+
+      const { success } = await executor(options, context);
+
+      expect(success).toBe(false);
+
+      expect(console.error).toHaveBeenCalledTimes(1);
+      expect(console.error).toHaveBeenCalledWith('Unexpected error', error);
     });
   });
 });
