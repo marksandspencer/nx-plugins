@@ -59,7 +59,7 @@ pushd $workspace
 stash_workspace_changes_if_requested
 yarn unlink $PLUGIN_NPM_NAME
 yarn link $PLUGIN_NPM_NAME
-yarn nx generate $PLUGIN_NPM_NAME:project $app-e2e --project $app
+yarn nx generate $PLUGIN_NPM_NAME:project $app-e2e --project $app 
 yarn nx e2e $app-e2e --skip-nx-cache
 restore_workspace_if_requested
 popd
