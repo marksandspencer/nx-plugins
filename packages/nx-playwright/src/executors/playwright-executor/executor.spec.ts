@@ -54,6 +54,14 @@ describe('executor', () => {
         },
       ],
       [
+        '--headed --project=demo && echo PLAYWRIGHT_PASS',
+        {
+          e2eFolder: 'folder',
+          headed: true,
+          proj: 'demo',
+        },
+      ],
+      [
         '--grep-invert=@tag1 && echo PLAYWRIGHT_PASS',
         {
           e2eFolder: 'folder',
