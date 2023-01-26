@@ -34,6 +34,7 @@ yarn nx e2e <APP-NAME>-e2e
 `nx-playwright` has some flags that you can utilize at execution time
 
 - `--browser=BROWSER_TYPE`: allowed browser types being `chromium`, `firefox` or `webkit` (or an `all` type to execute against all 3 types)
+- `--config`: configuration file. Defaults to `playwright.config.ts`
 - `--format=FORMAT_TYPE`: this allows values such as `json` or `html`
 - `--headed`: launches the browser in non-headless mode
 - `--debug`: runs tests in a browser plus another interactive debugger window that you can pause/play tests

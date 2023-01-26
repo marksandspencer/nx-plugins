@@ -23,11 +23,12 @@ describe('executor', () => {
   beforeEach(jest.resetAllMocks);
 
   describe('building runner command', () => {
-    it('uses correct runner and path', async () => {
+    it('uses correct runner and path and config', async () => {
       const options: PlaywrightExecutorSchema = {
         e2eFolder: 'folder',
         packageRunner: 'npx',
         path: 'src/tests',
+        config: 'config/playwright.config.ts',
       };
 
       const execCmd = jest.fn().mockResolvedValueOnce({ stdout: 'passed', stderr: '' });
@@ -36,7 +37,7 @@ describe('executor', () => {
       await executor(options, context);
 
       const expected =
-        'npx playwright test src/tests --config folder/playwright.config.ts  && echo PLAYWRIGHT_PASS';
+        'npx playwright test src/tests --config folder/config/playwright.config.ts  && echo PLAYWRIGHT_PASS';
       expect(execCmd).toHaveBeenCalledWith(expected);
     });
 
