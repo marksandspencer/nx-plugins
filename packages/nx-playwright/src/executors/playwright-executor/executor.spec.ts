@@ -25,108 +25,125 @@ console.debug = jest.fn().mockReturnValue(null);
 describe('executor', () => {
   beforeEach(jest.resetAllMocks);
 
-  describe('building runner command', () => {
-    it('uses correct runner and path and config', async () => {
-      const options: PlaywrightExecutorSchema = {
-        e2eFolder: 'folder',
-        packageRunner: 'npx',
-        path: 'src/tests',
-        config: 'config/playwright.config.ts',
-      };
+  it('uses correct runner and path and config', async () => {
+    const options: PlaywrightExecutorSchema = {
+      e2eFolder: 'folder',
+      packageRunner: 'npx',
+      path: 'src/tests',
+      config: 'config/playwright.config.ts',
+    };
 
-      const pipe = jest.fn();
+    const pipe = jest.fn();
 
-      execMock.mockImplementation((_command, _options, callback) => {
-        callback(null, 'passed', '');
-        return { stdout: { pipe } } as unknown as ReturnType<typeof execMock>;
-      });
-
-      await executor(options, context);
-
-      const expected = 'playwright test src/tests --config folder/config/playwright.config.ts';
-      expect(execMock).toHaveBeenCalledWith(expected, null, expect.any(Function));
-      expect(pipe).toHaveBeenCalledTimes(1);
+    execMock.mockImplementation((_command, _options, callback) => {
+      callback(null, 'passed', '');
+      return { stdout: { pipe } } as unknown as ReturnType<typeof execMock>;
     });
 
-    it.each<[string, PlaywrightExecutorSchema]>([
-      [
-        '--headed --browser=firefox --reporter=html --timeout=1234 --grep=@tag1',
-        {
-          e2eFolder: 'folder',
-          headed: true,
-          browser: 'firefox',
-          reporter: 'html',
-          timeout: 1234,
-          grep: '@tag1',
-        },
-      ],
-      [
-        '--headed --project=demo',
-        {
-          e2eFolder: 'folder',
-          headed: true,
-          proj: 'demo',
-        },
-      ],
-      [
-        '--headed --project=demo',
-        {
-          e2eFolder: 'folder',
-          headed: true,
-          proj: 'demo',
-        },
-      ],
-      [
-        '--grep-invert=@tag1',
-        {
-          e2eFolder: 'folder',
-          grepInvert: '@tag1',
-        },
-      ],
-      [
-        '--pass-with-no-tests',
-        {
-          passWithNoTests: true,
-          e2eFolder: 'folder',
-        },
-      ],
-    ])(`runs playwright with options: %s`, async (expected, options) => {
-      execMock.mockImplementation((_command, _options, callback) => {
-        callback(null, 'passed', '');
-        return { stdout: { pipe: jest.fn() } } as unknown as ReturnType<typeof execMock>;
-      });
+    await executor(options, context);
 
-      await executor(options, context);
-
-      expect(execMock).toHaveBeenCalledWith(
-        `playwright test src --config folder/playwright.config.ts ${expected}`.trim(),
-        null,
-        expect.any(Function),
-      );
-    });
+    const expected = 'playwright test src/tests --config folder/config/playwright.config.ts';
+    expect(execMock).toHaveBeenCalledWith(expected, null, expect.any(Function));
+    expect(pipe).toHaveBeenCalledTimes(1);
   });
 
-  describe('start dev server', () => {
-    it('starts dev server before running tests', async () => {
-      const options: PlaywrightExecutorSchema = {
-        skipServe: false,
+  it.each<[string, PlaywrightExecutorSchema]>([
+    [
+      '--headed --browser=firefox --reporter=html --timeout=1234 --grep=@tag1',
+      {
         e2eFolder: 'folder',
-        packageRunner: 'npx',
-        path: 'src/tests',
-        config: 'config/playwright.config.ts',
-      };
-
-      const pipe = jest.fn();
-
-      execMock.mockImplementation((_command, _options, callback) => {
-        callback(null, 'passed', '');
-        return { stdout: { pipe } } as unknown as ReturnType<typeof execMock>;
-      });
-
-      await executor(options, context);
-
-      expect(startDevServer).toHaveBeenCalledTimes(1);
-      expect(startDevServer).toHaveBeenCalledWith(options, context);
+        headed: true,
+        browser: 'firefox',
+        reporter: 'html',
+        timeout: 1234,
+        grep: '@tag1',
+      },
+    ],
+    [
+      '--headed --project=demo',
+      {
+        e2eFolder: 'folder',
+        headed: true,
+        proj: 'demo',
+      },
+    ],
+    [
+      '--headed --project=demo',
+      {
+        e2eFolder: 'folder',
+        headed: true,
+        proj: 'demo',
+      },
+    ],
+    [
+      '--grep-invert=@tag1',
+      {
+        e2eFolder: 'folder',
+        grepInvert: '@tag1',
+      },
+    ],
+    [
+      '--pass-with-no-tests',
+      {
+        passWithNoTests: true,
+        e2eFolder: 'folder',
+      },
+    ],
+  ])(`runs playwright with options: %s`, async (expected, options) => {
+    execMock.mockImplementation((_command, _options, callback) => {
+      callback(null, 'passed', '');
+      return { stdout: { pipe: jest.fn() } } as unknown as ReturnType<typeof execMock>;
     });
+
+    await executor(options, context);
+
+    expect(execMock).toHaveBeenCalledWith(
+      `playwright test src --config folder/playwright.config.ts ${expected}`.trim(),
+      null,
+      expect.any(Function),
+    );
+  });
+
+  it('handle execution errors', async () => {
+    const options: PlaywrightExecutorSchema = {
+      e2eFolder: 'folder',
+      packageRunner: 'npx',
+      path: 'src/tests',
+      config: 'config/playwright.config.ts',
+    };
+
+    const pipe = jest.fn();
+    const error = new Error('some error');
+
+    execMock.mockImplementation((_command, _options, callback) => {
+      callback(error, 'passed', '');
+      return { stdout: { pipe } } as unknown as ReturnType<typeof execMock>;
+    });
+
+    await expect(executor(options, context)).rejects.toEqual(error);
+
+    expect(pipe).toHaveBeenCalledTimes(1);
+  });
+
+  it('starts dev server before running tests', async () => {
+    const options: PlaywrightExecutorSchema = {
+      skipServe: false,
+      e2eFolder: 'folder',
+      packageRunner: 'npx',
+      path: 'src/tests',
+      config: 'config/playwright.config.ts',
+    };
+
+    const pipe = jest.fn();
+
+    execMock.mockImplementation((_command, _options, callback) => {
+      callback(null, 'passed', '');
+      return { stdout: { pipe } } as unknown as ReturnType<typeof execMock>;
+    });
+
+    await executor(options, context);
+
+    expect(startDevServer).toHaveBeenCalledTimes(1);
+    expect(startDevServer).toHaveBeenCalledWith(options, context);
   });
 });
