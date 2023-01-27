@@ -12,7 +12,7 @@ export interface PlaywrightExecutorSchema {
   reporter?: string;
   browser?: 'chromium' | 'firefox' | 'webkit' | 'all';
   packageRunner?: PackageRunner;
-  proj?: string;
+  testProject?: string;
   timeout?: number;
   skipServe?: boolean;
   grep?: string;

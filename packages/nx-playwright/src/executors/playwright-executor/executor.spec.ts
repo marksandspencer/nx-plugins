@@ -64,15 +64,7 @@ describe('executor', () => {
       {
         e2eFolder: 'folder',
         headed: true,
-        proj: 'demo',
-      },
-    ],
-    [
-      '--headed --project=demo',
-      {
-        e2eFolder: 'folder',
-        headed: true,
-        proj: 'demo',
+        testProject: 'demo',
       },
     ],
     [
