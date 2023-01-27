@@ -24,7 +24,7 @@ function getFlags(options: PlaywrightExecutorSchema) {
     grepOption,
     grepInvertOption,
     passWithNoTestsOption,
-  ].filter(Boolean);
+  ];
 }
 
 export default async function runExecutor(
@@ -33,16 +33,24 @@ export default async function runExecutor(
 ) {
   await startDevServer(options, context);
 
-  const args = getFlags(options);
+  const flags = getFlags(options);
 
   const path = options.path ?? executorSchema.properties.path.default;
   const config = options.config ?? executorSchema.properties.config.default;
-  const command = ['playwright', 'test', path, `--config ${options.e2eFolder}/${config}`]
-    .concat(args)
+  const runner = options.packageRunner ?? '';
+  const args = [
+    runner,
+    'playwright',
+    'test',
+    path,
+    `--config ${options.e2eFolder}/${config}`,
+    ...flags,
+  ]
+    .filter(Boolean)
     .join(' ');
 
   await new Promise((resolve, reject) => {
-    exec(command, null, (error, stdout, stderr) => {
+    exec(args, null, (error, stdout, stderr) => {
       error ? reject(error) : resolve({ stdout, stderr });
     }).stdout.pipe(process.stdout);
   });

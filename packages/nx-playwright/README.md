@@ -39,12 +39,12 @@ yarn nx e2e <APP-NAME>-e2e
 - `--format=FORMAT_TYPE`: this allows values such as `json` or `html`
 - `--headed`: launches the browser in non-headless mode
 - `--debug`: runs tests in a browser plus another interactive debugger window that you can pause/play tests
-- `--packageRunner`: package runner to use for running playwright (`npx`, `pnpm`, or `yarn`). Defaults to `yarn`
+- `--packageRunner`: package runner to use for running playwright (`npx`, `pnpm`, or `yarn`), use only when running NX directly, not required when running via package manager (e.g. `pnpm nx run your-app-e2e:e2e`)
 - `--path`: path to run tests at. Defaults to `src`
 - `--skipServe`: skips the execution of a devServer
 - `--timeout=<number>`: adds a timeout for your tests in milliseconds
 - `--grep=<RegExp|Array<RegExp>>`: filter to only run tests with a title matching one of the patterns
-- `--grep-invert=<RegExp|Array<RegExp>>`: filter to only run tests with a title not matching one of the patterns
+- `--grepInvert=<RegExp|Array<RegExp>>`: filter to only run tests with a title not matching one of the patterns
 
 > **Note** These flags can also be used in `project.json` or `nx.json`
 
