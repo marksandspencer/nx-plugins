@@ -8,7 +8,7 @@ function getFlags(options: PlaywrightExecutorSchema) {
   const headedOption = options.headed === true ? '--headed' : '';
   const passWithNoTestsOption = options.passWithNoTests === true ? '--pass-with-no-tests' : '';
   const browserOption = options.browser?.length ? `--browser=${options.browser}` : '';
-  const projectOption = options.testProject?.length ? `--project=${options.proj}` : '';
+  const projectOption = options.testProject?.length ? `--project=${options.testProject}` : '';
   const reporterOption = options.reporter?.length ? `--reporter=${options.reporter}` : '';
   const timeoutOption = options.timeout !== undefined ? `--timeout=${options.timeout}` : '';
   const grepOption = options.grep !== undefined ? `--grep=${options.grep}` : '';
