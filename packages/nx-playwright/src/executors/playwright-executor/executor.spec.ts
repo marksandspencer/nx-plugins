@@ -61,6 +61,22 @@ describe('executor', () => {
         },
       ],
       [
+        '--headed --project=demo',
+        {
+          e2eFolder: 'folder',
+          headed: true,
+          proj: 'demo',
+        },
+      ],
+      [
+        '--headed --project=demo',
+        {
+          e2eFolder: 'folder',
+          headed: true,
+          proj: 'demo',
+        },
+      ],
+      [
         '--grep-invert=@tag1',
         {
           e2eFolder: 'folder',
