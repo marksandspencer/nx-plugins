@@ -34,6 +34,10 @@
       "description": "path to run tests at",
       "default": "src"
     },
+    "proj": {
+      "type": "string",
+      "description": "playwright project name to run"
+    },
     "skipServe": {
       "type": "boolean",
       "description": "whether to skip starting the server"
