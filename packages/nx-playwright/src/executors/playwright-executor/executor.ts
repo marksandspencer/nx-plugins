@@ -27,19 +27,20 @@ function getFlags(options: PlaywrightExecutorSchema) {
 
 export default async function runExecutor(
   options: PlaywrightExecutorSchema,
-  context: ExecutorContext & { projectName: string },
+  context: ExecutorContext,
 ) {
   await startDevServer(options, context);
 
   const args = getFlags(options);
-  const cwd = context.workspace.projects[context.projectName].root;
 
   const path = options.path ?? executorSchema.properties.path.default;
   const config = options.config ?? executorSchema.properties.config.default;
-  const command = ['playwright', 'test', path, `--config ${config}`].concat(args).join(' ');
+  const command = ['playwright', 'test', path, `--config ${options.e2eFolder}/${config}`]
+    .concat(args)
+    .join(' ');
 
   await new Promise((resolve, reject) => {
-    exec(command, { cwd }, (error, stdout, stderr) => {
+    exec(command, null, (error, stdout, stderr) => {
       error ? reject(error) : resolve({ stdout, stderr });
     }).stdout.pipe(process.stdout);
   });
