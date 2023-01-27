@@ -1,24 +1,21 @@
 import { ExecutorContext } from '@nrwl/devkit';
 import { exec } from 'child_process';
-import { promisify } from 'util';
 import { startDevServer } from './lib/start-dev-server';
 import executorSchema from './schema.json';
 import { PlaywrightExecutorSchema } from './schema-types';
 
-const PASS_MARKER = 'PLAYWRIGHT_PASS';
-
-function getFlags(options: PlaywrightExecutorSchema): string {
+function getFlags(options: PlaywrightExecutorSchema) {
   const headedOption = options.headed === true ? '--headed' : '';
   const passWithNoTestsOption = options.passWithNoTests === true ? '--pass-with-no-tests' : '';
   const browserOption = options.browser?.length ? `--browser=${options.browser}` : '';
-  const projectOption = options.proj?.length ? `--project=${options.proj}` : '';
+  const projectOption = options.testProject?.length ? `--project=${options.testProject}` : '';
   const reporterOption = options.reporter?.length ? `--reporter=${options.reporter}` : '';
   const timeoutOption = options.timeout !== undefined ? `--timeout=${options.timeout}` : '';
   const grepOption = options.grep !== undefined ? `--grep=${options.grep}` : '';
   const grepInvertOption =
     options.grepInvert !== undefined ? `--grep-invert=${options.grepInvert}` : '';
 
-  const flagStrings = [
+  return [
     headedOption,
     projectOption,
     browserOption,
@@ -28,47 +25,27 @@ function getFlags(options: PlaywrightExecutorSchema): string {
     grepInvertOption,
     passWithNoTestsOption,
   ].filter(Boolean);
-
-  return flagStrings.join(' ');
 }
 
-export default async function executor(
+export default async function runExecutor(
   options: PlaywrightExecutorSchema,
   context: ExecutorContext,
 ) {
   await startDevServer(options, context);
 
-  const success = await Promise.resolve()
-    .then(async () => {
-      const flags = getFlags(options);
-      const runnerCommand =
-        options.packageRunner ?? executorSchema.properties.packageRunner.default;
-      const path = options.path ?? executorSchema.properties.path.default;
-      const config = options.config ?? executorSchema.properties.config.default;
+  const args = getFlags(options);
 
-      const command =
-        `${runnerCommand} playwright test ${path} --config ${options.e2eFolder}/${config} ${flags} && echo ${PASS_MARKER}`.trim();
+  const path = options.path ?? executorSchema.properties.path.default;
+  const config = options.config ?? executorSchema.properties.config.default;
+  const command = ['playwright', 'test', path, `--config ${options.e2eFolder}/${config}`]
+    .concat(args)
+    .join(' ');
 
-      console.debug(`Running ${command}`);
+  await new Promise((resolve, reject) => {
+    exec(command, null, (error, stdout, stderr) => {
+      error ? reject(error) : resolve({ stdout, stderr });
+    }).stdout.pipe(process.stdout);
+  });
 
-      const { stdout, stderr } = await promisify(exec)(command);
-
-      console.info(`Playwright output ${stdout}`);
-      if (stderr) {
-        console.error(`Playwright errors ${stderr}`);
-      }
-
-      return stdout.includes(PASS_MARKER);
-    })
-    .catch((error) => {
-      const message = error.stdout || error.stderr;
-      if (message) {
-        console.error(`Playwright errors ${message}`);
-      } else {
-        console.error('Unexpected error', error);
-      }
-      return false;
-    });
-
-  return { success };
+  return { success: true };
 }

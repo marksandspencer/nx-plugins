@@ -34,7 +34,7 @@
       "description": "path to run tests at",
       "default": "src"
     },
-    "proj": {
+    "testProject": {
       "type": "string",
       "description": "playwright project name to run"
     },
