@@ -28,7 +28,6 @@ describe('executor', () => {
   it('uses correct runner and path and config', async () => {
     const options: PlaywrightExecutorSchema = {
       e2eFolder: 'folder',
-      packageRunner: 'npx',
       path: 'src/tests',
       config: 'config/playwright.config.ts',
     };
@@ -45,6 +44,25 @@ describe('executor', () => {
     const expected = 'playwright test src/tests --config folder/config/playwright.config.ts';
     expect(execMock).toHaveBeenCalledWith(expected, null, expect.any(Function));
     expect(pipe).toHaveBeenCalledTimes(1);
+  });
+
+  it('runs with optional package runner', async () => {
+    const options: PlaywrightExecutorSchema = {
+      e2eFolder: 'folder',
+      packageRunner: 'npx',
+    };
+
+    const pipe = jest.fn();
+
+    execMock.mockImplementation((_command, _options, callback) => {
+      callback(null, 'passed', '');
+      return { stdout: { pipe } } as unknown as ReturnType<typeof execMock>;
+    });
+
+    await executor(options, context);
+
+    const expected = 'npx playwright test src --config folder/playwright.config.ts';
+    expect(execMock).toHaveBeenCalledWith(expected, null, expect.any(Function));
   });
 
   it.each<[string, PlaywrightExecutorSchema]>([
