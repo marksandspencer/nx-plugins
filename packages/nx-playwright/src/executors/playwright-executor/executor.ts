@@ -1,5 +1,5 @@
 import { ExecutorContext } from '@nrwl/devkit';
-import { execSync } from 'child_process';
+import { exec } from 'child_process';
 import { startDevServer } from './lib/start-dev-server';
 import executorSchema from './schema.json';
 import { PlaywrightExecutorSchema } from './schema-types';
@@ -29,28 +29,20 @@ export default async function runExecutor(
   options: PlaywrightExecutorSchema,
   context: ExecutorContext & { projectName: string },
 ) {
-  console.log('options', options);
   await startDevServer(options, context);
-  const cwd = context.workspace.projects[context.projectName].root;
 
   const args = getFlags(options);
-  console.info(`Using args ${args}`);
+  const cwd = context.workspace.projects[context.projectName].root;
+
   const path = options.path ?? executorSchema.properties.path.default;
-  // const config = options.config ?? executorSchema.properties.config.default;
+  const config = options.config ?? executorSchema.properties.config.default;
+  const command = ['playwright', 'test', path, `--config ${config}`].concat(args).join(' ');
 
-  execSync('curl http://localhost:4200', { stdio: 'inherit', cwd });
+  await new Promise((resolve, reject) => {
+    exec(command, { cwd }, (error, stdout, stderr) => {
+      error ? reject(error) : resolve({ stdout, stderr });
+    }).stdout.pipe(process.stdout);
+  });
 
-  const command = [
-    'playwright',
-    'test',
-    path,
-    '--config',
-    // todo
-    `/Users/andrea/code/temp/test-nx-playwright/apps/test-app-e2e/playwright.config.ts`,
-  ]
-    .concat(args)
-    .join(' ');
-  console.info(`Running ${cwd}: ${command}`);
-  execSync(command, { stdio: 'inherit', cwd });
   return { success: true };
 }
