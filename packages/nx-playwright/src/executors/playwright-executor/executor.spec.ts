@@ -42,7 +42,7 @@ describe('executor', () => {
 
     await executor(options, context);
 
-    const expected = 'playwright test src/tests --config folder/config/playwright.config.ts';
+    const expected = 'npx playwright test src/tests --config folder/config/playwright.config.ts';
     expect(execMock).toHaveBeenCalledWith(expected, null, expect.any(Function));
     expect(pipe).toHaveBeenCalledTimes(1);
   });
@@ -90,7 +90,7 @@ describe('executor', () => {
     await executor(options, context);
 
     expect(execMock).toHaveBeenCalledWith(
-      `playwright test src --config folder/playwright.config.ts ${expected}`.trim(),
+      `yarn playwright test src --config folder/playwright.config.ts ${expected}`.trim(),
       null,
       expect.any(Function),
     );

@@ -37,7 +37,8 @@ export default async function runExecutor(
 
   const path = options.path ?? executorSchema.properties.path.default;
   const config = options.config ?? executorSchema.properties.config.default;
-  const command = [options.packageRunner ?? executorSchema.properties.packageRunner.default, 'playwright', 'test', path, `--config ${options.e2eFolder}/${config}`]
+  const runner = options.packageRunner ?? executorSchema.properties.packageRunner.default;
+  const command = [runner, 'playwright', 'test', path, `--config ${options.e2eFolder}/${config}`]
     .concat(args)
     .join(' ');
 
