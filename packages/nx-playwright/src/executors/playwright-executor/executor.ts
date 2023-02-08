@@ -25,7 +25,7 @@ function getFlags(options: PlaywrightExecutorSchema) {
     grepOption,
     grepInvertOption,
     passWithNoTestsOption,
-    debugOption
+    debugOption,
   ];
 }
 
