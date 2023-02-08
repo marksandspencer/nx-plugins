@@ -14,7 +14,7 @@ function getFlags(options: PlaywrightExecutorSchema) {
   const grepOption = options.grep !== undefined ? `--grep=${options.grep}` : '';
   const grepInvertOption =
     options.grepInvert !== undefined ? `--grep-invert=${options.grepInvert}` : '';
-  const debugOption = options.debug !== undefined ? '--debug' : '';
+  const debugOption = options.debug === true ? '--debug' : '';
 
   return [
     headedOption,
