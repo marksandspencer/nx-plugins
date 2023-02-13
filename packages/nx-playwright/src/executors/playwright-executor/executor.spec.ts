@@ -102,7 +102,7 @@ describe('executor', () => {
     [
       '--debug',
       {
-        passWithNoTests: true,
+        debug: true,
         e2eFolder: 'folder',
       },
     ],
