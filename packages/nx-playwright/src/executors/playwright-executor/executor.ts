@@ -4,16 +4,26 @@ import { startDevServer } from './lib/start-dev-server';
 import executorSchema from './schema.json';
 import { PlaywrightExecutorSchema } from './schema-types';
 
-function getFlags(options: PlaywrightExecutorSchema) {
-  const headedOption = options.headed === true ? '--headed' : '';
-  const passWithNoTestsOption = options.passWithNoTests === true ? '--pass-with-no-tests' : '';
-  const browserOption = options.browser?.length ? `--browser=${options.browser}` : '';
-  const projectOption = options.testProject?.length ? `--project=${options.testProject}` : '';
-  const reporterOption = options.reporter?.length ? `--reporter=${options.reporter}` : '';
-  const timeoutOption = options.timeout !== undefined ? `--timeout=${options.timeout}` : '';
-  const grepOption = options.grep !== undefined ? `--grep=${options.grep}` : '';
-  const grepInvertOption =
-    options.grepInvert !== undefined ? `--grep-invert=${options.grepInvert}` : '';
+function getFlags({
+  debug,
+  headed,
+  passWithNoTests,
+  browser,
+  testProject,
+  reporter,
+  timeout,
+  grep,
+  grepInvert,
+}: PlaywrightExecutorSchema) {
+  const headedOption = headed === true ? '--headed' : '';
+  const passWithNoTestsOption = passWithNoTests === true ? '--pass-with-no-tests' : '';
+  const browserOption = browser?.length ? `--browser=${browser}` : '';
+  const projectOption = testProject?.length ? `--project=${testProject}` : '';
+  const reporterOption = reporter?.length ? `--reporter=${reporter}` : '';
+  const timeoutOption = timeout !== undefined ? `--timeout=${timeout}` : '';
+  const grepOption = grep !== undefined ? `--grep=${grep}` : '';
+  const grepInvertOption = grepInvert !== undefined ? `--grep-invert=${grepInvert}` : '';
+  const debugOption = debug !== undefined && debug ? '--debug' : '';
 
   return [
     headedOption,
@@ -24,6 +34,7 @@ function getFlags(options: PlaywrightExecutorSchema) {
     grepOption,
     grepInvertOption,
     passWithNoTestsOption,
+    debugOption,
   ];
 }
 

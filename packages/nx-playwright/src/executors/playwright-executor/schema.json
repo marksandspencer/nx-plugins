@@ -44,6 +44,10 @@
     "timeout": {
       "type": "number",
       "description": "timeout for tests"
+    },
+    "debug": {
+      "type": "boolean",
+      "description": "whether to open the Playwright inspector"
     }
   }
 }

@@ -99,6 +99,13 @@ describe('executor', () => {
         e2eFolder: 'folder',
       },
     ],
+    [
+      '--debug',
+      {
+        debug: true,
+        e2eFolder: 'folder',
+      },
+    ],
   ])(`runs playwright with options: %s`, async (expected, options) => {
     execMock.mockImplementation((_command, _options, callback) => {
       callback(null, 'passed', '');
