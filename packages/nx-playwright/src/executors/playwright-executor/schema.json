@@ -48,6 +48,10 @@
     "debug": {
       "type": "boolean",
       "description": "whether to open the Playwright inspector"
+    },
+    "updateSnapshots": {
+      "type": "boolean",
+      "description": "whether to update snapshots with actual results instead of comparing them"
     }
   }
 }
