@@ -19,4 +19,5 @@ export interface PlaywrightExecutorSchema {
   grepInvert?: string;
   passWithNoTests?: boolean;
   debug?: boolean;
+  updateSnapshots?: boolean;
 }

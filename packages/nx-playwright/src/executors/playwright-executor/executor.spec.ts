@@ -106,6 +106,13 @@ describe('executor', () => {
         e2eFolder: 'folder',
       },
     ],
+    [
+      '--update-snapshots',
+      {
+        updateSnapshots: true,
+        e2eFolder: 'folder',
+      },
+    ],
   ])(`runs playwright with options: %s`, async (expected, options) => {
     execMock.mockImplementation((_command, _options, callback) => {
       callback(null, 'passed', '');
