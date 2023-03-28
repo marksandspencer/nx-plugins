@@ -8,7 +8,7 @@ Set of nx plugins to empower your NX workspace
 
 - Playwright e2e testing [@mands/nx-playwright](packages/nx-playwright)
 
-  `yarn add --dev @mands/nx-playwright`
+  `pnpm add --dev @mands/nx-playwright`
 
 ## Want to contribute?
 
