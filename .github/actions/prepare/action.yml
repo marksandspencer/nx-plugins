@@ -10,13 +10,12 @@ runs:
       shell: bash
       run: |
         set -x
-        PNPM_VERSION=$(jq -r '.engines.pnpm' < package.json)
+        PNPM_VERSION=$(jq -r '.engines.pnpm' < package.json | sed -r 's/[>=]+//g')
         echo "value=${PNPM_VERSION}" >> "$GITHUB_OUTPUT"
 
     - uses: pnpm/action-setup@v2.2.4
       with:
-        # version: ${{ steps.get-pnpm-version.outputs.value }}
-        version: 7.28
+        version: ${{ steps.get-pnpm-version.outputs.value }}
 
     - uses: actions/setup-node@v3
       with:
