@@ -25,7 +25,7 @@ describe('nx-playwright generator', () => {
           options: {
             e2eFolder: 'e2e/test-generator',
             devServerTarget: 'test-project:serve',
-            packageRunner: 'yarn',
+            packageRunner: 'pnpm',
           },
           configurations: {
             production: {

@@ -1,6 +1,6 @@
 {
   "name": "@mands/nx-plugins",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Nx plugins by M&S engineering",
   "license": "MIT",
   "private": false,
@@ -13,9 +13,10 @@
     ]
   },
   "engines": {
-    "node": ">=14.18.1",
-    "npm": "please-use-yarn",
-    "yarn": ">=1.22.0 <2"
+    "npm": "please-use-pnpm",
+    "yarn": "please-use-pnpm",
+    "node": "16",
+    "pnpm": ">=7.27"
   },
   "dependencies": {
     "glob": "^7.2.0"
