@@ -26,4 +26,6 @@ runs:
       shell: bash
       run: |
         set -x
-        pnpm install --frozen-lockfile --ignore-scripts
+        pnpm install --no-frozen-lockfile --ignore-scripts
+        git status
+        git diff
