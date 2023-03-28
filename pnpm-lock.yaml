@@ -53,7 +53,7 @@ devDependencies:
   '@nrwl/jest': 15.5.1_ael7gnpyka6wxeaqdbeothfvei
   '@nrwl/js': 15.5.1_6warsfv7kwrcu5tzgntouohnh4
   '@nrwl/linter': 15.5.1_7howbcnoed7vzijqua7sqygonu
-  '@nrwl/node': 15.5.1_uwowhysrlq2fwkxudw7ffk4hde
+  '@nrwl/node': 15.5.1_q4vyuonhbvf6yzdpuanyobfisq
   '@nrwl/nx-plugin': 15.5.1_uwowhysrlq2fwkxudw7ffk4hde
   '@nrwl/workspace': 15.5.1_e2yscyb36o5kdezxxi236j2lzq
   '@swc-node/register': 1.6.2_un75kqwz4lxw3jlrcmkimcdqmi
@@ -83,7 +83,7 @@ devDependencies:
   nx: 15.5.1_cuaypwimdup25vwsqc5i3ttbya
   prettier: 2.6.2
   semantic-release: 19.0.5
-  ts-jest: 28.0.8_fztrhi54teek7om3xmnfwid3mq
+  ts-jest: 28.0.8_blhxpos5563bu43dtq6awsslxm
   ts-node: 10.9.1_kwh3krt4dec2ms5dp6axd7wp64
   tslib: 2.5.0
   typescript: 4.8.4
@@ -953,14 +953,14 @@ packages:
       - typescript
     dev: true
 
-  /@nrwl/node/15.5.1_uwowhysrlq2fwkxudw7ffk4hde:
+  /@nrwl/node/15.5.1_q4vyuonhbvf6yzdpuanyobfisq:
     resolution: {integrity: sha512-UXIPG80+rrqJQZFZv5cji3N5scyjquJ04ivPTcb8kxE7G4SfG0gpb5AKuLgF2NKSnJU9OiyIFVVuTXHYUnEcnQ==}
     dependencies:
       '@nrwl/devkit': 15.5.1_nx@15.5.1+typescript@4.8.4
       '@nrwl/jest': 15.5.1_ael7gnpyka6wxeaqdbeothfvei
       '@nrwl/js': 15.5.1_6warsfv7kwrcu5tzgntouohnh4
       '@nrwl/linter': 15.5.1_7howbcnoed7vzijqua7sqygonu
-      '@nrwl/webpack': 15.5.1_b6647gansxagjuyrwhe5jzgfim
+      '@nrwl/webpack': 15.5.1_bxwajvs4afvursnmkbnea2vkci
       '@nrwl/workspace': 15.5.1_e2yscyb36o5kdezxxi236j2lzq
       chalk: 4.1.0
       enquirer: 2.3.6
@@ -1029,14 +1029,14 @@ packages:
       - debug
     dev: true
 
-  /@nrwl/webpack/15.5.1_b6647gansxagjuyrwhe5jzgfim:
+  /@nrwl/webpack/15.5.1_bxwajvs4afvursnmkbnea2vkci:
     resolution: {integrity: sha512-zSVbTAlvnDCgkxtV1XCLUnGK4wcltXKnL/0Em14LMY1DFp8ldG/n/HqhZXjka0iQB+SX02LtgoYzmqhs0DW/IQ==}
     dependencies:
       '@nrwl/devkit': 15.5.1_nx@15.5.1+typescript@4.8.4
       '@nrwl/js': 15.5.1_6warsfv7kwrcu5tzgntouohnh4
       '@nrwl/workspace': 15.5.1_e2yscyb36o5kdezxxi236j2lzq
       autoprefixer: 10.4.14_postcss@8.4.21
-      babel-loader: 8.3.0_webpack@5.76.3
+      babel-loader: 8.3.0_qtovpurzjlo3biun26ymnwui7i
       chalk: 4.1.0
       chokidar: 3.5.3
       copy-webpack-plugin: 10.2.4_webpack@5.76.3
@@ -2189,8 +2189,10 @@ packages:
       indent-string: 4.0.0
     dev: true
 
-  /ajv-formats/2.1.1:
+  /ajv-formats/2.1.1_ajv@8.12.0:
     resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
+    peerDependencies:
+      ajv: ^8.0.0
     peerDependenciesMeta:
       ajv:
         optional: true
@@ -2445,13 +2447,14 @@ packages:
       - supports-color
     dev: true
 
-  /babel-loader/8.3.0_webpack@5.76.3:
+  /babel-loader/8.3.0_qtovpurzjlo3biun26ymnwui7i:
     resolution: {integrity: sha512-H8SvsMF+m9t15HNLMipppzkC+Y2Yq+v3SonZyU70RBL/h1gxPkH08Ot8pEE9Z4Kd+czyWJClmFS8qzIP9OZ04Q==}
     engines: {node: '>= 8.9'}
     peerDependencies:
       '@babel/core': ^7.0.0
       webpack: '>=2'
     dependencies:
+      '@babel/core': 7.21.3
       find-cache-dir: 3.3.2
       loader-utils: 2.0.4
       make-dir: 3.1.0
@@ -7535,7 +7538,7 @@ packages:
     dependencies:
       '@types/json-schema': 7.0.11
       ajv: 8.12.0
-      ajv-formats: 2.1.1
+      ajv-formats: 2.1.1_ajv@8.12.0
       ajv-keywords: 5.1.0_ajv@8.12.0
     dev: true
 
@@ -8327,7 +8330,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /ts-jest/28.0.8_fztrhi54teek7om3xmnfwid3mq:
+  /ts-jest/28.0.8_blhxpos5563bu43dtq6awsslxm:
     resolution: {integrity: sha512-5FaG0lXmRPzApix8oFG8RKjAz4ehtm8yMKOTy5HX3fY6W8kmvOrmcY0hKDElW52FJov+clhUbrKAqofnj4mXTg==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
     hasBin: true
@@ -8348,6 +8351,7 @@ packages:
       esbuild:
         optional: true
     dependencies:
+      '@babel/core': 7.21.3
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
       jest: 28.1.3_lpnbhgxso4u2juc7wocetwmymy
@@ -8367,7 +8371,7 @@ packages:
       typescript: '*'
       webpack: ^5.0.0
     dependencies:
-      chalk: 4.1.0
+      chalk: 4.1.2
       enhanced-resolve: 5.12.0
       micromatch: 4.0.5
       semver: 7.3.8
