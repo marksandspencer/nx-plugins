@@ -1,9 +1,9 @@
 runs:
   using: composite
   steps:
-    # - name: Get node version
-    #   uses: ./.github/actions/get-node-version
-    #   id: get-node-version
+    - name: Get node version
+      uses: ./.github/actions/get-node-version
+      id: get-node-version
 
     - name: Get pnpm version
       id: get-pnpm-version
@@ -15,11 +15,12 @@ runs:
 
     - uses: pnpm/action-setup@v2.2.4
       with:
-        version: ${{ steps.get-pnpm-version.outputs.value }}
+        # version: ${{ steps.get-pnpm-version.outputs.value }}
+        version: 7.28
 
     - uses: actions/setup-node@v3
       with:
-        node-version: 16
+        node-version: ${{ steps.get-node-version.outputs.value }}
         cache: pnpm
 
     - name: Install dependencies
