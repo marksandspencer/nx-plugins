@@ -58,7 +58,7 @@ popd
 pushd $workspace
 stash_workspace_changes_if_requested
 pnpm unlink $PLUGIN_NPM_NAME
-pnpm link $PLUGIN_NPM_NAME --dir /Users/andrea/mns/code/nx-plugins/dist/packages/nx-playwright
+pnpm link $PLUGIN_NPM_NAME --dir dist/packages/$PLUGIN_NAME
 pnpm nx generate $PLUGIN_NPM_NAME:project $app-e2e --project $app
 pnpm nx e2e $app-e2e --skip-nx-cache
 restore_workspace_if_requested
