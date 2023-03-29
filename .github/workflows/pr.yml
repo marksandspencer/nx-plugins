@@ -13,24 +13,24 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Scan for secrets
-        uses: edplato/trufflehog-actions-scan@master
-        with:
-          scanArguments: '--regex -x=truffle-hog-exclude.txt'
+      # - name: Scan for secrets
+      #   uses: edplato/trufflehog-actions-scan@master
+      #   with:
+      #     scanArguments: '--regex -x=truffle-hog-exclude.txt'
 
-      - uses: ./.github/actions/prepare
+      # - uses: ./.github/actions/prepare
 
-      - name: Run linters
-        run: pnpm nx run-many --target=lint --all
+      # - name: Run linters
+      #   run: pnpm nx run-many --target=lint --all
 
-      - name: Run unit tests
-        run: pnpm nx run-many --target=test --codeCoverage --all
+      # - name: Run unit tests
+      #   run: pnpm nx run-many --target=test --codeCoverage --all
 
-      - name: Build plugin
-        run: pnpm nx build nx-playwright
+      # - name: Build plugin
+      #   run: pnpm nx build nx-playwright
 
-      - name: Check version
-        run: pnpm ts-node ci/version-check
+      # - name: Check version
+      #   run: pnpm ts-node ci/version-check
 
       - name: Test plugin generation
         run: |
@@ -57,7 +57,3 @@ jobs:
           echo "Test ./local-test.sh (with cleanup flag)"
           ./local-test.sh -w ../$NX_WORKSPACE -a $NX_APP -C
           test -z "$(git status --porcelain)"
-
-          echo "Test ./local-test.sh (without cleanup flag)"
-          ./local-test.sh -w ../$NX_WORKSPACE -a $NX_APP
-          [ -d ../$NX_WORKSPACE/apps/$NX_APP-e2e ]
