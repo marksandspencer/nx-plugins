@@ -52,9 +52,7 @@ rm -fr dist
 pnpm nx build $PLUGIN_NAME
 
 pushd dist/packages/$PLUGIN_NAME
-echo "About to link module"
 pnpm link .
-echo "Link done"
 popd
 
 pushd $workspace
