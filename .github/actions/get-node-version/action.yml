@@ -1,0 +1,18 @@
+name: 'Get node version'
+description: 'Read node version defined in package.json'
+
+outputs:
+  value:
+    description: node version
+    value: ${{ steps.get-node-version.outputs.value }}
+
+runs:
+  using: composite
+  steps:
+    - name: Check node version
+      id: get-node-version
+      shell: bash
+      run: |
+        set -x
+        NODE_VERSION=$(jq -r '.engines.node' < package.json)
+        echo "value=${NODE_VERSION}" >> "$GITHUB_OUTPUT"

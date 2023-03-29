@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e -x
 
 PLUGIN_NAME="nx-playwright"
 PARAMETER_VALIDATION_PROMPT="
@@ -29,7 +30,7 @@ function stash_workspace_changes_if_requested {
     if [ $should_stash_and_clean ]; then
         echo "Stashing all changes before test"
         git stash -u
-        yarn install --frozen-lockfile
+        pnpm install --frozen-lockfile
     else
         echo "Stash not requested"
     fi
@@ -40,26 +41,29 @@ function restore_workspace_if_requested {
         git checkout .
         git clean -fd
         git stash pop
-        yarn install --frozen-lockfile
+        pnpm install --frozen-lockfile
     else
         echo "Restore not required"
     fi
 }
 
+CURRENT_DIR=$(pwd)
+
 PLUGIN_NPM_NAME="@mands/$PLUGIN_NAME"
 
 rm -fr dist
-yarn nx build $PLUGIN_NAME
+pnpm nx build $PLUGIN_NAME
+
 
 pushd dist/packages/$PLUGIN_NAME
-yarn link
+pnpm link .
 popd
 
 pushd $workspace
 stash_workspace_changes_if_requested
-yarn unlink $PLUGIN_NPM_NAME
-yarn link $PLUGIN_NPM_NAME
-yarn nx generate $PLUGIN_NPM_NAME:project $app-e2e --project $app
-yarn nx e2e $app-e2e --skip-nx-cache
+pnpm unlink $PLUGIN_NPM_NAME
+pnpm link $PLUGIN_NPM_NAME --dir ${CURRENT_DIR}/dist/packages/$PLUGIN_NAME
+pnpm nx generate $PLUGIN_NPM_NAME:project $app-e2e --project $app
+pnpm nx e2e $app-e2e --skip-nx-cache
 restore_workspace_if_requested
 popd

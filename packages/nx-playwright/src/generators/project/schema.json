@@ -39,7 +39,7 @@
     "packageRunner": {
       "enum": ["yarn", "npx", "pnpm"],
       "description": "package runner to use to run playwright",
-      "default": "yarn"
+      "default": "pnpm"
     }
   },
   "required": ["name"]

@@ -5,12 +5,12 @@ set -e
 SYMBOL_PASS="\xE2\x9C\x94"
 SYMBOL_FAIL="\xE2\x9D\x8C"
 
-yarn lint-staged
-yarn nx workspace-lint
+pnpm lint-staged
+pnpm nx workspace-lint
 
 echo "Verifying lockfile..."
-if ! yarn install --frozen-lockfile > /dev/null; then
-    echo "$SYMBOL_FAIL package.json does not correspond to yarn.lock"
+if ! pnpm install --frozen-lockfile > /dev/null; then
+    echo "$SYMBOL_FAIL package.json does not correspond to pnpm-lock.yaml"
     exit 1
 else
     echo "$SYMBOL_PASS Lockfile verified"

@@ -11,22 +11,22 @@ An [Nx plugin](https://nx.dev/packages/nx-plugin) that adds [Playwright](https:/
 ### Installation
 
 ```sh
-yarn add --dev @mands/nx-playwright
-yarn playwright install --with-deps
+pnpm add --dev @mands/nx-playwright
+pnpm playwright install --with-deps
 ```
 
 ### Generate e2e test app
 
-> **Warning** If you have an existing e2e test app, please remove it first `yarn nx generate remove <APP-NAME>-e2e`
+> **Warning** If you have an existing e2e test app, please remove it first `pnpm nx generate remove <APP-NAME>-e2e`
 
 ```sh
-yarn nx generate @mands/nx-playwright:project <APP-NAME>-e2e --project <APP-NAME>
+pnpm nx generate @mands/nx-playwright:project <APP-NAME>-e2e --project <APP-NAME>
 ```
 
 ### Running tests
 
 ```sh
-yarn nx e2e <APP-NAME>-e2e
+pnpm nx e2e <APP-NAME>-e2e
 ```
 
 ## Execution Flags
@@ -69,9 +69,9 @@ git clone git@github.com:marksandspencer/nx-plugins.git
 
 # Create a test workspace and app, and remove the e2e app
 
-yarn create nx-workspace --name=test-nx --appName=test-app --style=@emotion/styled --preset=next --nxCloud=false --interactive=false
+pnpm create nx-workspace --name=test-nx --appName=test-app --style=@emotion/styled --preset=next --nxCloud=false --interactive=false
 pushd test-nx
-yarn nx generate remove test-app-e2e
+pnpm nx generate remove test-app-e2e
 git commit -am "Remove test-app-e2e"
 popd
 

@@ -5,9 +5,6 @@ on:
     branches:
       - main
 
-env:
-  NODE_VERSION: '14.x'
-
 jobs:
   build:
     name: Build and publish
@@ -17,17 +14,10 @@ jobs:
         with:
           token: ${{ secrets.SAML_ACCOUNT_TOKEN }}
 
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: yarn
-
-      - name: Install and verify dependencies
-        run: yarn install --frozen-lockfile
+      - uses: ./.github/actions/prepare
 
       - name: Build plugin
-        run: yarn nx build nx-playwright
+        run: pnpm nx build nx-playwright
 
       - name: Release
         run: |
@@ -35,7 +25,7 @@ jobs:
           echo "scope=@mands" > .npmrc
           echo "@mands:registry=https://registry.npmjs.org/" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
-          yarn publish --non-interactive --access=public
+          pnpm publish --non-interactive --access=public
 
           VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g')
           echo "Tagging version $VERSION"
