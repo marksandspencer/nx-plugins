@@ -6,7 +6,6 @@ SYMBOL_PASS="\xE2\x9C\x94"
 SYMBOL_FAIL="\xE2\x9D\x8C"
 
 pnpm lint-staged
-pnpm nx workspace-lint
 
 echo "Verifying lockfile..."
 if ! pnpm install --frozen-lockfile > /dev/null; then
