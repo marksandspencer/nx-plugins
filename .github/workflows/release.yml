@@ -25,7 +25,7 @@ jobs:
           echo "scope=@mands" > .npmrc
           echo "@mands:registry=https://registry.npmjs.org/" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
-          pnpm publish --non-interactive --access=public
+          pnpm publish --access=public
 
           VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g')
           echo "Tagging version $VERSION"
