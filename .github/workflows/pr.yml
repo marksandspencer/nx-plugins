@@ -18,7 +18,7 @@ jobs:
       #   with:
       #     scanArguments: '--regex -x=truffle-hog-exclude.txt'
 
-      # - uses: ./.github/actions/prepare
+      - uses: ./.github/actions/prepare
 
       # - name: Run linters
       #   run: pnpm nx run-many --target=lint --all
