@@ -47,7 +47,7 @@ function restore_workspace_if_requested {
     fi
 }
 
-CURRENT_DIR=${pwd}
+CURRENT_DIR=$(pwd)
 
 PLUGIN_NPM_NAME="@mands/$PLUGIN_NAME"
 
