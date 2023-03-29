@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e -x
 
 PLUGIN_NAME="nx-playwright"
 PARAMETER_VALIDATION_PROMPT="
