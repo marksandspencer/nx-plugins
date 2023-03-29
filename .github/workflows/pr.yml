@@ -55,5 +55,5 @@ jobs:
           popd
 
           echo "Test ./local-test.sh (with cleanup flag)"
-          ./local-test.sh -w ../$NX_WORKSPACE -a $NX_APP -C
+          ./local-test.sh -w ../$NX_WORKSPACE -a $NX_APP
           test -z "$(git status --porcelain)"
