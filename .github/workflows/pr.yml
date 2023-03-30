@@ -45,13 +45,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          ref: automatic-versioning
           fetch-depth: 0
 
       - uses: ./.github/actions/prepare
 
       - name: Check version
         run: |
-          git checkout automatic-versioning
+          git config user.name release-bot
+          git config user.email release-bot@mnscorp.net
           pnpm lerna version patch --yes
 
   test-plugin-generation:
