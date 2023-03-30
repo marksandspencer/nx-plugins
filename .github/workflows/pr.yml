@@ -6,6 +6,10 @@ on:
     branches:
       - main
 
+concurrency:
+  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   secret-scan:
     name: Secret scan
