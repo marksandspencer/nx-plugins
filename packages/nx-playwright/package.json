@@ -1,6 +1,6 @@
 {
   "name": "@mands/nx-playwright",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "license": "MIT",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
@@ -13,7 +13,7 @@
   "generators": "./generators.json",
   "executors": "./executors.json",
   "peerDependencies": {
-    "@playwright/test": "^1.29.2",
-    "playwright": "^1.29.2"
+    "@playwright/test": "1.29.2",
+    "playwright": "1.29.2"
   }
 }

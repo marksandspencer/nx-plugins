@@ -1,7 +1,7 @@
-import * as devkit from '@nrwl/devkit';
+import { addDependenciesToPackageJson, formatFiles, Tree, updateJson } from '@nrwl/devkit';
 import playwrightInitGenerator, { removePlaywrightDeps } from './generator';
 
-const MOCK_HOST: devkit.Tree = {
+const MOCK_HOST: Tree = {
   root: '',
   read: jest.fn(),
   write: jest.fn(),
@@ -15,35 +15,41 @@ const MOCK_HOST: devkit.Tree = {
 };
 const treeFactory = () => MOCK_HOST;
 
-jest.spyOn(devkit, 'addDependenciesToPackageJson');
-const updateJsonSpy = jest.spyOn(devkit, 'updateJson');
-const formatFilesSpy = jest.spyOn(devkit, 'formatFiles');
+jest.mock('@nrwl/devkit', () => ({
+  addDependenciesToPackageJson: jest.fn(),
+  updateJson: jest.fn(),
+  formatFiles: jest.fn(),
+}));
+
+const formatFilesMock = jest.mocked(formatFiles);
+const addDependenciesToPackageJsonMock = jest.mocked(addDependenciesToPackageJson);
+const updateJsonMock = jest.mocked(updateJson);
 
 describe('generator', () => {
   beforeEach(jest.resetAllMocks);
 
   it('should initiate playwright and skip formatting', async () => {
-    updateJsonSpy.mockReturnValueOnce();
-    formatFilesSpy.mockResolvedValueOnce();
+    formatFilesMock.mockReturnValueOnce(undefined);
+    updateJsonMock.mockReturnValueOnce(undefined);
 
     const host = treeFactory();
 
     const playwrightInitTask = await playwrightInitGenerator(host, { skipFormat: true });
     expect(playwrightInitTask).toBeTruthy();
-    expect(devkit.addDependenciesToPackageJson).toHaveBeenCalled();
-    expect(devkit.formatFiles).not.toHaveBeenCalled();
+    expect(addDependenciesToPackageJsonMock).toHaveBeenCalled();
+    expect(formatFilesMock).not.toHaveBeenCalled();
   });
 
   it('should initiate playwright and format the file', async () => {
-    updateJsonSpy.mockReturnValueOnce();
-    formatFilesSpy.mockResolvedValueOnce();
+    updateJsonMock.mockReturnValueOnce(undefined);
+    formatFilesMock.mockResolvedValueOnce(undefined);
 
     const host = treeFactory();
 
     const playwrightInitTask = await playwrightInitGenerator(host, {});
     expect(playwrightInitTask).toBeTruthy();
-    expect(devkit.addDependenciesToPackageJson).toHaveBeenCalled();
-    expect(devkit.formatFiles).toHaveBeenCalled();
+    expect(addDependenciesToPackageJsonMock).toHaveBeenCalled();
+    expect(formatFilesMock).toHaveBeenCalled();
   });
 
   it('remove existing "@mands/nx-playwright" package from package.json', async () => {

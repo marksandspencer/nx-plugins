@@ -1,11 +1,17 @@
-import * as devkitModule from '@nrwl/devkit';
+import { runExecutor } from '@nrwl/devkit';
 import { startDevServer } from './start-dev-server';
 
 async function* promiseToIterator<T extends { success: boolean }>(v: T): AsyncIterableIterator<T> {
   yield await Promise.resolve(v);
 }
 
-const runExecutor = jest.spyOn(devkitModule, 'runExecutor');
+const runExecutorMock = jest.mocked(runExecutor);
+
+jest.mock('@nrwl/devkit', () => ({
+  runExecutor: jest.fn(),
+  updateJson: jest.fn(),
+  formatFiles: jest.fn(),
+}));
 
 describe('start dev server', () => {
   beforeEach(jest.resetAllMocks);
@@ -22,7 +28,7 @@ describe('start dev server', () => {
       },
     );
 
-    expect(runExecutor).not.toHaveBeenCalled();
+    expect(runExecutorMock).not.toHaveBeenCalled();
 
     expect(result).toEqual(baseUrl);
   });
@@ -39,14 +45,14 @@ describe('start dev server', () => {
       },
     );
 
-    expect(runExecutor).not.toHaveBeenCalled();
+    expect(runExecutorMock).not.toHaveBeenCalled();
 
     expect(result).toEqual(baseUrl);
   });
 
   it('returns the base url from results', async () => {
     const baseUrl = 'base-url';
-    runExecutor.mockResolvedValue(promiseToIterator({ success: true, baseUrl }));
+    runExecutorMock.mockResolvedValue(promiseToIterator({ success: true, baseUrl }));
     const context = {
       root: '',
       isVerbose: false,
@@ -65,8 +71,8 @@ describe('start dev server', () => {
 
     expect(result).toEqual(baseUrl);
 
-    expect(runExecutor).toHaveBeenCalledTimes(1);
-    expect(runExecutor).toHaveBeenCalledWith(
+    expect(runExecutorMock).toHaveBeenCalledTimes(1);
+    expect(runExecutorMock).toHaveBeenCalledWith(
       {
         project: 'project',
         target: 'target',
@@ -78,7 +84,7 @@ describe('start dev server', () => {
   });
 
   it('throws an error when executor fails', async () => {
-    runExecutor.mockResolvedValue(promiseToIterator({ success: false }));
+    runExecutorMock.mockResolvedValue(promiseToIterator({ success: false }));
     await expect(
       startDevServer(
         {
