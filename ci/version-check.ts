@@ -1,10 +1,14 @@
 import fetch from 'isomorphic-unfetch';
 
 const { version } = require(`${process.cwd()}/packages/nx-playwright/package.json`);
+const { version: mainVersion } = require(`${process.cwd()}/package.json`);
 
 console.log(`Current version ${version}`);
 
 const validateVersion = async () => {
+  if (version !== mainVersion) {
+    return Promise.reject(`Please ensure top level version and package version are the same`);
+  }
   const response = await fetch(`https://api.github.com/repos/marksandspencer/nx-plugins/tags`);
   if (response.status >= 400) {
     return Promise.reject(`Invalid response for tag request ${response.status}`);
