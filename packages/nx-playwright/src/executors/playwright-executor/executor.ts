@@ -15,6 +15,7 @@ function getFlags({
   grep,
   grepInvert,
   updateSnapshots,
+  uiMode,
 }: PlaywrightExecutorSchema) {
   const headedOption = headed === true ? '--headed' : '';
   const passWithNoTestsOption = passWithNoTests === true ? '--pass-with-no-tests' : '';
@@ -27,6 +28,7 @@ function getFlags({
   const debugOption = debug !== undefined && debug ? '--debug' : '';
   const updateSnapshotsOption =
     updateSnapshots !== undefined && updateSnapshots ? '--update-snapshots' : '';
+  const uiModeOption = uiMode !== undefined && uiMode ? '--ui' : '';
 
   return [
     headedOption,
@@ -39,6 +41,7 @@ function getFlags({
     passWithNoTestsOption,
     debugOption,
     updateSnapshotsOption,
+    uiModeOption,
   ];
 }
 
