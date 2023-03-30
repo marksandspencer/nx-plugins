@@ -7,8 +7,8 @@ on:
       - main
 
 jobs:
-  build:
-    name: PR validation
+  secret-scan:
+    name: Secret scan
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -17,6 +17,12 @@ jobs:
         uses: edplato/trufflehog-actions-scan@master
         with:
           scanArguments: '--regex -x=truffle-hog-exclude.txt'
+
+  code-quality:
+    name: Code quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
       - uses: ./.github/actions/prepare
 
@@ -29,8 +35,22 @@ jobs:
       - name: Build plugin
         run: pnpm nx build nx-playwright
 
+  version-check:
+    name: Version check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
       - name: Check version
         run: pnpm ts-node ci/version-check
+
+  test-plugin-generation:
+    name: Test plugin generation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: ./.github/actions/prepare
 
       - name: Test plugin generation
         run: |
@@ -59,3 +79,19 @@ jobs:
           echo "Test ./local-test.sh (with cleanup flag)"
           ./local-test.sh -w ../$NX_WORKSPACE -a $NX_APP
           test -z "$(git status --porcelain)"
+
+  pr-validation:
+    name: PR validation
+    needs: [code-quality, secret-scan, version-check, test-plugin-generation]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check jobs for errors
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const checkJobsForErrors = require('./.github/workflows/js/check-jobs-for-errors.js');
+            const jobs = ${{ toJSON(needs) }};
+            checkJobsForErrors({ core, jobs });
