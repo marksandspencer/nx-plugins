@@ -50,7 +50,9 @@ jobs:
       - uses: ./.github/actions/prepare
 
       - name: Check version
-        run: pnpm lerna version patch --yes
+        run: |
+          git checkout automatic-versioning
+          pnpm lerna version patch --yes
 
   test-plugin-generation:
     name: Test plugin generation
