@@ -1,6 +1,6 @@
 {
   "name": "@mands/nx-plugins",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Nx plugins by M&S engineering",
   "license": "MIT",
   "private": false,
@@ -51,6 +51,7 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "husky": "^8.0.1",
     "ignore": "^5.2.0",
+    "isomorphic-unfetch": "^4.0.2",
     "jest": "29.4.3",
     "jest-junit": "^13.2.0",
     "jsonc-eslint-parser": "^2.1.0",
