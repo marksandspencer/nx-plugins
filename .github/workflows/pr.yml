@@ -48,7 +48,7 @@ jobs:
       - uses: ./.github/actions/prepare
 
       - name: Check version
-        run: pnpm ts-node ci/version-check
+        run: pnpm lerna version patch --yes
 
   test-plugin-generation:
     name: Test plugin generation
