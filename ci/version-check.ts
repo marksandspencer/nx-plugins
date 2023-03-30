@@ -8,7 +8,7 @@ const releases: string[] = execSync('git tag').toString().split('\n').filter(Boo
 
 console.log('Existing releases', releases);
 
-if (releases.includes(version)) {
+if (!releases.length || releases.includes(version)) {
   console.error(`Version ${version} already released, please update nx-playwright version`);
   process.exit(1);
 }
