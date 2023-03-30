@@ -18,6 +18,9 @@
     "node": "16",
     "pnpm": ">=7.28"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {
     "glob": "^7.2.0"
   },
