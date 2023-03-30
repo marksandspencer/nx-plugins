@@ -52,6 +52,10 @@
     "updateSnapshots": {
       "type": "boolean",
       "description": "whether to update snapshots with actual results instead of comparing them"
+    },
+    "uiMode": {
+      "type": "boolean",
+      "description": "whether to open Playwright UI mode"
     }
   }
 }

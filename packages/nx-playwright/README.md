@@ -45,6 +45,7 @@ pnpm nx e2e <APP-NAME>-e2e
 - `--timeout=<number>`: adds a timeout for your tests in milliseconds
 - `--grep=<RegExp|Array<RegExp>>`: filter to only run tests with a title matching one of the patterns
 - `--grepInvert=<RegExp|Array<RegExp>>`: filter to only run tests with a title not matching one of the patterns
+- `--ui`: launches the browser in ui mode to explore, run and debug tests (preview)
 
 > **Note** These flags can also be used in `project.json` or `nx.json`
 

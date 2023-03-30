@@ -113,6 +113,13 @@ describe('executor', () => {
         e2eFolder: 'folder',
       },
     ],
+    [
+      '--ui',
+      {
+        uiMode: true,
+        e2eFolder: 'folder',
+      },
+    ],
   ])(`runs playwright with options: %s`, async (expected, options) => {
     execMock.mockImplementation((_command, _options, callback) => {
       callback(null, 'passed', '');
