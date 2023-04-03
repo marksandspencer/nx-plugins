@@ -18,5 +18,5 @@ export interface PlaywrightExecutorSchema {
   passWithNoTests?: boolean;
   debug?: boolean;
   updateSnapshots?: boolean;
-  uiMode?: boolean;
+  ui?: boolean;
 }

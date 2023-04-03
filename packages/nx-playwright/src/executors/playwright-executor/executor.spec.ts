@@ -116,7 +116,7 @@ describe('executor', () => {
     [
       '--ui',
       {
-        uiMode: true,
+        ui: true,
         e2eFolder: 'folder',
       },
     ],
