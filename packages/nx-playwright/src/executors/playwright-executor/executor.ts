@@ -14,6 +14,7 @@ function getFlags({
   timeout,
   grep,
   grepInvert,
+  shard,
   updateSnapshots,
   ui,
 }: PlaywrightExecutorSchema) {
@@ -25,6 +26,7 @@ function getFlags({
   const timeoutOption = timeout !== undefined ? `--timeout=${timeout}` : '';
   const grepOption = grep !== undefined ? `--grep=${grep}` : '';
   const grepInvertOption = grepInvert !== undefined ? `--grep-invert=${grepInvert}` : '';
+  const shardsOption = shard !== undefined ? `--shard=${shard}` : '';
   const debugOption = debug !== undefined && debug ? '--debug' : '';
   const updateSnapshotsOption =
     updateSnapshots !== undefined && updateSnapshots ? '--update-snapshots' : '';
@@ -38,6 +40,7 @@ function getFlags({
     timeoutOption,
     grepOption,
     grepInvertOption,
+    shardsOption,
     passWithNoTestsOption,
     debugOption,
     updateSnapshotsOption,
