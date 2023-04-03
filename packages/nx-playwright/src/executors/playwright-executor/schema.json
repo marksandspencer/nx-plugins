@@ -24,6 +24,10 @@
       "type": "string",
       "description": "type of output reporter"
     },
+    "shard": {
+      "type": "string",
+      "description": "Shard tests and execute only the selected shard, specify in the form \"current/all\", 1-based, for example \"3/5\""
+    },
     "packageRunner": {
       "enum": ["yarn", "npx", "pnpm"],
       "description": "package runner to use to run playwright"
