@@ -7,6 +7,7 @@ export interface PlaywrightExecutorSchema {
   devServerTarget?: string;
   baseUrl?: string;
   headed?: boolean;
+  shard?: string;
   reporter?: string;
   browser?: 'chromium' | 'firefox' | 'webkit' | 'all';
   packageRunner?: PackageRunner;
