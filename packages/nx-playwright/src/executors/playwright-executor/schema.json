@@ -8,12 +8,7 @@
   "type": "object",
   "properties": {
     "browser": {
-      "enum": [
-        "all",
-        "chromium",
-        "firefox",
-        "webkit"
-      ],
+      "enum": ["all", "chromium", "firefox", "webkit"],
       "description": "run on specific browser (all for all)"
     },
     "config": {
@@ -30,11 +25,7 @@
       "description": "type of output reporter"
     },
     "packageRunner": {
-      "enum": [
-        "yarn",
-        "npx",
-        "pnpm"
-      ],
+      "enum": ["yarn", "npx", "pnpm"],
       "description": "package runner to use to run playwright"
     },
     "path": {
