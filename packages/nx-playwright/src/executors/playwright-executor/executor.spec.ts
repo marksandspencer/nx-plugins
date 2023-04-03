@@ -89,7 +89,7 @@ describe('executor', () => {
       '--shard=2/4',
       {
         e2eFolder: 'folder',
-        sahrd: '2/4'
+        sahrd: '2/4',
       },
     ],
     [
