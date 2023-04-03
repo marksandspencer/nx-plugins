@@ -15,7 +15,7 @@ function getFlags({
   grep,
   grepInvert,
   updateSnapshots,
-  ui
+  ui,
 }: PlaywrightExecutorSchema) {
   const headedOption = headed === true ? '--headed' : '';
   const passWithNoTestsOption = passWithNoTests === true ? '--pass-with-no-tests' : '';
