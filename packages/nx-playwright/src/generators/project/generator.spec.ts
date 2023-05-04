@@ -114,6 +114,64 @@ describe('nx-playwright generator', () => {
       implicitDependencies: ['test-project'],
     });
   });
+
+  it('adds axe target to project.json when includeAxe option is enabled', async () => {
+    const host = createTree();
+
+    await generator(host, {
+      name: 'test-generator',
+      linter: Linter.EsLint,
+      project: 'test-project',
+      includeAxe: true,
+    });
+    const projectJson = readJson(host, 'e2e/test-generator/project.json');
+
+    expect(projectJson.targets).toEqual(
+      expect.objectContaining({
+        axe: {
+          executor: '@mands/nx-playwright:playwright-executor',
+          options: {
+            e2eFolder: 'e2e/test-generator',
+            devServerTarget: 'test-project:serve',
+            path: './axe-tests',
+            skipServe: true,
+          },
+          configurations: {
+            production: {
+              devServerTarget: 'test-project:serve:production',
+            },
+          },
+        },
+      }),
+    );
+  });
+
+  it('generates axe files when includeAxe option is enabled', async () => {
+    const host = createTree();
+
+    await generator(host, {
+      name: 'test-generator',
+      linter: Linter.EsLint,
+      project: 'test-project',
+      includeAxe: true,
+    });
+
+    expect(host.exists('e2e/test-generator/axe.config.ts')).toBe(true);
+    expect(host.exists('e2e/test-generator/axe-tests/axe-tests.spec.ts')).toBe(true);
+  });
+
+  it('does not generate axe files when includeAxe option is not present', async () => {
+    const host = createTree();
+
+    await generator(host, {
+      name: 'test-generator',
+      linter: Linter.EsLint,
+      project: 'test-project',
+    });
+
+    expect(host.exists('e2e/test-generator/axe.config.ts')).toBe(false);
+    expect(host.exists('e2e/test-generator/axe-tests/axe-tests.spec.ts')).toBe(false);
+  });
 });
 
 function createTree() {

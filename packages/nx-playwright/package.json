@@ -14,6 +14,7 @@
   "executors": "./executors.json",
   "peerDependencies": {
     "@playwright/test": "^1.32.1",
+    "axe-playwright": "^1.2.3",
     "playwright": "^1.32.1"
   }
 }

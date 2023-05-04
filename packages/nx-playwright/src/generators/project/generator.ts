@@ -18,7 +18,10 @@ import { NxPlaywrightGeneratorSchema } from './schema-types';
 
 export default async function (host: Tree, options: NxPlaywrightGeneratorSchema) {
   const normalizedOptions = normalizeOptions(host, { ...options, type: 'app' });
-  const playwrightInitTask = await playwrightInitGenerator(host, { skipFormat: true });
+  const playwrightInitTask = await playwrightInitGenerator(host, {
+    skipFormat: true,
+    includeAxe: options.includeAxe,
+  });
 
   const workspaceProjects = getProjects(host);
   if (options.project && !workspaceProjects.has(options.project)) {
@@ -30,6 +33,24 @@ export default async function (host: Tree, options: NxPlaywrightGeneratorSchema)
     sourceRoot: `${normalizedOptions.projectRoot}/src`,
     projectType: 'application',
     targets: {
+      axe: options.includeAxe
+        ? {
+            executor: '@mands/nx-playwright:playwright-executor',
+            options: {
+              e2eFolder: normalizedOptions.projectRoot,
+              devServerTarget: options.project ? `${options.project}:serve` : undefined,
+              path: './axe-tests',
+              skipServe: true,
+            },
+            configurations: {
+              production: {
+                devServerTarget: options.project
+                  ? `${options.project}:serve:production`
+                  : undefined,
+              },
+            },
+          }
+        : undefined,
       e2e: {
         executor: '@mands/nx-playwright:playwright-executor',
         options: {
@@ -81,4 +102,8 @@ const addFiles = (host: Tree, options: NxPlaywrightGeneratorNormalizedSchema) =>
     generateFiles(host, path.join(__dirname, 'root-config'), '.', templateOptions);
   }
   generateFiles(host, path.join(__dirname, 'files'), options.projectRoot, templateOptions);
+
+  if (options.includeAxe) {
+    generateFiles(host, path.join(__dirname, 'axe-files'), options.projectRoot, templateOptions);
+  }
 };

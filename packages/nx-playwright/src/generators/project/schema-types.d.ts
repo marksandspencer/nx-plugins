@@ -9,4 +9,5 @@ export interface NxPlaywrightGeneratorSchema {
   linter: Linter;
   skipFormat?: boolean;
   packageRunner?: PackageRunner;
+  includeAxe?: boolean;
 }

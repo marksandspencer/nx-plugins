@@ -1,0 +1,14 @@
+import { test } from '@playwright/test';
+import { checkA11y, injectAxe } from 'axe-playwright';
+import config from '../axe.config';
+
+test.describe.parallel('Accessibility tests', () => {
+  for (const path of config.paths) {
+    test(`${path} has no a11y violations`, async ({ page }) => {
+      await page.goto(path);
+      await injectAxe(page);
+
+      await checkA11y(page, 'body', {}, false, 'v2');
+    });
+  }
+});

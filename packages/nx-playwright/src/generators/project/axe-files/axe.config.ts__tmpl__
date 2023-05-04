@@ -1,0 +1,9 @@
+type AxeConfig = {
+  paths: string[];
+};
+
+const config: AxeConfig = {
+  paths: ['/'],
+};
+
+export default config;

@@ -1,4 +1,5 @@
 import { addDependenciesToPackageJson, formatFiles, Tree, updateJson } from '@nrwl/devkit';
+import { playwrightAxeVersion } from '../../versions';
 import playwrightInitGenerator, { removePlaywrightDeps } from './generator';
 
 const MOCK_HOST: Tree = {
@@ -50,6 +51,40 @@ describe('generator', () => {
     expect(playwrightInitTask).toBeTruthy();
     expect(addDependenciesToPackageJsonMock).toHaveBeenCalled();
     expect(formatFilesMock).toHaveBeenCalled();
+  });
+
+  it('does not add axe-playwright to package.json when includeAxe option is not present', async () => {
+    updateJsonMock.mockReturnValueOnce(undefined);
+    formatFilesMock.mockResolvedValueOnce(undefined);
+
+    const host = treeFactory();
+
+    await playwrightInitGenerator(host, {});
+
+    expect(addDependenciesToPackageJsonMock).toHaveBeenCalledWith(
+      host,
+      {},
+      expect.objectContaining({
+        'axe-playwright': undefined,
+      }),
+    );
+  });
+
+  it('adds axe-playwright to package.json when includeAxe option is true', async () => {
+    updateJsonMock.mockReturnValueOnce(undefined);
+    formatFilesMock.mockResolvedValueOnce(undefined);
+
+    const host = treeFactory();
+
+    await playwrightInitGenerator(host, { includeAxe: true });
+
+    expect(addDependenciesToPackageJsonMock).toHaveBeenCalledWith(
+      host,
+      {},
+      expect.objectContaining({
+        'axe-playwright': playwrightAxeVersion,
+      }),
+    );
   });
 
   it('remove existing "@mands/nx-playwright" package from package.json', async () => {
