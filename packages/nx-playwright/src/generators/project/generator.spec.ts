@@ -115,7 +115,7 @@ describe('nx-playwright generator', () => {
     });
   });
 
-  it('adds axe target to project.json when includeAxe option is enabled', async () => {
+  it('adds axe configuration to e2e target in project.json when includeAxe option is enabled', async () => {
     const host = createTree();
 
     await generator(host, {
@@ -126,21 +126,11 @@ describe('nx-playwright generator', () => {
     });
     const projectJson = readJson(host, 'e2e/test-generator/project.json');
 
-    expect(projectJson.targets).toEqual(
+    expect(projectJson.targets.e2e.configurations).toEqual(
       expect.objectContaining({
         axe: {
-          executor: '@mands/nx-playwright:playwright-executor',
-          options: {
-            e2eFolder: 'e2e/test-generator',
-            devServerTarget: 'test-project:serve',
-            path: './axe-tests',
-            skipServe: true,
-          },
-          configurations: {
-            production: {
-              devServerTarget: 'test-project:serve:production',
-            },
-          },
+          path: './axe-tests',
+          skipServe: true,
         },
       }),
     );

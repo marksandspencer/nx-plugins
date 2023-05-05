@@ -33,24 +33,6 @@ export default async function (host: Tree, options: NxPlaywrightGeneratorSchema)
     sourceRoot: `${normalizedOptions.projectRoot}/src`,
     projectType: 'application',
     targets: {
-      axe: options.includeAxe
-        ? {
-            executor: '@mands/nx-playwright:playwright-executor',
-            options: {
-              e2eFolder: normalizedOptions.projectRoot,
-              devServerTarget: options.project ? `${options.project}:serve` : undefined,
-              path: './axe-tests',
-              skipServe: true,
-            },
-            configurations: {
-              production: {
-                devServerTarget: options.project
-                  ? `${options.project}:serve:production`
-                  : undefined,
-              },
-            },
-          }
-        : undefined,
       e2e: {
         executor: '@mands/nx-playwright:playwright-executor',
         options: {
@@ -59,6 +41,12 @@ export default async function (host: Tree, options: NxPlaywrightGeneratorSchema)
           packageRunner: options.packageRunner ?? generatorSchema.properties.packageRunner.default,
         },
         configurations: {
+          axe: options.includeAxe
+            ? {
+                path: './axe-tests',
+                skipServe: true,
+              }
+            : undefined,
           production: {
             devServerTarget: options.project ? `${options.project}:serve:production` : undefined,
           },
