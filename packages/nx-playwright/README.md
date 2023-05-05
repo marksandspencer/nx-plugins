@@ -34,7 +34,7 @@ pnpm nx e2e <APP-NAME>-e2e
 ### Running accessibility tests
 
 ```sh
-pnpm nx axe <APP-NAME>-e2e
+pnpm nx e2e <APP-NAME>-e2e --configuration=axe
 ```
 
 ## Execution Flags
