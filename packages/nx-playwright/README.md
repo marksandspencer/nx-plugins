@@ -23,10 +23,18 @@ pnpm playwright install --with-deps
 pnpm nx generate @mands/nx-playwright:project <APP-NAME>-e2e --project <APP-NAME>
 ```
 
+Optionally the `--includeAxe` flag can be included to generate [axe-playwright](https://www.npmjs.com/package/axe-playwright) accessibility tests.
+
 ### Running tests
 
 ```sh
 pnpm nx e2e <APP-NAME>-e2e
+```
+
+### Running accessibility tests
+
+```sh
+pnpm nx e2e <APP-NAME>-e2e --configuration=axe
 ```
 
 ## Execution Flags
