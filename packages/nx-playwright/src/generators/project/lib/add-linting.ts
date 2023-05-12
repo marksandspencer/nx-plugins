@@ -26,13 +26,25 @@ export async function addLinting(
       host,
       joinPathFragments(options.projectRoot, '.eslintrc.json'),
       (json: EslintIgnoreFile) => {
-        const overrides = json.overrides.map(({ files, rules }) =>
+        const baseOverrides = json.overrides.map(({ files, rules }) =>
           files.includes('*.ts')
             ? { files, rules: { 'jest/no-done-callback': 'off' } }
             : { files, rules },
         );
 
-        return { ...json, overrides, extends: [...json.extends] };
+        return {
+          ...json,
+          overrides: options.includeAxe
+            ? [
+                ...baseOverrides,
+                {
+                  files: ['**/axe-tests/axe-tests.spec.ts'],
+                  rules: { 'jest/expect-expect': 'off' },
+                },
+              ]
+            : baseOverrides,
+          extends: [...json.extends],
+        };
       },
     );
   }

@@ -162,6 +162,59 @@ describe('nx-playwright generator', () => {
     expect(host.exists('e2e/test-generator/axe.config.ts')).toBe(false);
     expect(host.exists('e2e/test-generator/axe-tests/axe-tests.spec.ts')).toBe(false);
   });
+
+  it('generates correct .eslintrc.json', async () => {
+    const host = createTree();
+
+    await generator(host, {
+      name: 'test-generator',
+      linter: Linter.EsLint,
+      project: 'test-project',
+    });
+    const eslintJson = readJson(host, 'e2e/test-generator/.eslintrc.json');
+
+    expect(eslintJson).toEqual({
+      extends: ['../../.eslintrc.json'],
+      ignorePatterns: ['!**/*'],
+      overrides: [
+        {
+          files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
+          rules: { 'jest/no-done-callback': 'off' },
+        },
+        {
+          files: ['*.ts', '*.tsx'],
+          rules: { 'jest/no-done-callback': 'off' },
+        },
+        {
+          files: ['*.js', '*.jsx'],
+          rules: {},
+        },
+      ],
+    });
+  });
+
+  it('adds an override for AXE tests to .eslintrc.json when includeAxe option is present', async () => {
+    const host = createTree();
+
+    await generator(host, {
+      name: 'test-generator',
+      linter: Linter.EsLint,
+      project: 'test-project',
+      includeAxe: true,
+    });
+    const eslintJson = readJson(host, 'e2e/test-generator/.eslintrc.json');
+
+    expect(eslintJson).toEqual({
+      extends: ['../../.eslintrc.json'],
+      ignorePatterns: ['!**/*'],
+      overrides: expect.arrayContaining([
+        {
+          files: ['**/axe-tests/axe-tests.spec.ts'],
+          rules: { 'jest/expect-expect': 'off' },
+        },
+      ]),
+    });
+  });
 });
 
 function createTree() {
