@@ -1,4 +1,4 @@
-import { runExecutor } from '@nrwl/devkit';
+import { runExecutor } from '@nx/devkit';
 import { startDevServer } from './start-dev-server';
 
 async function* promiseToIterator<T extends { success: boolean }>(v: T): AsyncIterableIterator<T> {
@@ -7,7 +7,7 @@ async function* promiseToIterator<T extends { success: boolean }>(v: T): AsyncIt
 
 const runExecutorMock = jest.mocked(runExecutor);
 
-jest.mock('@nrwl/devkit', () => ({
+jest.mock('@nx/devkit', () => ({
   runExecutor: jest.fn(),
   updateJson: jest.fn(),
   formatFiles: jest.fn(),

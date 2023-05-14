@@ -1,4 +1,4 @@
-import { addDependenciesToPackageJson, formatFiles, Tree, updateJson } from '@nrwl/devkit';
+import { addDependenciesToPackageJson, formatFiles, Tree, updateJson } from '@nx/devkit';
 import { playwrightAxeVersion } from '../../versions';
 import playwrightInitGenerator, { removePlaywrightDeps } from './generator';
 
@@ -16,7 +16,7 @@ const MOCK_HOST: Tree = {
 };
 const treeFactory = () => MOCK_HOST;
 
-jest.mock('@nrwl/devkit', () => ({
+jest.mock('@nx/devkit', () => ({
   addDependenciesToPackageJson: jest.fn(),
   updateJson: jest.fn(),
   formatFiles: jest.fn(),

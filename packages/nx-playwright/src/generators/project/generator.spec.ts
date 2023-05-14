@@ -1,6 +1,6 @@
-import { addProjectConfiguration, readJson, updateWorkspaceConfiguration } from '@nrwl/devkit';
-import { createTreeWithEmptyWorkspace } from '@nrwl/devkit/testing';
-import { Linter } from '@nrwl/linter';
+import { addProjectConfiguration, readJson, updateWorkspaceConfiguration } from '@nx/devkit';
+import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
+import { Linter } from '@nx/linter';
 import generator from './generator';
 
 describe('nx-playwright generator', () => {
@@ -44,7 +44,7 @@ describe('nx-playwright generator', () => {
           },
         },
         lint: {
-          executor: '@nrwl/linter:eslint',
+          executor: '@nx/linter:eslint',
           outputs: ['{options.outputFile}'],
           options: { lintFilePatterns: ['e2e/test-generator/**/*.{ts,tsx,js,jsx}'] },
         },
@@ -105,7 +105,7 @@ describe('nx-playwright generator', () => {
           },
         },
         lint: {
-          executor: '@nrwl/linter:eslint',
+          executor: '@nx/linter:eslint',
           outputs: ['{options.outputFile}'],
           options: { lintFilePatterns: ['e2e/test-generator/**/*.{ts,tsx,js,jsx}'] },
         },

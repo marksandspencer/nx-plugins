@@ -1,4 +1,4 @@
-import { ExecutorContext, runExecutor } from '@nrwl/devkit';
+import { ExecutorContext, runExecutor } from '@nx/devkit';
 import type { PlaywrightExecutorSchema } from '../schema-types';
 
 type ExecutorResult = {

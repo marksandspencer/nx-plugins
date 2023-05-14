@@ -6,8 +6,8 @@ import {
   names,
   offsetFromRoot,
   Tree,
-} from '@nrwl/devkit';
-import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
+} from '@nx/devkit';
+import { runTasksInSerial } from '@nx/workspace/src/utilities/run-tasks-in-serial';
 import { existsSync } from 'fs';
 import * as path from 'path';
 import playwrightInitGenerator from '../init/generator';
