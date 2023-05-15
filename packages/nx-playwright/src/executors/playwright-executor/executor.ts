@@ -1,4 +1,4 @@
-import { ExecutorContext } from '@nrwl/devkit';
+import { ExecutorContext } from '@nx/devkit';
 import { exec } from 'child_process';
 import { startDevServer } from './lib/start-dev-server';
 import executorSchema from './schema.json';

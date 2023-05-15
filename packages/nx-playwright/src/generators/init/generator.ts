@@ -1,5 +1,5 @@
-import { addDependenciesToPackageJson, formatFiles, Tree, updateJson } from '@nrwl/devkit';
-import { runTasksInSerial } from '@nrwl/workspace/src/utilities/run-tasks-in-serial';
+import { addDependenciesToPackageJson, formatFiles, Tree, updateJson } from '@nx/devkit';
+import { runTasksInSerial } from '@nx/workspace/src/utilities/run-tasks-in-serial';
 import { playwrightAxeVersion, playwrightTestVersion, playwrightVersion } from '../../versions';
 import { addGitIgnoreEntry } from './lib/add-git-ignore-entry';
 import { InitGeneratorSchema } from './schema';

@@ -1,6 +1,6 @@
 {
   "name": "@mands/nx-plugins",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Nx plugins by M&S engineering",
   "license": "MIT",
   "private": false,
@@ -15,28 +15,19 @@
   "engines": {
     "npm": "please-use-pnpm",
     "yarn": "please-use-pnpm",
-    "node": "16",
+    "node": ">16",
     "pnpm": ">=7.28"
   },
   "dependencies": {
     "glob": "^7.2.0"
   },
   "devDependencies": {
-    "@nrwl/cli": "15.8.9",
-    "@nrwl/devkit": "15.8.9",
-    "@nrwl/eslint-plugin-nx": "15.8.9",
-    "@nrwl/jest": "15.8.9",
-    "@nrwl/js": "15.8.9",
-    "@nrwl/linter": "15.8.9",
-    "@nrwl/node": "15.8.9",
-    "@nrwl/nx-plugin": "15.8.9",
-    "@nrwl/workspace": "15.8.9",
     "@swc-node/register": "^1.4.2",
     "@swc/core": "^1.2.173",
     "@types/jest": "29.4.4",
     "@types/node": "18.7.1",
-    "@typescript-eslint/eslint-plugin": "5.43.0",
-    "@typescript-eslint/parser": "5.43.0",
+    "@typescript-eslint/eslint-plugin": "5.59.5",
+    "@typescript-eslint/parser": "5.59.5",
     "dotenv": "10.0.0",
     "eslint": "8.15.0",
     "eslint-config-prettier": "8.1.0",
@@ -56,12 +47,20 @@
     "jest-junit": "^13.2.0",
     "jsonc-eslint-parser": "^2.1.0",
     "lint-staged": "^13.0.1",
-    "nx": "15.8.9",
+    "nx": "16.1.4",
     "prettier": "2.6.2",
     "semantic-release": "^19.0.2",
-    "ts-jest": "29.0.5",
+    "ts-jest": "29.1.0",
     "ts-node": "10.9.1",
     "tslib": "^2.0.0",
-    "typescript": "4.9.5"
+    "typescript": "5.0.4",
+    "@nx/devkit": "16.1.4",
+    "@nx/workspace": "16.1.4",
+    "@nx/linter": "16.1.4",
+    "@nx/js": "16.1.4",
+    "@nx/eslint-plugin": "16.1.4",
+    "@nx/plugin": "16.1.4",
+    "@nx/jest": "16.1.4",
+    "@nx/node": "16.1.4"
   }
 }

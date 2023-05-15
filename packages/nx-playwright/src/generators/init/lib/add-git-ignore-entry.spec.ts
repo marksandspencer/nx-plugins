@@ -1,4 +1,4 @@
-import * as devkit from '@nrwl/devkit';
+import * as devkit from '@nx/devkit';
 import { addGitIgnoreEntry } from './add-git-ignore-entry';
 
 const treeFactory = (): devkit.Tree => {
