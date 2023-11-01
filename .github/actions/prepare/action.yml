@@ -13,11 +13,11 @@ runs:
         PNPM_VERSION=$(jq -r '.engines.pnpm' < package.json | sed -r 's/[>=]+//g')
         echo "value=${PNPM_VERSION}" >> "$GITHUB_OUTPUT"
 
-    - uses: pnpm/action-setup@v2.2.4
+    - uses: pnpm/action-setup@v2.4.0
       with:
         version: ${{ steps.get-pnpm-version.outputs.value }}
 
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v3.8.2
       with:
         node-version: ${{ steps.get-node-version.outputs.value }}
         cache: pnpm
