@@ -16,7 +16,7 @@
     "npm": "please-use-pnpm",
     "yarn": "please-use-pnpm",
     "node": ">=16",
-    "pnpm": ">=7.28"
+    "pnpm": ">=8.9"
   },
   "dependencies": {
     "glob": "^7.2.0"
