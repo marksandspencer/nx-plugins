@@ -17,6 +17,7 @@ const MOCK_HOST: Tree = {
 const treeFactory = () => MOCK_HOST;
 
 jest.mock('@nx/devkit', () => ({
+  ...jest.requireActual('@nx/devkit'),
   addDependenciesToPackageJson: jest.fn(),
   updateJson: jest.fn(),
   formatFiles: jest.fn(),
@@ -64,8 +65,8 @@ describe('generator', () => {
     expect(addDependenciesToPackageJsonMock).toHaveBeenCalledWith(
       host,
       {},
-      expect.objectContaining({
-        'axe-playwright': undefined,
+      expect.not.objectContaining({
+        'axe-playwright': expect.anything(),
       }),
     );
   });

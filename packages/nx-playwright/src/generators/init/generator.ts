@@ -1,5 +1,10 @@
-import { addDependenciesToPackageJson, formatFiles, Tree, updateJson } from '@nx/devkit';
-import { runTasksInSerial } from '@nx/workspace/src/utilities/run-tasks-in-serial';
+import {
+  addDependenciesToPackageJson,
+  formatFiles,
+  runTasksInSerial,
+  Tree,
+  updateJson,
+} from '@nx/devkit';
 import { playwrightAxeVersion, playwrightTestVersion, playwrightVersion } from '../../versions';
 import { addGitIgnoreEntry } from './lib/add-git-ignore-entry';
 import { InitGeneratorSchema } from './schema';
@@ -15,9 +20,9 @@ export default async function playwrightInitGenerator(host: Tree, options: InitG
     host,
     {},
     {
-      'axe-playwright': options.includeAxe ? playwrightAxeVersion : undefined,
       '@playwright/test': playwrightTestVersion,
       playwright: playwrightVersion,
+      ...(options.includeAxe ? { 'axe-playwright': playwrightAxeVersion } : {}),
     },
   );
 

@@ -69,6 +69,7 @@ jobs:
           pnpm create nx-workspace \
             --name=$NX_WORKSPACE --appName=$NX_APP \
             --preset=next --style=@emotion/styled \
+            --e2eTestRunner=playwright --nextAppDir=false \
             --nxCloud=false --interactive=false < /dev/null
 
           pushd $NX_WORKSPACE
