@@ -5,9 +5,9 @@ import {
   getProjects,
   names,
   offsetFromRoot,
+  runTasksInSerial,
   Tree,
 } from '@nx/devkit';
-import { runTasksInSerial } from '@nx/workspace/src/utilities/run-tasks-in-serial';
 import { existsSync } from 'fs';
 import * as path from 'path';
 import playwrightInitGenerator from '../init/generator';
