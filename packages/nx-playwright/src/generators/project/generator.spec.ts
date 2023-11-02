@@ -26,6 +26,7 @@ describe('nx-playwright generator', () => {
             e2eFolder: 'e2e/test-generator',
             devServerTarget: 'test-project:serve',
             packageRunner: 'pnpm',
+            path: './tests',
           },
           configurations: {
             production: {
@@ -87,6 +88,7 @@ describe('nx-playwright generator', () => {
             e2eFolder: 'e2e/test-generator',
             devServerTarget: 'test-project:serve',
             packageRunner: 'pnpm',
+            path: './tests',
           },
           configurations: {
             production: {
