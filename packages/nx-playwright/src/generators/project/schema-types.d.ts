@@ -1,4 +1,4 @@
-import { Linter } from '@nx/linter';
+import { Linter } from '@nx/eslint';
 import type { PackageRunner } from '../../types';
 
 export interface NxPlaywrightGeneratorSchema {

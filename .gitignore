@@ -41,3 +41,5 @@ junit.xml
 /libpeerconnection.log
 testem.log
 /typings
+
+.nx/cache
