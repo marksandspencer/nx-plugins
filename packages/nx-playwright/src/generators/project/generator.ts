@@ -39,6 +39,7 @@ export default async function (host: Tree, options: NxPlaywrightGeneratorSchema)
           e2eFolder: normalizedOptions.projectRoot,
           devServerTarget: options.project ? `${options.project}:serve` : undefined,
           packageRunner: options.packageRunner ?? generatorSchema.properties.packageRunner.default,
+          path: './tests',
         },
         configurations: {
           axe: options.includeAxe
