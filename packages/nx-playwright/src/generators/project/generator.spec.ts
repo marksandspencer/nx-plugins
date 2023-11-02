@@ -1,4 +1,4 @@
-import { addProjectConfiguration, readJson, updateWorkspaceConfiguration } from '@nx/devkit';
+import { addProjectConfiguration, readJson, updateNxJson } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { Linter } from '@nx/eslint';
 import generator from './generator';
@@ -44,7 +44,7 @@ describe('nx-playwright generator', () => {
           },
         },
         lint: {
-          executor: '@nx/eslint:eslint',
+          executor: '@nx/eslint:lint',
           outputs: ['{options.outputFile}'],
           options: { lintFilePatterns: ['e2e/test-generator/**/*.{ts,tsx,js,jsx}'] },
         },
@@ -105,7 +105,7 @@ describe('nx-playwright generator', () => {
           },
         },
         lint: {
-          executor: '@nx/eslint:eslint',
+          executor: '@nx/eslint:lint',
           outputs: ['{options.outputFile}'],
           options: { lintFilePatterns: ['e2e/test-generator/**/*.{ts,tsx,js,jsx}'] },
         },
@@ -219,12 +219,11 @@ describe('nx-playwright generator', () => {
 
 function createTree() {
   const host = createTreeWithEmptyWorkspace();
-  updateWorkspaceConfiguration(host, {
+  updateNxJson(host, {
     workspaceLayout: {
       appsDir: 'e2e',
       libsDir: 'packages',
     },
-    version: 2,
   });
   addProjectConfiguration(host, 'test-project', { root: './apps/test-project' });
   return host;
