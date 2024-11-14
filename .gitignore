@@ -42,4 +42,6 @@ junit.xml
 testem.log
 /typings
 
+# Nx
 .nx
+migrations.json
