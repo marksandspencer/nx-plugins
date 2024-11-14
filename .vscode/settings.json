@@ -6,11 +6,6 @@
     "source.organizeImports": false,
     "source.fixAll.eslint": true
   },
-  "eslint.validate": [
-    "json"
-  ],
-  "cSpell.words": [
-    "mands",
-    "nrwl"
-  ]
+  "eslint.validate": ["json"],
+  "cSpell.words": ["mands", "nrwl"]
 }
