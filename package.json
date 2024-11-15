@@ -22,13 +22,13 @@
     "glob": "^7.2.0"
   },
   "devDependencies": {
-    "@nx/devkit": "20.0.0-beta.7",
-    "@nx/workspace": "20.0.0-beta.7",
-    "@nx/js": "20.0.0-beta.7",
-    "@nx/eslint-plugin": "20.0.0-beta.7",
-    "@nx/plugin": "20.0.0-beta.7",
-    "@nx/jest": "20.0.0-beta.7",
-    "@nx/node": "20.0.0-beta.7",
+    "@nx/devkit": "20.1.1",
+    "@nx/workspace": "20.1.1",
+    "@nx/js": "20.1.1",
+    "@nx/eslint-plugin": "20.1.1",
+    "@nx/plugin": "20.1.1",
+    "@nx/jest": "20.1.1",
+    "@nx/node": "20.1.1",
     "@swc-node/register": "1.9.2",
     "@swc/core": "1.5.7",
     "@types/jest": "29.5.14",
@@ -54,13 +54,13 @@
     "jest-junit": "16.0.0",
     "jsonc-eslint-parser": "^2.1.0",
     "lint-staged": "^12.5.0",
-    "nx": "20.0.0-beta.7",
+    "nx": "20.1.1",
     "prettier": "3.1.0",
     "semantic-release": "^19.0.2",
     "ts-jest": "29.2.4",
     "ts-node": "10.9.2",
     "tslib": "^2.0.0",
     "typescript": "5.5.4",
-    "@nx/eslint": "20.0.0-beta.7"
+    "@nx/eslint": "20.1.1"
   }
 }
