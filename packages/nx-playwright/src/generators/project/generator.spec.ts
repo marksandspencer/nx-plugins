@@ -1,4 +1,4 @@
-import { addProjectConfiguration, readJson, updateWorkspaceConfiguration } from '@nx/devkit';
+import { addProjectConfiguration, readJson } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import { Linter } from '@nx/eslint';
 import generator from './generator';
@@ -12,18 +12,19 @@ describe('nx-playwright generator', () => {
       linter: Linter.EsLint,
       project: 'test-project',
     });
-    const projectJson = readJson(host, 'e2e/test-generator/project.json');
+
+    const projectJson = readJson(host, 'apps/test-generator/project.json');
 
     expect(projectJson).toEqual({
       $schema: '../../node_modules/nx/schemas/project-schema.json',
-      sourceRoot: 'e2e/test-generator/src',
+      sourceRoot: 'apps/test-generator/src',
       name: 'test-generator',
       projectType: 'application',
       targets: {
         e2e: {
           executor: '@mands/nx-playwright:playwright-executor',
           options: {
-            e2eFolder: 'e2e/test-generator',
+            e2eFolder: 'apps/test-generator',
             devServerTarget: 'test-project:serve',
             packageRunner: 'pnpm',
           },
@@ -44,9 +45,9 @@ describe('nx-playwright generator', () => {
           },
         },
         lint: {
-          executor: '@nx/eslint:eslint',
-          outputs: ['{options.outputFile}'],
-          options: { lintFilePatterns: ['e2e/test-generator/**/*.{ts,tsx,js,jsx}'] },
+          executor: '@nx/eslint:lint',
+          // outputs: ['{options.outputFile}'],
+          options: { lintFilePatterns: ['apps/test-generator/**/*.{ts,tsx,js,jsx}'] },
         },
       },
       tags: [],
@@ -73,18 +74,18 @@ describe('nx-playwright generator', () => {
       project: 'test-project',
       packageRunner: 'pnpm',
     });
-    const projectJson = readJson(host, 'e2e/test-generator/project.json');
+    const projectJson = readJson(host, 'apps/test-generator/project.json');
 
     expect(projectJson).toEqual({
       $schema: '../../node_modules/nx/schemas/project-schema.json',
-      sourceRoot: 'e2e/test-generator/src',
+      sourceRoot: 'apps/test-generator/src',
       name: 'test-generator',
       projectType: 'application',
       targets: {
         e2e: {
           executor: '@mands/nx-playwright:playwright-executor',
           options: {
-            e2eFolder: 'e2e/test-generator',
+            e2eFolder: 'apps/test-generator',
             devServerTarget: 'test-project:serve',
             packageRunner: 'pnpm',
           },
@@ -105,9 +106,9 @@ describe('nx-playwright generator', () => {
           },
         },
         lint: {
-          executor: '@nx/eslint:eslint',
-          outputs: ['{options.outputFile}'],
-          options: { lintFilePatterns: ['e2e/test-generator/**/*.{ts,tsx,js,jsx}'] },
+          executor: '@nx/eslint:lint',
+          // outputs: ['{options.outputFile}'],
+          options: { lintFilePatterns: ['apps/test-generator/**/*.{ts,tsx,js,jsx}'] },
         },
       },
       tags: [],
@@ -124,7 +125,7 @@ describe('nx-playwright generator', () => {
       project: 'test-project',
       includeAxe: true,
     });
-    const projectJson = readJson(host, 'e2e/test-generator/project.json');
+    const projectJson = readJson(host, 'apps/test-generator/project.json');
 
     expect(projectJson.targets.e2e.configurations).toEqual(
       expect.objectContaining({
@@ -146,8 +147,8 @@ describe('nx-playwright generator', () => {
       includeAxe: true,
     });
 
-    expect(host.exists('e2e/test-generator/axe.config.ts')).toBe(true);
-    expect(host.exists('e2e/test-generator/axe-tests/axe-tests.spec.ts')).toBe(true);
+    expect(host.exists('apps/test-generator/axe.config.ts')).toBe(true);
+    expect(host.exists('apps/test-generator/axe-tests/axe-tests.spec.ts')).toBe(true);
   });
 
   it('does not generate axe files when includeAxe option is not present', async () => {
@@ -159,8 +160,8 @@ describe('nx-playwright generator', () => {
       project: 'test-project',
     });
 
-    expect(host.exists('e2e/test-generator/axe.config.ts')).toBe(false);
-    expect(host.exists('e2e/test-generator/axe-tests/axe-tests.spec.ts')).toBe(false);
+    expect(host.exists('apps/test-generator/axe.config.ts')).toBe(false);
+    expect(host.exists('apps/test-generator/axe-tests/axe-tests.spec.ts')).toBe(false);
   });
 
   it('generates correct .eslintrc.json', async () => {
@@ -171,7 +172,7 @@ describe('nx-playwright generator', () => {
       linter: Linter.EsLint,
       project: 'test-project',
     });
-    const eslintJson = readJson(host, 'e2e/test-generator/.eslintrc.json');
+    const eslintJson = readJson(host, 'apps/test-generator/.eslintrc.json');
 
     expect(eslintJson).toEqual({
       extends: ['../../.eslintrc.json'],
@@ -202,7 +203,7 @@ describe('nx-playwright generator', () => {
       project: 'test-project',
       includeAxe: true,
     });
-    const eslintJson = readJson(host, 'e2e/test-generator/.eslintrc.json');
+    const eslintJson = readJson(host, 'apps/test-generator/.eslintrc.json');
 
     expect(eslintJson).toEqual({
       extends: ['../../.eslintrc.json'],
@@ -218,14 +219,9 @@ describe('nx-playwright generator', () => {
 });
 
 function createTree() {
-  const host = createTreeWithEmptyWorkspace();
-  updateWorkspaceConfiguration(host, {
-    workspaceLayout: {
-      appsDir: 'e2e',
-      libsDir: 'packages',
-    },
-    version: 2,
+  const host = createTreeWithEmptyWorkspace({
+    layout: 'apps-libs',
   });
-  addProjectConfiguration(host, 'test-project', { root: './apps/test-project' });
+  addProjectConfiguration(host, 'test-project', { root: './test-project' });
   return host;
 }

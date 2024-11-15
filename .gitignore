@@ -45,3 +45,8 @@ testem.log
 # Nx
 .nx
 migrations.json
+
+# Playwright
+**/test-results
+**/playwright-report
+**/playwright/.cache

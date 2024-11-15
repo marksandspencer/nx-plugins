@@ -18,19 +18,19 @@
     "node": ">=16",
     "pnpm": ">=8.9"
   },
-  "dependencies": {
-    "glob": "^7.2.0"
-  },
   "devDependencies": {
     "@nx/devkit": "20.1.1",
-    "@nx/workspace": "20.1.1",
-    "@nx/js": "20.1.1",
+    "@nx/eslint": "20.1.1",
     "@nx/eslint-plugin": "20.1.1",
-    "@nx/plugin": "20.1.1",
     "@nx/jest": "20.1.1",
+    "@nx/js": "20.1.1",
     "@nx/node": "20.1.1",
+    "@nx/plugin": "20.1.1",
+    "@nx/workspace": "20.1.1",
+    "@playwright/test": "^1.32.1",
     "@swc-node/register": "1.9.2",
     "@swc/core": "1.5.7",
+    "@swc/helpers": "^0.5.15",
     "@types/jest": "29.5.14",
     "@types/node": "18.19.9",
     "@typescript-eslint/eslint-plugin": "7.18.0",
@@ -55,12 +55,15 @@
     "jsonc-eslint-parser": "^2.1.0",
     "lint-staged": "^12.5.0",
     "nx": "20.1.1",
+    "playwright": "^1.32.1",
     "prettier": "3.1.0",
     "semantic-release": "^19.0.2",
     "ts-jest": "29.2.4",
     "ts-node": "10.9.2",
     "tslib": "^2.0.0",
-    "typescript": "5.5.4",
-    "@nx/eslint": "20.1.1"
+    "typescript": "5.5.4"
+  },
+  "dependencies": {
+    "glob": "^7.2.0"
   }
 }

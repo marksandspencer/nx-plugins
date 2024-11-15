@@ -1,4 +1,4 @@
-import { runExecutor } from '@nx/devkit';
+import { ExecutorContext, runExecutor } from '@nx/devkit';
 import { startDevServer } from './start-dev-server';
 
 async function* promiseToIterator<T extends { success: boolean }>(v: T): AsyncIterableIterator<T> {
@@ -23,9 +23,8 @@ describe('start dev server', () => {
       {
         root: '',
         isVerbose: false,
-        workspace: { version: 1, projects: {} },
         cwd: '',
-      },
+      } as ExecutorContext,
     );
 
     expect(runExecutorMock).not.toHaveBeenCalled();
@@ -35,15 +34,11 @@ describe('start dev server', () => {
 
   it('does not start server when dev target url is missing', async () => {
     const baseUrl = 'base-url';
-    const result = await startDevServer(
-      { skipServe: false, e2eFolder: 'folder', baseUrl },
-      {
-        root: '',
-        isVerbose: false,
-        workspace: { version: 1, projects: {} },
-        cwd: '',
-      },
-    );
+    const result = await startDevServer({ skipServe: false, e2eFolder: 'folder', baseUrl }, {
+      root: '',
+      isVerbose: false,
+      cwd: '',
+    } as ExecutorContext);
 
     expect(runExecutorMock).not.toHaveBeenCalled();
 
@@ -56,9 +51,8 @@ describe('start dev server', () => {
     const context = {
       root: '',
       isVerbose: false,
-      workspace: { version: 1, projects: {}, npmScope: '' },
       cwd: '',
-    };
+    } as ExecutorContext;
 
     const result = await startDevServer(
       {
@@ -96,9 +90,8 @@ describe('start dev server', () => {
         {
           root: '',
           isVerbose: false,
-          workspace: { version: 1, projects: {} },
           cwd: '',
-        },
+        } as ExecutorContext,
       ),
     ).rejects.toThrowError(new Error('Could not start dev server'));
   });
