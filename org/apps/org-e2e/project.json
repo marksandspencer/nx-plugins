@@ -1,0 +1,9 @@
+{
+  "name": "org-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/org-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["org"],
+  "// targets": "to see all targets run: nx show project org-e2e --web",
+  "targets": {}
+}
