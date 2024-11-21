@@ -26,32 +26,46 @@ export async function addLinting(
     skipFormat: true,
   });
 
-  if (options.linter === Linter.EsLint) {
-    updateJson(
-      host,
-      joinPathFragments(options.projectRoot, '.eslintrc.json'),
-      (json: EslintIgnoreFile) => {
-        const baseOverrides = json.overrides.map(({ files, rules }) =>
-          files.includes('*.ts')
-            ? { files, rules: { 'jest/no-done-callback': 'off' } }
-            : { files, rules },
-        );
+  console.log('*** options = ', options);
 
-        return {
-          ...json,
-          overrides: options.includeAxe
-            ? [
-                ...baseOverrides,
-                {
-                  files: ['**/axe-tests/axe-tests.spec.ts'],
-                  rules: { 'jest/expect-expect': 'off' },
-                },
-              ]
-            : baseOverrides,
-          extends: [...json.extends],
-        };
-      },
-    );
+  if (options.linter === Linter.EsLint) {
+    const eslintrc = joinPathFragments(options.projectRoot, '.eslintrc.json');
+    const eslintconfig = joinPathFragments(options.projectRoot, 'eslint.config.js');
+
+    console.log('*** options.projectRoot = ', host.exists(options.projectRoot));
+    console.log('*** options.projectRoot = ', host.children(options.projectRoot));
+    console.log('*** eslintrc = ', eslintrc);
+    console.log('*** eslintconfig = ', eslintconfig);
+    console.log('*** eslintrc = ', host.exists(eslintrc));
+    console.log('*** eslintconfig = ', host.exists(eslintconfig));
+
+    if (host.exists(eslintrc)) {
+      updateJson(
+        host,
+        joinPathFragments(options.projectRoot, '.eslintrc.json'),
+        (json: EslintIgnoreFile) => {
+          const baseOverrides = json.overrides.map(({ files, rules }) =>
+            files.includes('*.ts')
+              ? { files, rules: { 'jest/no-done-callback': 'off' } }
+              : { files, rules },
+          );
+
+          return {
+            ...json,
+            overrides: options.includeAxe
+              ? [
+                  ...baseOverrides,
+                  {
+                    files: ['**/axe-tests/axe-tests.spec.ts'],
+                    rules: { 'jest/expect-expect': 'off' },
+                  },
+                ]
+              : baseOverrides,
+            extends: [...json.extends],
+          };
+        },
+      );
+    }
   }
 
   return runTasksInSerial(lintTask);
