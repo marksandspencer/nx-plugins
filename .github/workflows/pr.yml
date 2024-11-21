@@ -86,7 +86,7 @@ jobs:
           #!/bin/bash
 
           echo "Add serve target to nx next app"
-          ./add-serve-target.sh -w path/to/workspace -a example-app
+          ./add-serve-target.sh -w ../$NX_WORKSPACE -a $NX_APP
 
           echo "Test ./local-test.sh (with cleanup flag)"
           ./local-test.sh -w ../$NX_WORKSPACE -a $NX_APP
