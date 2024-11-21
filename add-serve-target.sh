@@ -23,10 +23,12 @@ if [ -z $workspace ] || [ -z $app ]; then
     exit 1
 fi
 
-# Path to the JSON file
-NX_PROJECT_FILE=$workspace/apps/$app/project.json
+echo "Hello"
 
-echo $NX_PROJECT_FILE
+# Path to the JSON file
+# NX_PROJECT_FILE=$workspace/apps/$app/project.json
+
+# echo $NX_PROJECT_FILE
 
 # # Check if the file exists
 # if [[ ! -f "$NX_PROJECT_FILE" ]]; then
