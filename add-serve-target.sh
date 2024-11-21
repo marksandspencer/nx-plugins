@@ -26,22 +26,24 @@ fi
 # Path to the JSON file
 NX_PROJECT_FILE=$workspace/apps/$app/project.json
 
-# Check if the file exists
-if [[ ! -f "$NX_PROJECT_FILE" ]]; then
-  echo "Error: File $NX_PROJECT_FILE does not exist."
-  exit 1
-fi
+echo $NX_PROJECT_FILE
 
-# Load the JSON file and add a new section
-NEW_NX_PROJECT=$(jq '.target += {"serve": {"executor": "@nx/web:file-server", "options": { "buildTarget": "build", "staticFilePath": "apps/test-app/out", "port": 3000, "spa": false}}}' "$NX_PROJECT_FILE")
+# # Check if the file exists
+# if [[ ! -f "$NX_PROJECT_FILE" ]]; then
+#   echo "Error: File $NX_PROJECT_FILE does not exist."
+#   exit 1
+# fi
 
-# Check if jq succeeded
-if [[ $? -ne 0 ]]; then
-  echo "Error: Failed to process JSON with jq."
-  exit 1
-fi
+# # Load the JSON file and add a new section
+# NEW_NX_PROJECT=$(jq '.target += {"serve": {"executor": "@nx/web:file-server", "options": { "buildTarget": "build", "staticFilePath": "apps/test-app/out", "port": 3000, "spa": false}}}' "$NX_PROJECT_FILE")
 
-# Save the modified JSON back to the original file
-echo "$NEW_NX_PROJECT" > "$NX_PROJECT_FILE"
+# # Check if jq succeeded
+# if [[ $? -ne 0 ]]; then
+#   echo "Error: Failed to process JSON with jq."
+#   exit 1
+# fi
 
-echo "Successfully updated $NX_PROJECT_FILE."
+# # Save the modified JSON back to the original file
+# echo "$NEW_NX_PROJECT" > "$NX_PROJECT_FILE"
+
+# echo "Successfully updated $NX_PROJECT_FILE."
