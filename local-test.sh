@@ -64,6 +64,6 @@ stash_workspace_changes_if_requested
 pnpm unlink $PLUGIN_NPM_NAME
 pnpm link $PLUGIN_NPM_NAME --dir ${CURRENT_DIR}/dist/packages/$PLUGIN_NAME
 pnpm nx generate $PLUGIN_NPM_NAME:project $app-e2e --project $app
-E2E_BASE_URL=3000 pnpm nx e2e $app-e2e --skip-nx-cache
+E2E_BASE_URL=http://localhost:3000 pnpm nx e2e $app-e2e --skip-nx-cache
 restore_workspace_if_requested
 popd
