@@ -33,7 +33,7 @@ if [[ ! -f "$NX_PROJECT_FILE" ]]; then
 fi
 
 # Load the JSON file and add a new section
-NEW_NX_PROJECT=$(jq '.target += {"serve": {"executor": "@nx/web:file-server", "options": { "buildTarget": "build", "staticFilePath": "apps/test-app/out", "port": 3000, "spa": false}}}' "$NX_PROJECT_FILE")
+NEW_NX_PROJECT=$(jq '.targets += {"serve": {"executor": "@nx/web:file-server", "options": { "buildTarget": "build", "staticFilePath": "apps/test-app/out", "port": 3000, "spa": false}}}' "$NX_PROJECT_FILE")
 
 # Check if jq succeeded
 if [[ $? -ne 0 ]]; then
