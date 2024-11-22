@@ -46,7 +46,7 @@ describe('nx-playwright generator', () => {
         },
         lint: {
           executor: '@nx/eslint:lint',
-          // outputs: ['{options.outputFile}'],
+          outputs: ['{options.outputFile}'],
           options: { lintFilePatterns: ['apps/test-generator/**/*.{ts,tsx,js,jsx}'] },
         },
       },
@@ -107,7 +107,7 @@ describe('nx-playwright generator', () => {
         },
         lint: {
           executor: '@nx/eslint:lint',
-          // outputs: ['{options.outputFile}'],
+          outputs: ['{options.outputFile}'],
           options: { lintFilePatterns: ['apps/test-generator/**/*.{ts,tsx,js,jsx}'] },
         },
       },
