@@ -17,7 +17,7 @@ runs:
       with:
         version: ${{ steps.get-pnpm-version.outputs.value }}
 
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@v4.1.0
       with:
         node-version: ${{ steps.get-node-version.outputs.value }}
         cache: pnpm
