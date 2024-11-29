@@ -1,5 +1,4 @@
-#!/bin/bash
-set -e -x
+#!/bin/bash -ex
 
 PLUGIN_NAME="nx-playwright"
 PARAMETER_VALIDATION_PROMPT="
@@ -10,7 +9,7 @@ Please supply the following arguments:
   -C: if present, stash workspace changes before the test run and clean up afterwards (optional)
   
 For example: 
-  ./local-test.sh -w path/to/workspace -a example-app -C"
+  ./scripts/local-test.sh -w path/to/workspace -a example-app -C"
 
 while getopts w:a:C flag
 do

@@ -86,10 +86,10 @@ jobs:
           #!/bin/bash
 
           echo "Add serve target to nx next app"
-          ./add-serve-target.sh -w ../$NX_WORKSPACE -a $NX_APP
+          ./scripts/add-serve-target.sh -w ../$NX_WORKSPACE -a $NX_APP
 
-          echo "Test ./local-test.sh (with cleanup flag)"
-          ./local-test.sh -w ../$NX_WORKSPACE -a $NX_APP
+          echo "Test ./scripts/local-test.sh (with cleanup flag)"
+          ./scripts/local-test.sh -w ../$NX_WORKSPACE -a $NX_APP
           test -z "$(git status --porcelain)"
 
   pr-validation:

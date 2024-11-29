@@ -1,5 +1,4 @@
-#!/bin/bash
-set -e -x
+#!/bin/bash -ex
 
 PARAMETER_VALIDATION_PROMPT="
 Please supply the following arguments:
@@ -8,19 +7,19 @@ Please supply the following arguments:
   -a <app name>: the name of the app with which to test the plugin
   
 For example: 
-  ./add-serve-target.sh -w path/to/workspace -a example-app"
+  ./scripts/add-serve-target.sh -w path/to/workspace -a example-app"
 
 while getopts w:a: flag
 do
-    case "${flag}" in
-        w) workspace=${OPTARG};;
-        a) app=${OPTARG};;
-    esac
+  case "${flag}" in
+    w) workspace=${OPTARG};;
+    a) app=${OPTARG};;
+  esac
 done
 
 if [ -z $workspace ] || [ -z $app ]; then
-    echo "$PARAMETER_VALIDATION_PROMPT"
-    exit 1
+  echo "$PARAMETER_VALIDATION_PROMPT"
+  exit 1
 fi
 
 # Path to the JSON file
