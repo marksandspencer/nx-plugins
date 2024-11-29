@@ -15,7 +15,7 @@ const validateVersion = async () => {
   if (response.status >= 400) {
     return Promise.reject(`Invalid response for tag request ${response.status}`);
   }
-  const data: VersionData[] = await response.json();
+  const data = (await response.json()) as VersionData[];
   const releases = data.map(({ name }: { name: string }) => name);
   if (!releases.length || releases.includes(version)) {
     return Promise.reject(
