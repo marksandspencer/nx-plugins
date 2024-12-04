@@ -5,23 +5,13 @@
   "projectType": "library",
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "packages/nx-playwright/**/*.ts",
-          "packages/nx-playwright/generators.json",
-          "packages/nx-playwright/executors.json",
-          "packages/nx-playwright/package.json"
-        ]
-      },
-      "outputs": ["{options.outputFile}"]
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/packages/nx-playwright"],
       "options": {
-        "jestConfig": "packages/nx-playwright/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "packages/nx-playwright/jest.config.ts"
       }
     },
     "build": {
@@ -29,7 +19,6 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/nx-playwright",
-        "buildableProjectDepsInPackageJsonType": "dependencies",
         "tsConfig": "packages/nx-playwright/tsconfig.lib.json",
         "packageJson": "packages/nx-playwright/package.json",
         "main": "packages/nx-playwright/index.ts",

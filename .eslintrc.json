@@ -42,7 +42,6 @@
             "groups": [["^\\u0000", "^@?\\w", "^[^.]", "^\\."]]
           }
         ],
-
         "simple-import-sort/exports": "error",
         "import/first": "error",
         "import/newline-after-import": "error",
@@ -61,13 +60,18 @@
       "extends": ["plugin:@nx/typescript"],
       "rules": {
         "@typescript-eslint/ban-ts-comment": 0,
-        "@typescript-eslint/no-var-requires": 0
+        "@typescript-eslint/no-var-requires": 0,
+        "@typescript-eslint/no-extra-semi": "error",
+        "no-extra-semi": "off"
       }
     },
     {
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nx/javascript"],
-      "rules": {}
+      "rules": {
+        "@typescript-eslint/no-extra-semi": "error",
+        "no-extra-semi": "off"
+      }
     },
     {
       "files": "*.json",

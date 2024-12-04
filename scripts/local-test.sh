@@ -1,5 +1,4 @@
-#!/bin/bash
-set -e -x
+#!/bin/bash -ex
 
 PLUGIN_NAME="nx-playwright"
 PARAMETER_VALIDATION_PROMPT="
@@ -10,7 +9,7 @@ Please supply the following arguments:
   -C: if present, stash workspace changes before the test run and clean up afterwards (optional)
   
 For example: 
-  ./local-test.sh -w path/to/workspace -a example-app -C"
+  ./scripts/local-test.sh -w path/to/workspace -a example-app -C"
 
 while getopts w:a:C flag
 do
@@ -64,6 +63,6 @@ stash_workspace_changes_if_requested
 pnpm unlink $PLUGIN_NPM_NAME
 pnpm link $PLUGIN_NPM_NAME --dir ${CURRENT_DIR}/dist/packages/$PLUGIN_NAME
 pnpm nx generate $PLUGIN_NPM_NAME:project $app-e2e --project $app
-pnpm nx e2e $app-e2e --skip-nx-cache
+E2E_BASE_URL=http://localhost:3000 pnpm nx e2e $app-e2e --skip-nx-cache
 restore_workspace_if_requested
 popd

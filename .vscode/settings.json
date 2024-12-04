@@ -3,14 +3,9 @@
     "editor.formatOnSave": true
   },
   "editor.codeActionsOnSave": {
-    "source.organizeImports": false,
-    "source.fixAll.eslint": true
+    "source.organizeImports": "never",
+    "source.fixAll.eslint": "explicit"
   },
-  "eslint.validate": [
-    "json"
-  ],
-  "cSpell.words": [
-    "mands",
-    "nrwl"
-  ]
+  "eslint.validate": ["json"],
+  "cSpell.words": ["mands", "nrwl"]
 }

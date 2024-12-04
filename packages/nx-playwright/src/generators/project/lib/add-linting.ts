@@ -5,7 +5,7 @@ import {
   Tree,
   updateJson,
 } from '@nx/devkit';
-import { Linter, lintProjectGenerator } from '@nx/linter';
+import { Linter, lintProjectGenerator } from '@nx/eslint';
 import { NxPlaywrightGeneratorNormalizedSchema } from './normalize-options';
 
 type EslintIgnoreFile = {
@@ -27,10 +27,10 @@ export async function addLinting(
   });
 
   if (options.linter === Linter.EsLint) {
-    updateJson(
-      host,
-      joinPathFragments(options.projectRoot, '.eslintrc.json'),
-      (json: EslintIgnoreFile) => {
+    const eslintrcPath = joinPathFragments(options.projectRoot, '.eslintrc.json');
+
+    if (host.exists(eslintrcPath)) {
+      updateJson(host, eslintrcPath, (json: EslintIgnoreFile) => {
         const baseOverrides = json.overrides.map(({ files, rules }) =>
           files.includes('*.ts')
             ? { files, rules: { 'jest/no-done-callback': 'off' } }
@@ -50,8 +50,8 @@ export async function addLinting(
             : baseOverrides,
           extends: [...json.extends],
         };
-      },
-    );
+      });
+    }
   }
 
   return runTasksInSerial(lintTask);

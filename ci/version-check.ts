@@ -5,6 +5,8 @@ const { version: mainVersion } = require(`${process.cwd()}/package.json`);
 
 console.log(`Current version ${version}`);
 
+type VersionData = { name: string };
+
 const validateVersion = async () => {
   if (version !== mainVersion) {
     return Promise.reject(`Please ensure top level version and package version are the same`);
@@ -13,9 +15,8 @@ const validateVersion = async () => {
   if (response.status >= 400) {
     return Promise.reject(`Invalid response for tag request ${response.status}`);
   }
-  const data = await response.json();
+  const data = (await response.json()) as VersionData[];
   const releases = data.map(({ name }: { name: string }) => name);
-  console.log('Existing releases', releases);
   if (!releases.length || releases.includes(version)) {
     return Promise.reject(
       `Version ${version} has already been released, please update nx-playwright version`,

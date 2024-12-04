@@ -1,3 +1,4 @@
+import { ExecutorContext } from '@nx/devkit';
 import { exec } from 'child_process';
 import executor from './executor';
 import * as startDevServerModule from './lib/start-dev-server';
@@ -16,7 +17,7 @@ const context = {
   isVerbose: false,
   workspace: { version: 1, projects: {}, npmScope: '' },
   cwd: '',
-};
+} as unknown as ExecutorContext;
 
 console.error = jest.fn().mockReturnValue(null);
 console.info = jest.fn().mockReturnValue(null);

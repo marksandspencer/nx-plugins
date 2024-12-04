@@ -2,7 +2,7 @@ name: PR validation
 
 on:
   pull_request:
-    types: [ready_for_review, opened, synchronize, reopened]
+    types: [ready_for_review, opened, synchronize, reopened, push]
     branches:
       - main
 
@@ -70,7 +70,7 @@ jobs:
             --name=$NX_WORKSPACE --appName=$NX_APP \
             --preset=next --style=@emotion/styled \
             --e2eTestRunner=playwright --nextAppDir=false \
-            --nxCloud=false --interactive=false < /dev/null
+            --nxCloud=skip --interactive=false < /dev/null
 
           pushd $NX_WORKSPACE
 
@@ -83,8 +83,13 @@ jobs:
           popd
           popd
 
-          echo "Test ./local-test.sh (with cleanup flag)"
-          ./local-test.sh -w ../$NX_WORKSPACE -a $NX_APP
+          #!/bin/bash
+
+          echo "Add serve target to nx next app"
+          ./scripts/add-serve-target.sh -w ../$NX_WORKSPACE -a $NX_APP
+
+          echo "Test ./scripts/local-test.sh (with cleanup flag)"
+          ./scripts/local-test.sh -w ../$NX_WORKSPACE -a $NX_APP
           test -z "$(git status --porcelain)"
 
   pr-validation:
