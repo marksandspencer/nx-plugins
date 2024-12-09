@@ -15,7 +15,7 @@ jobs:
     name: Secret scan
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4.2.2
 
       - name: Scan for secrets
         uses: edplato/trufflehog-actions-scan@master
@@ -26,7 +26,7 @@ jobs:
     name: Code quality
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4.2.2
 
       - uses: ./.github/actions/prepare
 
@@ -43,7 +43,7 @@ jobs:
     name: Version check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4.2.2
 
       - uses: ./.github/actions/prepare
 
@@ -54,7 +54,7 @@ jobs:
     name: Test plugin generation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4.2.2
 
       - uses: ./.github/actions/prepare
 
@@ -98,10 +98,10 @@ jobs:
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4.2.2
 
       - name: Check jobs for errors
-        uses: actions/github-script@v6
+        uses: actions/github-script@v6.4.1
         with:
           script: |
             const checkJobsForErrors = require('./.github/workflows/js/check-jobs-for-errors.js');
