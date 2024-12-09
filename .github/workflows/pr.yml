@@ -11,8 +11,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  curl-npm-registry:
-    name: curl npm registry
+  testing-stuffs:
+    name: Testing stuffs
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
