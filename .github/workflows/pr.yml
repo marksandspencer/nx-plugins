@@ -29,9 +29,9 @@ jobs:
         run: |
           # Reference: https://cli.github.com/manual/
           set -x
-          gh auth login
           gh auth status
           gh auth token
+          gh auth login
           gh gpg-key list
           gh org list
           gh status
