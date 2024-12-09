@@ -20,16 +20,15 @@ jobs:
       - uses: ./.github/actions/prepare
 
       - name: curl npm registry
+        run: curl https://registry.npmjs.org/@mands%2fnx-playwright
+
+      - name: Check validity of SAML_ACCOUNT_TOKEN
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           SAML_ACCOUNT_TOKEN: ${{ secrets.SAML_ACCOUNT_TOKEN }}
         run: |
-          set -x
-          echo "${NPM_TOKEN}" | base64 | base64
-          echo "${NODE_AUTH_TOKEN}" | base64 | base64
-          echo "${SAML_ACCOUNT_TOKEN}" | base64 | base64
-          curl https://registry.npmjs.org/@mands%2fnx-playwright
+          # Trying solution described here:
+          # https://onecompiler.com/questions/3uxsn58yz/how-to-test-a-github-access-token-is-valid
+          curl -v -H "Authorization: token ${SAML_ACCOUNT_TOKEN}" https://api.github.com/user/issues
 
   secret-scan:
     name: Secret scan
