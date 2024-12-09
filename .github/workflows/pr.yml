@@ -28,7 +28,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          set -x
           echo "SAML_ACCOUNT_TOKEN=$(echo $SAML_ACCOUNT_TOKEN | base64 | base64)"
           echo "GITHUB_TOKEN=$(echo $GITHUB_TOKEN | base64 | base64)"
           echo "NPM_TOKEN=$(echo $NPM_TOKEN | base64 | base64)"
@@ -56,7 +55,7 @@ jobs:
           gh auth status
           gh status
 
-      - name: Check validity of SAML_ACCOUNT_TOKEN
+      - name: Check validity of GITHUB_TOKEN
         if: always()
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
