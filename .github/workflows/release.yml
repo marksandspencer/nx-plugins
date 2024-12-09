@@ -18,11 +18,13 @@ jobs:
         run: pnpm nx build nx-playwright
 
       - name: Release
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           cd dist/packages/nx-playwright
           echo "scope=@mands" > .npmrc
           echo "@mands:registry=https://registry.npmjs.org/" >> .npmrc
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
           pnpm publish --access=public
 
           VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g')
