@@ -25,7 +25,9 @@ jobs:
       - name: Try gh command-line tool with SAML_ACCOUNT_TOKEN
         env:
           GH_TOKEN: ${{ secrets.SAML_ACCOUNT_TOKEN }}
+          GITHUB_TOKEN: ''
         run: |
+          # Reference: https://cli.github.com/manual/
           set -x
           gh auth login
           gh auth status
