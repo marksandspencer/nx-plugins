@@ -1,3 +1,6 @@
+name: Prepare
+description: Installs dependencies
+
 runs:
   using: composite
   steps:
