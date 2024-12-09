@@ -1,5 +1,5 @@
-name: 'Get node version'
-description: 'Read node version defined in package.json'
+name: Get node version
+description: Read node version defined in package.json
 
 outputs:
   value:
