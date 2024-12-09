@@ -36,6 +36,21 @@ jobs:
           gh org list
           gh status
 
+      - name: Try gh command-line tool with GITHUB_TOKEN
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ''
+        run: |
+          # Reference: https://cli.github.com/manual/
+          set -x
+          gh auth token
+          gh auth status
+          gh auth login
+          gh gpg-key list
+          gh org list
+          gh status
+
       - name: Check validity of SAML_ACCOUNT_TOKEN
         env:
           SAML_ACCOUNT_TOKEN: ${{ secrets.SAML_ACCOUNT_TOKEN }}
