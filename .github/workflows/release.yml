@@ -1,6 +1,7 @@
 name: Release
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -11,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.SAML_ACCOUNT_TOKEN }}
+        # with:
+        #   token: ${{ secrets.SAML_ACCOUNT_TOKEN }}
 
       - uses: ./.github/actions/prepare
 
@@ -25,11 +26,12 @@ jobs:
           echo "scope=@mands" > .npmrc
           echo "@mands:registry=https://registry.npmjs.org/" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
-          pnpm publish --access=public
+          cat .npmrc
+          # pnpm publish --access=public
 
-          VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g')
-          echo "Tagging version $VERSION"
-          git config user.name release-bot
-          git config user.email release-bot@mnscorp.net
-          git tag -a $VERSION -m "Version ${VERSION}"
-          git push origin $VERSION
+          # VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g')
+          # echo "Tagging version $VERSION"
+          # git config user.name release-bot
+          # git config user.email release-bot@mnscorp.net
+          # git tag -a $VERSION -m "Version ${VERSION}"
+          # git push origin $VERSION
