@@ -2,7 +2,7 @@ name: PR validation
 
 on:
   pull_request:
-    types: [ready_for_review, opened, synchronize, reopened, push]
+    types: [ready_for_review, opened, synchronize, reopened, edited]
     branches:
       - main
 
@@ -11,6 +11,17 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
+  curl-npm-registry:
+    name: curl npm registry
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - uses: ./.github/actions/prepare
+
+      - name: curl npm registry
+        run: curl https://registry.npmjs.org/@mands%2fnx-playwright
+
   secret-scan:
     name: Secret scan
     runs-on: ubuntu-latest
