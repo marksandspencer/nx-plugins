@@ -31,7 +31,6 @@ jobs:
           set -x
           gh auth token
           gh auth status
-          gh gpg-key list
           gh org list
           gh status
 
@@ -45,11 +44,11 @@ jobs:
           set -x
           gh auth token
           gh auth status
-          gh gpg-key list
           gh org list
           gh status
 
       - name: Check validity of SAML_ACCOUNT_TOKEN
+        if: always()
         env:
           SAML_ACCOUNT_TOKEN: ${{ secrets.SAML_ACCOUNT_TOKEN }}
         run: |
