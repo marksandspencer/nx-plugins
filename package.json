@@ -1,6 +1,6 @@
 {
   "name": "@mands/nx-plugins",
-  "version": "0.7.0-beta-4",
+  "version": "0.7.0-beta-5",
   "description": "Nx plugins by M&S engineering",
   "license": "MIT",
   "private": false,
